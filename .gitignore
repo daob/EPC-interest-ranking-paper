@@ -6,3 +6,9 @@
 
 # R data files from past sessions
 .Rdata
+
+# LaTeX auxiliary files
+*.aux
+*.log
+*.synctex.gz
+*.out

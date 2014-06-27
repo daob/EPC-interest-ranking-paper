@@ -50,12 +50,10 @@
 
 
 \begin{abstract}
+Social science is often concerned with comparing groups such as countries, regions, time periods, the genders, or ethnicities.
+Because such substantive comparisons may be threatened when measurement parameters differ across the groups, it is common practice to test the hypothesis of exact equality of measurement parameters across groups:  ``measurement invariance testing''. However, not all measurement differences are substantively relevant. At the same time, it was recently shown that not all substantively relevant differences are necessarily detected by the current best practices of invariance testing. Therefore, it was recently suggested to detect the relevant set of violations of measurement invariance using sensitivity analysis. This approach, recently introduced in this journal, uses the ``EPC-interest'',  a measure of the change in the parameters of substantive interest due to violations of invariance. The EPC-interest was limited to continuous linear structural equation models and did not consider the impact of freeing several restrictions at the same time. However, categorical data are common in the social sciences and measurement invariance restrictions are typically highly correlated.
 
-The logic of measurement invariance testing is that groups may safely be compared when their measurement parameters are exactly equal: in that case, conclusions of substantive interest are uncontaminated by measurement differences. While this logic is sound, it does not follow that comparison is never warranted when measurement parameters are not exactly equal. Moreover, in practical applications exact equality is not often plausible. These observations have led to the concept of ``approximate'' measurement  invariance, in which a certain, ``small'' amount of non-invariance is permitted. 
-%``Approximate'' has in the past been taken to correspond to model fit in terms of CFI, RMSEA and other relative fit measures, while more recently Bayesian priors on group differences and the alignment method were introduced. 
-However, while these methods ensure that measurement differences are ``small'', even ``small'' measurement differences could, in principle, still contaminate the conclusions of interest. Conversely, those measurement differences allowed for may not necessarily affect the conclusions of interest. 
-
-This paper extends an alternative approach recently introduced in this journal: sensitivity analysis with the ``EPC-interest''. The EPC-interest estimates the change in parameters of substantive interest when freeing measurement invariance restrictions. Our contribution is threefold: first, we extend the EPC-interest measure to models with categorical observed and latent variables. Second, the researcher can examine the impact of several violations of invariance at once. Third, we compare 49 countries from the 2010--2012 World Values Survey on materialism/postmaterialism values measured by three partial ranking tasks using multilevel latent class regression. Some corroboration for hypotheses on postmaterialism from the literature are found when using the EPC-interest, while certain findings contradict these hypotheses without its application.
+This paper therefore extends the ``EPC-interest'' to models with categorical observed and latent variables. Moreover, we explicitly consider freeing (potentially large) sets of equality restrictions simultaneously. The advantages of the extended EPC-interest are demonstrated using a 48 country analysis of ``materialism/postmaterialism'' values measured by three partial ranking tasks using multilevel latent class regression. Some corroboration for hypotheses on postmaterialism from the literature are found when employing the EPC-interest, while without its application some of the findings contradict these hypotheses.
 
 The newly developed methods discussed in this paper have been implemented in commercial software for latent variable modeling. Program inputs and data for the examples discussed in this article are provided in the electronic appendix (\url{http://}).
 \end{abstract}
@@ -63,6 +61,12 @@ The newly developed methods discussed in this paper have been implemented in com
 \section{Introduction}
 
 \noindent
+
+
+The logic of measurement invariance testing is that groups may safely be compared when their measurement parameters are exactly equal: in that case, conclusions of substantive interest are uncontaminated by measurement differences. While this logic is sound, it does not follow that comparison is never warranted when measurement parameters are not exactly equal. Moreover, in practical applications exact equality is not often plausible. These observations have led to the concept of ``approximate'' measurement  invariance, in which a certain, ``small'' amount of non-invariance is permitted. 
+%``Approximate'' has in the past been taken to correspond to model fit in terms of CFI, RMSEA and other relative fit measures, while more recently Bayesian priors on group differences and the alignment method were introduced. 
+However, while these methods ensure that measurement differences are ``small'', even ``small'' measurement differences could, in principle, still contaminate the conclusions of interest. Conversely, those measurement differences allowed for may not necessarily affect the conclusions of interest. 
+
 
 
 \section{EPC-interest}
