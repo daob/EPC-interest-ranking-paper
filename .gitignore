@@ -12,3 +12,8 @@
 *.log
 *.synctex.gz
 *.out
+*.bbl
+*.blg
+
+# Vim swap files
+*.swp
