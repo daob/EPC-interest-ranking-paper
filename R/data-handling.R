@@ -5,7 +5,7 @@ library(data.table)
 library(WDI) # For World Bank data
 
 
-setwd("~/Dropbox/Jeroen-Invariance/Data/WVS/Reproduction/")
+setwd("~/Dropbox/Jeroen-Invariance/EPC-interest-ranking-paper/")
 
 source("R/data-handling-functions.R")
 
