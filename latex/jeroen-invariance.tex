@@ -37,7 +37,9 @@ Tilburg University, The Netherlands}
 \newcommand{\vech}{\mathrm{vech}\,}
 \newcommand{\vecs}{\mathrm{vec}\,}
 \newcommand{\param}{\vm{\theta}}
+\newcommand{\bpsi}{\vm{\psi}}
 \newcommand{\that}{\hat{\vm{\theta}}}
+\newcommand{\psat}{\hat{\vm{\psi}}}
 \newcommand{\A}{\vm{A}}
 \newcommand{\g}{\vm{g}}
 \newcommand{\J}{\vm{J}}
@@ -79,6 +81,11 @@ However, while these methods ensure that measurement differences are ``small'', 
 
 
 \section{EPC-interest}
+
+\begin{equation}
+	\left( \frac{\partial^2 L(\param, \bpsi)}{\partial (\param, \bpsi)^\prime \partial (\param, \bpsi)} \right)^{-1}
+		\left( \frac{\partial L(\param, \bpsi)}{\partial \bpsi} \right)
+\end{equation}
 
 
 
@@ -128,7 +135,7 @@ To examine differences in (post)materialism with respect to GDP per capita and t
 There are several approaches to modeling ranking data. We adopt a sequential approach originally due to \citet{luce1959individual} and \citet{mcfadden1974conditional}. A single-level latent variable  version of these models was described by \citet{bockenholt2002comparison}; \citet{moors2007heterogeneity} applied a multilevel latent class model for rankings to European Values Study data on postmaterialism. Different approaches to modeling ranking data using latent variables can be found in
 \citet{maydeu2005structural} and \citet{brown2011item,brown2012fitting}. 
 
-The ranking model departs by describing the joint probability of a ranking on a set such as set A (see Table \ref{tab:ranking-question}) as 
+The ranking model departs by describing the joint probability of observing choice $A_1 = a_1$ on set A (see Table \ref{tab:ranking-question}) for first place  and $A_2 = a_2$ for second place as 
 \begin{equation}
 	P(A_1 = a_1, A_2 = a_2 | X = x) = 
 		\frac{\omega_{a_1 x}}{\sum_{k} \omega_{k x}}
@@ -146,14 +153,13 @@ For identification, we set $\sum_k \tau_{k} = \sum_{k} \lambda_{kx} = \sum_{x} \
 
 
 
-Primary interest focuses on how the probabilities of belonging to these latent (post)materialism classes differ as a function of the country-level covariates log-GDP per capita ($Z_1$) and percentage of women in parliament ($Z_2$).  At the same time, it has become common practice to control for country effects using a multilevel approach. We therefore model the latent class probabilities using the multinomial logistic regression,
+Primary interest focuses on how the probabilities of belonging to these latent (post)materialism classes differ as a function of the country-level covariates log-GDP per capita ($Z_1$) and percentage of women in parliament ($Z_2$).  At the same time, it has become common practice to control for country effects using a multilevel approach. We therefore model the latent class probabilities using the multinomial logistic regression
 \begin{equation}
 P(X = x| Z_1 = z_1, Z_2 = z_2, G = g) = \frac{\exp(\alpha_x + \gamma_{1x} z_1 +\gamma_{2x} z_2  + \beta_{gx})}
 					{\sum_t \exp(\alpha_t + \gamma_{1t} z_1 +  \gamma_{2t} z_2 +  + \beta_{tg})},
 					\label{eq:regression}
 \end{equation}
-where the country-level latent variable $G$ has been introduced. The country-level effects $\beta_{tx}$ in Equation \ref{eq:regression} could be modeled as normal, leading to a standard multilevel model. However, since in the past very differing classes of countries have been observed \citep{moors2007heterogeneity}, making the normality assumption rather implausible, we instead take $G$ to be a country-level latent class variable with $S$ classes and a freely estimated distribution. This model was introduced as the ``multilevel latent class regression'' model by \citet{vermunt2003multilevel}.
-The main parameters of substantive interest in Equation \ref{eq:regression} are the $2  (T - 1)$ logistic regression coefficients $\gamma_{mx}$.
+where the country-level latent variable $G$ has been introduced. The country-level effects $\beta_{tx}$ in Equation \ref{eq:regression} could be modeled as normal, leading to a standard multilevel model. However, since in the past very differing classes of countries have been observed \citep{moors2007heterogeneity}, making the normality assumption rather implausible, we instead take $G$ to be a country-level latent class variable with $S$ classes and a freely estimated distribution. This nonparametric model was introduced as the ``multilevel latent class regression'' model by \citet{vermunt2003multilevel}. The main parameters of substantive interest in Equation \ref{eq:regression} are the $2  (T - 1)$ logistic regression coefficients $\gamma_{mx}$.
 
 
 %, of which there are , where $T$ is the number of latent postmaterialism ($X$) classes. 
@@ -196,7 +202,7 @@ Thus, measurement invariance violations could be parameterized by extending Equa
 			\label{eq:loglin-measurement-noninvariant}
 \end{equation}
 The base invariance model above can then be seen as fixing the intercept deviations $\tau^{*}_{k g}$  and slope deviations $\lambda^{*}_{k x g}$ to 0.  An example of this parameterization of measurement non-invariance for 
-the second ranking of Set C ($C_2$) is shown in Figure \ref{fig:model} as the dotted main effect and interaction effects for scalar and metric invariance, respectively . 
+the second ranking of Set C ($C_2$) is shown in Figure \ref{fig:model} as the dotted main effect and interaction effects for scalar and metric invariance, respectively. 
 
 With three sets of three non-redundant ranking options each, there are $9 (S - 1) T$ possible additional $\tau^{*}_{k g}$ and $\lambda^{*}_{k x g}$ parameters representing misspecification in the full invariance model specified above. For example, with $S=3, T=3$, there will be $54$ possible violations of invariance. %With three or more second-level classes ($S \geq 3$), there are more possible violations of measurement invariance than there are parameters in the base model.
 This is clearly a very large number of potential violations of measurement invariance, with an astronomical ($\approx 1.8 \times 10^{16}$) number of possible subsets of non-invariant models, making the fitting of each of these possible submodels infeasible. The EPC-interest, which considers the possible effect of freeing each of the restrictions separately, is therefore an attractive alternative. 
@@ -204,7 +210,7 @@ This is clearly a very large number of potential violations of measurement invar
 However, there are strong correlations between the possible additional parameters. First, parameters for different categories of the same variable will necessarily be strongly correlated. Second, parameters corresponding to the same ranking set (A, B, or C) will be highly correlated due to the necessary dependence between the first and second choice in a ranking task. Therefore, instead of considering only one possible misspecification at a time, we consider freeing sets of restrictions corresponding to all main effects and all interaction effects of each set. The advantages are that the estimated change in the parameters of interest will be closer to the observed change when freeing these restrictions, and that a model space to be explored of order $10^{16}$ is reduced to the examination of the effect of six sets of misspecifications on $2 (T-1)$  parameters of interest, $\gamma_{jx}$.
 
 \bigskip
-In summary, we have attacked the problem of examining the differences in (post)-materialism over 48 countries with different levels of GDP per capita and percentage of women in parliament by formulating a multilevel latent class model for ranking data. Measurement invariance is important here because direct main and interaction effects from country groups on the ranking tasks could threaten the comparison of countries with different levels of the covariates. Therefore it becomes relevant to examine the impact of these possible violations of measurement invariance on the parameters of substantive interest using the EPC-interest. Since the data are categorical and the possible misspecifications are highly correlated, the extensions of the EPC-interest discussed in the previous section become essential.
+In summary, we have attacked the problem of examining the differences in (post)-materialism over 48 countries with different levels of GDP per capita and percentage of women in parliament by formulating a multilevel latent class model for ranking data. Measurement invariance is important here because direct main and interaction effects from country groups on the ranking tasks could threaten the comparison of countries with different levels of the covariates. Therefore it becomes relevant to examine the impact of these possible violations of measurement invariance on the parameters of substantive interest using the EPC-interest. Since the data are categorical and the possible misspecifications are highly correlated, the extensions of the EPC-interest discussed in the preceding sections become essential.
 
 
 \section{Results}
