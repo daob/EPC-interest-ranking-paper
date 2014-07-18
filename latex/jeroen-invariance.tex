@@ -68,65 +68,93 @@ The newly developed methods discussed in this paper have been implemented in com
 \section{Introduction}
 
 \noindent
+Ranking and paired comparisons data are central to political science, occurring for example when people rank candidates in ``ranked choice'' (``instant-runoff'') voting systems such as the Australian federal or London mayoral elections \citep[see e.g][]{karvonen2004preferential,toplak2010preferential},  choose from pairs of alternatives in a conjoint experiment \citep{hainmueller2014causal}, or rank their post-materialist value orientations in the World Values Survey \citep{inglehart1997modernization,inglehart2010changing}. 
 
-The logic of measurement invariance testing is that groups may safely be compared when their measurement parameters are exactly equal: in that case, conclusions of substantive interest are uncontaminated by measurement differences. While this logic is sound, it does not follow that comparison is never warranted when measurement parameters are not exactly equal. Moreover, in practical applications exact equality is not often plausible. These observations have led to the concept of ``approximate'' measurement  invariance, in which a certain, ``small'' amount of non-invariance is permitted. 
+
+Such procedures yield categorical and multivariate data, and, since they preclude certain joint outcomes, lead to complex dependencies that must be accounted for. 
+Probabilistic models accounting for these characteristics go back at least to \citet{thurstone1927law}, who assumed choice utilities were independently normally distributed; \citet{mcfadden1974conditional} introduced a log-linear latent utility model that relaxes this assumption. Both of these approaches treat the choices as perfectly measured; however, rankings and choices may contain measurement error, without a ``true'' preference being available, so that latent variable models become necessary. 
+\citet{maydeu2005structural} extended \citet{thurstone1927law}'s model to  multivariate outcomes incorporated into a structural equation modeling framework with latent variables \citep[see also][]{brown2011item,brown2012fitting};  \citet{jackson1980factor} described an earlier approach but did not account for the fact that choice data are categorical. \citet{bockenholt2002comparison}  extended \citet{mcfadden1974conditional}'s model to include discrete latent variables with an arbitrary distribution --  ``latent class'' variables. 
+
+When the results of ranking tasks are compared across countries or other groups, not only measurement error, but also ``measurement equivalence''  \citep{steenkamp_assessing_1998,vandenberg2000review,schmitt2008measurement} becomes a concern. Inglehart's ``(post)materialism'' ranking tasks, for example, are often compared across countries to evaluate substantive theories on human values \citep[e.g.][]{inglehart1997modernization}. Such country comparisons may be threatened by cross-country differences in the way respondents' ranking choices measure ``(post)materialism''. In other words, ``measurement equivalence'' means  that conclusions of substantive interest should be uncontaminated by measurement differences \citep{oberski2012comparability}. To date, however, no studies have evaluated whether ranking choices are comparable across countries in the sense that parameters of interest are unaffected by possible measurement differences.
+
+In this study, we apply a recently developed measure for this purpose, the ``EPC-interest'' \citep{Oberski:WP:EPC-interest}, to a nonparametric multilevel latent variable model for ranking data. This ``multilevel latent class'' \citep{vermunt2003multilevel} model for ranks or paired comparisons extends \citet{bockenholt2002comparison}'s model  to include multiple groups and a nonparametric random effect \citep{moors2007heterogeneity}. The  model is applied to 2010 World Values Survey data from 48 countries to evaluate whether latent (post)materialism classes are associated with GDP per capita and percentage of women in a country's parliament, as suggested by values theory. The ``EPC-interest''  measure then approximates the change in these substantive parameters of interest that would be observed if measurement equivalence restrictions were freed. 
+It is therefore a sensitivity analysis approach to measurement equivalence \citep{Oberski:WP:EPC-interest}; \citet[p. 12]{schoot2013facing} argued that it can be seen  as providing a specific definition of ``approximate measurement invariance'' \citep[see][for other approaches]{muthen2012bayesian,muthen2014alignment}.
+Since the EPC-interest was originally developed for the case of equality restrictions in linear structural equation models with continuous data, we extend the EPC-interest measure here to include categorical observed and latent variables. 
+
+The contributions of this paper are threefold. First, contrary to existing uses of these data, we allow for measurement error in the (post)materialism ranking tasks. Moreover, no assumptions about the distribution of these errors or the underlying scale are necessary. Second, we evaluate whether the 48 countries in the 2010 World Values Survey can be compared for the purpose of looking at the relationship between (post)materialism and correlates central to \citet{inglehart1997modernization}'s theory. Third, we develop the EPC-interest measure for latent class analysis, i.e. for models with discrete observed and latent variables. This development allows for more general application of the EPC-interest approach to measurement equivalence evaluation, for example in IRT analysis \citep[see also][]{Oberski:WP:model-based-GOF}, paired comparisons data, or ordinal factor analysis. 
+
+%[models alwin etc but better mcfadden/boeckenholt with LC, no assumptions bat distribution of lv's, ov's]
+%[comparability an issue but never applied to ranking data]
+
+%[epc-interest recent tool to evaluate whether comparable.]
+
+%[we apply ml lcm to wvs. use 48 countries to look at  country-level relationship w/ GDP and \% women in parliament. Implicit country comparison which might be threatened so apply epc-interest to this model. ]
+
+%[contribution: 1. allow for meas error in inglehart rankings, first application of this more attractive model to was; 2.  evaluate whether can be compared for these purposes across 48 countries in wvs; 3. develop epc-interest for lca w/ categorical data, allowing for other applications in with categorical data in which comparibility is an issue.]
+
+
+%The logic of measurement invariance testing is that groups may safely be compared when their measurement parameters are exactly equal: in that case, conclusions of substantive interest are uncontaminated by measurement differences. While this logic is sound, it does not follow that comparison is never warranted when measurement parameters are not exactly equal. Moreover, in practical applications exact equality is not often plausible. These observations have led to the concept of ``approximate'' measurement  invariance, in which a certain, ``small'' amount of non-invariance is permitted. 
 %``Approximate'' has in the past been taken to correspond to model fit in terms of CFI, RMSEA and other relative fit measures, while more recently Bayesian priors on group differences and the alignment method were introduced. 
-However, while these methods ensure that measurement differences are ``small'', even ``small'' measurement differences could, in principle, still contaminate the conclusions of interest. Conversely, those measurement differences allowed for may not necessarily affect the conclusions of interest. 
+%However, while these methods ensure that measurement differences are ``small'', even ``small'' measurement differences could, in principle, still contaminate the conclusions of interest. Conversely, those measurement differences allowed for may not necessarily affect the conclusions of interest. 
+\bigskip
+
+[The next section..]
 
 
-\citep{muthen2012bayesian}
-\citep{schoot2013facing}
 
-\citep{muthen2014alignment}
+\section{Data and background}
 
-
-\section{Data}
-
-[GUY: Een mooi verhaal over Inglehart values]
-
-Postmaterialism theory holds that ``economic development leads to growing emphasis on self-expression values--a syndrome of trust, tolerance, political activism, support for gender equality, and emphasis on freedom of expression, all of which are conducive to democracy'' \citep[p. 557]{inglehart2010changing}. In this study we examine the relationship of postmaterialism with two of the factors mentioned: economic development, as measured by GDP per capita \citep[following][]{inglehart1997modernization} and gender equality, as measured by the percentage of women in the national parliament \citep[following][]{inglehart2002gender}. These country-level variables were obtained from the World Bank database using the \texttt{WDI} package \citep{arel2013WDI} in \texttt{R 3.0.2} \citep{Rlanguage}.
-
-
-%[Esp. Explain why it is of interest to compare the countries on GDP/capita and \% women in parliament]
-
-[WVS 2010--2012. $n=67^,568$ ]
-
-[Countries: ARM AUS AZE BLR CHL CHN COL CYP DEU DZA ECU EGY ESP EST GHA IRQ JOR JPN KAZ KGZ KOR LBN LBY MAR MEX MYS NGA NLD NZL PAK PER PHL POL QAT ROU RUS RWA SGP SVN SWE TTO TUN TUR UKR URY USA UZB YEM ZWE]
-
-Table \ref{tab:ranking-question} shows the ranking tasks asked in the WVS 2010--2012.
 
 \begin{table}
-\begin{tabular}{p{0.01\textwidth}rp{0.78\textwidth}}
+\begin{tabular}{p{0.01\textwidth}rrp{0.72\textwidth}}
 \hline
-& Option \# & Option wording\\
+& Option \# &M/P& Value wording\\
 \hline
 \multicolumn{3}{l}{\emph{Set A}}\\
-&1. & A high level of economic growth\\
-&2. & Making sure this country has strong defense forces \\
-&3. & Seeing that people have more say about how things are done at their jobs and in their communities\\
-&4. & Trying to make our cities and countryside more beautiful\\
+&1. & M &A high level of economic growth\\
+&2. & M &Making sure this country has strong defense forces \\
+&3. & P &Seeing that people have more say about how things are done at their jobs and in their communities\\
+&4. & P &Trying to make our cities and countryside more beautiful\\
 
 \multicolumn{3}{l}{\emph{Set B}}\\
-&1. & 	Maintaining order in the nation\\
-&2. & Giving people more say in important government decisions \\
-&3. & 	Fighting rising prices\\
-&4. & Protecting freedom of speech\\
+&1. & M &	Maintaining order in the nation\\
+&2. & P &Giving people more say in important government decisions \\
+&3. & M &	Fighting rising prices\\
+&4. & P &Protecting freedom of speech\\
 
 \multicolumn{3}{l}{\emph{Set C}}\\
-&1. & 	A stable economy\\
-&2. & Progress toward a less impersonal and more humane society \\
-&3. & 	Progress toward a society in which Ideas count more than money \\
-&4. & 	The fight against crime\\
+&1. & M &	A stable economy\\
+&2. & P &Progress toward a less impersonal and more humane society \\
+&3. & P &	Progress toward a society in which ideas count more than money \\
+&4. & M &	The fight against crime\\
 \hline
 	\end{tabular}
 \caption{\label{tab:ranking-question}
-Options to be ranked for the three Inglehart values ranking sets in 
-the World Values Survey 2010--2012. The wording of the question is
-``People sometimes talk about what the aims of this country should be for the next ten years. On this card are listed some of the goals which different people would give top priority. Would you please say which one of these you, yourself, consider the most important?''; ``And which would be the next most important?''.
+Values to be ranked for the three WVS 2010--2012 ranking sets. ``Materialist'' concerns are marked ``M'' while ``postmaterialist'' concerns are marked ``P''.
+The wording is ``People sometimes talk about what the aims of this country should be for the next ten years. On this card are listed some of the goals which different people would give top priority. Would you please say which one of these you, yourself, consider the most important?''; ``And which would be the next most important?''.
 }
 \end{table}
 
-\clearpage
+
+The data used here came  from the 2010--2012 World Values Survey\footnote{\url{http://www.worldvaluessurvey.org/}} (WVS)   and included $n = 67^,568$ respondents in 48 different countries (Appendix \ref{sec:countries-included} provides a full list of countries).
+The WVS questionnaire includes \citet{inglehart1977silent}'s extended post-materialism questions, developed to measure political values priorities. This extended version includes three sets of four values (Table \ref{tab:ranking-question}). Of these, set B in Table \ref{tab:ranking-question} is known as the ``short scale'' that is commonly used in research on values priorities.  Two of the values in each set are intended to measure  ``materialist'' concerns while the two remaining values indicate ``postmaterialist'' political goals; for each of the   three sets, WVS respondents are then asked to rank their first and second priorities. 
+
+
+
+
+%Inglehart labels the latter goals as post-materialist to indicate that the priority of these goals increases when materialist goals are established and hence drop in priority level in the given set. 
+
+Postmaterialism theory has been founded on the dual-hypotheses model \citep[p. 881]{inglehart1981post}. The first hypothesis holds that an individual's priority set reflects the socio-economic environment because one attaches relatively more importance to scarce objects. This scarcity hypothesis is complemented by a socialization hypothesis that stresses the importance of experiences in the `formative' years. The latter hypothesis constitutes the heart of the argument regarding generational differences in political priorities since it indicates that, in reaching adulthood, values tend to crystallize in personality. By a process of social metabolism, society gradually changes from  materialist to postmaterialist. %The socialization hypothesis is crucial in understanding generational differences. The socio-economic proposition on the other hand gains momentum when comparing different cultures. 
+
+In line with the scarcity hypothesis, \citet{inglehart1997modernization} and \citet{inglehart2010changing} argued that socio-economic development indicators per country such as GDP per capita correlate strongly with aggregated scores of self-expression values. 
+Moreover, in line with the socialization hypothesis, associations of aggregated values priorities with socio-cultural variations across countries such as religious heritage and gender equality have been found by \citet{inglehart2002gender}. In short, substantive interest in this literature focuses on the associations between (post)materialism and both socio-economic and socio-cultural country-level aggregates. In this study we will therefore following these authors by examining the aggregate relationship of values priorities and by using GDP per capita and the percentage of women in parliament to represent socio-economic and socio-cultural correlates of values, respectively. These country-level variables were obtained from the World Bank database\footnote{\url{http://data.worldbank.org/}} using the \texttt{WDI} package \citep{arel2013WDI} in \texttt{R 3.0.2} \citep{Rlanguage}.
+
+
+In their previous work, Inglehart and colleagues examined these relationships of interest between value priorities and country-level covariates by creating an observed categorization of the ranking choices into three groups:  ``materialist'', ``postmaterialist'' and ``mixed''. These groups are defined \emph{a priori}, and their usage as observed variables implies that a complete absence of measurement error is assumed. It also implies that no differences in measurement exist across the countries to be compared. In other words, any comparison of the created categories over countries is assumed to be fully due to substantive rather than measurement differences. The contribution of  this study to the values priorities literature is to relax the assumption of zero measurement error, examine empirically whether three class can adequately represent the data, and apply the EPC-interest procedure to examine the implicit claim of full cross-country invariance of these measures. 
+
+
+
+
 \section{Model}
 
 
@@ -224,7 +252,7 @@ In this section we apply the $\da{}$ to models with categorical observed and lat
 The key concept is considering the likelihood not only as a function of the free parameters of the model, but also as a function of the parameters that are fixed to obtain the full invariance model. Collecting the free parameters in a vector $\param$ and the fixed parameters in a vector $\bpsi$, we assume the likelihood can be written as an explicit function of both sets of parameters, $L(\param, \bpsi)$.  The maximum-likelihood estimates $\that$ of the free parameters can then be seen as obtained under the full invariance model that sets $\bpsi=0$, i.e. $\that = \arg\max_{\param} L(\param, \bpsi = 0)$. Further, define the parameters of substantive interest as $\vm{\pi} := \vm{P} \param$, where $\vm{P}$ is typically a logical (0/1) selection matrix, although any linear function of the free parameters $\param$ may be taken. 
 Interest then focuses on the likely value these free parameters $\vm{\pi}$ would take if the fixed $\bpsi$ parameters were freed in an alternative model, $\hat{\vm{\pi}}_a = \vm{P} \arg\max_{\param, \bpsi} L(\param, \bpsi)$. 
 
-We now show how these changes in the parameters of interest as a consequence of freeing the fixed parameters $\bpsi$ can be estimated without fitting the alternative model. Let the Hessian $\hat{\vm{H}}_{\vm{a}\vm{b}}$ be the matrix of second derivatives of the likelihood with respect to vectors $\vm{a}$ and $\vm{b}$, evaluated at the maximum likelihood solution of the full invariance model, $\hat{\vm{H}}_{\vm{a}\vm{b}} := (\partial^2 L /\partial \vm{a}^\prime \partial \vm{b})|_{\param=\that}$. 
+We now show how these changes in the parameters of interest as a consequence of freeing the fixed parameters $\bpsi$ can be estimated without fitting the alternative model. Let the Hessian $\hat{\vm{H}}_{\vm{a}\vm{b}}$ be the matrix of second derivatives of the likelihood with respect to vectors $\vm{a}$ and $\vm{b}$, evaluated at the maximum likelihood solution of the full invariance model, $\hat{\vm{H}}_{\vm{a}\vm{b}} := (\partial^2 L /\partial \vm{a} \partial \vm{b}^\prime)|_{\param=\that}$. 
 The expected change in the parameters of interest is then measured by the $\da$, 
 \begin{equation}
 \da = \hat{\vm{\pi}}_a - \hat{\vm{\pi}} = \vm{P}
@@ -235,16 +263,23 @@ The expected change in the parameters of interest is then measured by the $\da$,
 		O(\vm{\delta}^\prime\vm{\delta}),
 		\label{eq:epc-interest}
 \end{equation}
-where $\vm{D}:= \hat{\vm{H}}_{\bpsi\bpsi} - \hat{\vm{H}}_{\param\bpsi}^\prime \hat{\vm{H}}^{-1}_{\param\param} \hat{\vm{H}}_{\param\bpsi}$ and the deviation from the true values is $\vm{\delta}:= \vm{\vartheta} - \hat{\vm{\vartheta}}$, with $\vm{\vartheta}$ collecting the free and fixed parameters in a vector, $\vm{\vartheta}:= (\param^\prime, \bpsi^\prime)^\prime$. Note that, apart from the order of approximation term $O(\vm{\delta}^\prime \vm{\delta})$,  Equation \ref{eq:epc-interest} contains only terms that can be calculated after fitting the invariance model.
+where $\vm{D}:= \hat{\vm{H}}_{\bpsi\bpsi} - \hat{\vm{H}}_{\param\bpsi}^\prime \hat{\vm{H}}^{-1}_{\param\param} \hat{\vm{H}}_{\param\bpsi}$ and the deviation from the true values is $\vm{\delta}:= \vm{\vartheta} - \hat{\vm{\vartheta}}$, with $\vm{\vartheta}$ collecting the free and fixed parameters in a vector, $\vm{\vartheta}:= (\param^\prime, \bpsi^\prime)^\prime$. Note that, apart from the order of approximation term $O(\vm{\delta}^\prime \vm{\delta})$,  Equation \ref{eq:epc-interest} contains only terms that can be calculated after fitting the invariance model. Thus, it is not necessary to fit the alternative model to obtain the $\da{}$.
 
-In the structural equation modeling literature, the ``EPC-self'' is commonly found and implemented in standard software. It may therefore be useful to recognize that $\vm{D}^{-1}
-		\left[ \left.\frac{\partial L(\param, \bpsi)}{\partial \bpsi}\right|_{\param = \that} \right] \approx \bpsi - \hat{\bpsi} = \text{EPC-self}$ so that the following relationship between the EPC-self and $\da{}$ holds:
+In the structural equation modeling literature, the expected change in the fixed parameters $\bpsi$  is commonly found and implemented in standard SEM software. This measure is commonly know as the ``EPC'', but to avoid confusion we term it ``EPC-self'' here. The EPC-self and $\da{}$ both consider the impact of freeing restrictions, but differ in the target of this impact: the EPC-self evaluates the impact on the restriction itself, whereas the $\da{}$ evaluates the impact on the parameters of interest. In spite of these differences, the two measures are related: this can be seen by recognizing that $- \vm{D}^{-1}
+		\left[ \left.\frac{\partial L(\param, \bpsi)}{\partial \bpsi}\right|_{\param = \that} \right] = \text{EPC-self} \approx \bpsi - \hat{\bpsi}$ so that, from Equation \ref{eq:epc-interest}, 
 \begin{equation}
-\da = \vm{P} \hat{\vm{H}}^{-1}_{\param\param} \hat{\vm{H}}_{\param\bpsi} \text{EPC-self}.
+\da=- \vm{P} \hat{\vm{H}}^{-1}_{\param\param} \hat{\vm{H}}_{\param\bpsi} \,\text{EPC-self} \approx
+- \vm{P} \hat{\vm{H}}^{-1}_{\param\param} \hat{\vm{H}}_{\param\bpsi} \left( \bpsi - \hat{\bpsi}\right)
 \end{equation}
-Since $\hat{\vm{H}}^{-1}_{\param\param}$ is the Fisher information-based variance matrix of the free parameters, often
+Furthermore, since $\hat{\bpsi}$ and $\hat{\param}$ are implicitly related by the fact that they are both solutions to the equation $\partial L / \partial \vm\vartheta = \vm{0}$, invoking the implicit function theorem yields $- \hat{\vm{H}}^{-1}_{\param\param} \hat{\vm{H}}_{\param\bpsi}  = \partial \param / \partial \bpsi^\prime$, so that 
+\begin{equation}
+	\da = \vm{P} \left( \frac{\partial \param} {\partial \bpsi^\prime} \right) \left( \bpsi - \hat{\bpsi}\right),
+	\label{eq:epc-linear}
+\end{equation}
+that is, the $\da{}$ can be seen simply as the coefficient of a linear approximation to the relationship between the free and fixed parameters, multiplied by the change in the fixed parameters. This demonstrates the difference with the sensitivity analysis approach common in econometrics \citep[p. 168]{magnus2007local} and applied to SEM by \citet{yuan2003assessing}, in which only $\partial \param / \partial \bpsi^\prime$ is considered: the $\da{}$ combines both the direction and the magnitude of the misspecification.
 
-The $\da{}$ given in Equation \ref{eq:epc-interest} can be derived  starting from the full invariance solution and finding a new maximum of the likelihood by setting the gradient of a Taylor expansion of the likelihood around the full invariance solution to zero:
+
+The derivation of the $\da{}$ given in Equation \ref{eq:epc-interest} starts from the full invariance solution. We then find a hypothetical new  maximum of the likelihood by setting the gradient of a Taylor expansion of the likelihood around the full invariance solution to zero:
 \begin{equation}
  \frac{\partial L(\param, \bpsi)}{\partial \vm{\vartheta}}= \vm{0} = 
 	\left( \begin{array}{cc}
@@ -263,8 +298,8 @@ The $\da{}$ given in Equation \ref{eq:epc-interest} can be derived  starting fro
 O(\vm{\delta}^\prime\vm{\delta}).
 	\label{eq:gradient}
 \end{equation}
-A similar device is used to derive the so-called ``modification index'' or ``score test'' for the significance of the hypothesis $H_o: \bpsi = \vm{0}$ by \citet[e.g.][p. 373]{sorbom1989model}.
-Equation \ref{eq:epc-interest}  follows directly by noting that $( \partial L(\param, \bpsi) / \partial \param ) |_{\param=\that} = \vm{0}$ and applying the standard linear algebra result  $\left(\hat{\vm{H}}^{-1}\right)_{\param\bpsi} = 	- \hat{\vm{H}}^{-1}_{\param\param} \hat{\vm{H}}_{\param\bpsi}\vm{D}^{-1}$ \citep[e.g.][p. 12]{magnus2007matrix}.
+A similar device was used to derive the so-called ``modification index'' or ``score test'' for the significance of the hypothesis $\bpsi = \vm{0}$ by \citet[p. 373]{sorbom1989model}.
+Equation \ref{eq:epc-interest}  follows directly by noting that $( \partial L(\param, \bpsi) / \partial \param ) |_{\param=\that} = \vm{0}$ and applying the standard linear algebra result on the inverse of a partitioned matrix $\left(\hat{\vm{H}}^{-1}\right)_{\param\bpsi} = 	- \hat{\vm{H}}^{-1}_{\param\param} \hat{\vm{H}}_{\param\bpsi}\vm{D}^{-1}$ \citep[e.g.][p. 12]{magnus2007matrix}.
 
 The accuracy of the approximation of the $\da{}$ as a measure of the change in the parameters of interest is reflected in the order of approximation term, $O(\vm{\delta}^\prime\vm{\delta})$. It can be seen that this accuracy is quadratic in the overall change in parameters, so that the approximation can be expected to work best when the misspecifications are not ``too large''. This result corresponds to results on the score test (``modification index'') and ``EPC-self'' in the literature on structural equation modeling, which can be shown to be exact under a ``sequence of local alternatives'', i.e. when $\vm{\vartheta} = \lim_{n\rightarrow\infty} \hat{\vm{\vartheta}} + n^{-\frac{1}{2}}\vm{\delta}$ \citep[p. 135]{satorra1989alternative}.
 It is important to note here that $\vm{\delta}$ is the deviation from the ``true'' value of $\vm{\vartheta}$, rather than the deviation from the limit of the parameter estimates under the alternative model. Therefore another view on the accuracy is that it will be better when the alternative model is not strongly misspecified. For this reason it is also important to consider freeing sets of very strongly related parameters simultaneously, since a change in one of them will then imply a change in the others, and, consequently, a misspecified alternative model.
@@ -279,7 +314,7 @@ It is important to note here that $\vm{\delta}$ is the deviation from the ``true
 
 \subsection{EPC-interest for the multilevel latent class model}
 
-The previous section discussed the rationale and derivation of the $\da{}$ for general maximum likelihood problems. For the application model involving categorical latent and observed variables, the $\bpsi$ parameters correspond to the direct effects $\tau^*_{jkg}$ and $\lambda^*_{jkxg}$ in Equation \ref{eq:loglin-measurement-noninvariant} (see Figure \ref{fig:model}). The Jacobian of the observed dependent variable vector $\vm{y}_i$ with respect to the $\tau^*_{jkg}$ parameters is then
+The previous section discussed the rationale and derivation of the $\da{}$ for general maximum likelihood problems. For the application involving categorical latent and observed variables, $\bpsi$  corresponds to the direct effects $\tau^*_{jkg}$ and $\lambda^*_{jkxg}$ in Equation \ref{eq:loglin-measurement-noninvariant} (see also Figure \ref{fig:model}). The Jacobian of the individual likelihood with respect to the $\tau^*_{jkg}$ parameters is then
 \begin{equation}
 	\frac{\partial L_i(\param) }{\partial \tau^*_{jkg}} = 
 		L_i(\param) \sum_G \left[ P(G) \sum_X P(X|Z_1, Z_2) ( Y_{jk}G_g - E[ Y_{jk}G_g | X]) \right],
@@ -484,7 +519,7 @@ options
    startvalues
       seed=0 sets=30 tolerance=1e-005 iterations=50;
    bayes
-      categorical=0 variances=1 latent=0 poisson=1;
+      categorical=0 variances=0 latent=0 poisson=0;
    missing  excludeall;
    output      
       parameters=effect  betaopts=wl standarderrors profile 
@@ -522,5 +557,39 @@ equations
 \end{verbatim}
 
 \end{small}
+
+\section{Countries included in the study}
+\label{sec:countries-included}
+\singlespacing
+\begin{tabular}{lllll}
+\hline
+ISO3 code & Country name&&ISO3 code & Country name\\
+\hline
+DZA&	Algeria		&&MAR&	Morocco		\\
+ARM&	Armenia		&&NLD&	Netherlands, The		\\
+AUS&	Australia	&&NZL&	New Zealand		\\
+AZE&	Azerbaijan	&&NGA&	Nigeria		\\
+BLR&	Belarus		&&PAK&	Pakistan		\\
+CHL&	Chile		&&PER&	Peru		\\
+CHN&	China		&&PHL&	Philippines		\\
+COL&	Colombia	&&POL&	Poland		\\
+CYP&	Cyprus		&&QAT&	Qatar		\\
+ECU&	Ecuador		&&RUS&	Russian Federation	\\
+EGY&	Egypt		&&RWA&	Rwanda		\\
+EST&	Estonia		&&SGP&	Singapore			\\
+DEU&	Germany		&&SVN&	Slovenia		\\
+GHA&	Ghana		&&ESP&	Spain		\\
+IRQ&	Iraq		&&SWE&	Sweden		\\
+JPN&	Japan		&&TTO&	Trinidad and Tobago	\\
+JOR&	Jordan		&&TUN&	Tunisia		\\
+KAZ&	Kazakhstan	&&TUR&	Turkey			\\
+KOR&	Korea, Republic of  &&UKR&	Ukraine		\\
+KGZ&	Kyrgyzstan	&&USA&	United States		\\
+LBN&	Lebanon		&&URY&	Uruguay		\\
+LBY&	Libya		&&UZB&	Uzbekistaç		\\
+MYS&	Malaysia        &&YEM&	Yemen		\\
+MEX&	Mexico          &&ZWE&	Zimbabwe		\\	
+\hline
+\end{tabular}
 
 \end{document}
