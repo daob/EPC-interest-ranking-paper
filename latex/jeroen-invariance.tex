@@ -278,7 +278,7 @@ Furthermore, since $\hat{\bpsi}$ and $\hat{\param}$ are implicitly related by th
 	\da = \vm{P} \left( \frac{\partial \param} {\partial \bpsi^\prime} \right) \left( \bpsi - \hat{\bpsi}\right),
 	\label{eq:epc-linear}
 \end{equation}
-that is, the $\da{}$ can be seen simply as the coefficient of a linear approximation to the relationship between the free and fixed parameters, multiplied by the change in the fixed parameters. This demonstrates the difference with the sensitivity analysis approach common in econometrics \citep[p. 168]{magnus2007local} and applied to SEM by \citet{yuan2003assessing}, in which only $\partial \param / \partial \bpsi^\prime$ is considered: the $\da{}$ combines both the direction and the magnitude of the misspecification.
+that is, the $\da{}$ can be seen simply as the coefficient of a linear approximation to the relationship between the free and fixed parameters, multiplied by the change in the fixed parameters. This demonstrates the difference with the sensitivity analysis approach common in econometrics \citep[p. 168]{magnus2007local} and applied to SEM by \citet{yuan2003assessing}, in which only $\partial \param / \partial \bpsi^\prime$ is considered: the $\da{}$ combines both the direction ($\partial \param / \partial \bpsi^\prime$) and the magnitude ($ \bpsi - \hat{\bpsi}$) of the misspecification.
 
 
 The derivation of the $\da{}$ given in Equation \ref{eq:epc-interest} starts from the full invariance solution. We then find a hypothetical new  maximum of the likelihood by setting the gradient of a Taylor expansion of the likelihood around the full invariance solution to zero:
@@ -328,13 +328,10 @@ Similarly,
 		L_i(\param) \sum_G \left[ P(G) \sum_X P(X|Z_1, Z_2) ( Y_{jk} X_x G_g  - E[ Y_{jk} X_x G_g | X]) \right],
 		\label{eq:derivative-interaction}
 \end{equation}
-where $X_x$ is the effect-coded value for class $x$ of the within-country latent (post)materialism variable $X$.  Consistent estimates of all derivatives can be obtained by replacing the parameters of the model by their maximum likelihood estimates, providing the  vector $[ \left.\partial L(\param, \bpsi) / \partial \bpsi ] \right|_{\param = \that}$  necessary for calculating Equation \ref{eq:epc-interest}.
+where $X_x$ is the effect-coded value for class $x$ of the within-country latent (post)materialism variable $X$.  The derivatives for other parameters of the model are given by  \citet{vermunt2013technical}. These have a form similar to Equations \ref{eq:derivative-main} and \ref{eq:derivative-interaction}. Consistent estimates of all derivatives can be obtained by replacing the parameters of the model by their maximum likelihood estimates, providing the  vector $[ \left.\partial L(\param, \bpsi) / \partial \bpsi ] \right|_{\param = \that}$  necessary for calculating Equation \ref{eq:epc-interest}.
 
 
-The Hessian matrix $\vm{H}$ 
-The derivatives for other parameters of the model are given by  \citet{vermunt2013technical}. These have a form similar to Equations \ref{eq:derivative-main} and \ref{eq:derivative-interaction}. 
-
-[]
+%The Hessian matrix $\vm{H}$ 
 
 
 \section{Results}

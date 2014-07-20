@@ -17,3 +17,7 @@
 
 # Vim swap files
 *.swp
+
+inputs/pars-3class-covts.txt
+
+outputs/table-bics.xlsx
