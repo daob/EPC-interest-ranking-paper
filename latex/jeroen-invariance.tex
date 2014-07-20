@@ -82,27 +82,14 @@ Since the EPC-interest was originally developed for the case of equality restric
 
 The contributions of this paper are threefold. First, contrary to existing uses of these data, we allow for measurement error in the (post)materialism ranking tasks. Moreover, no assumptions about the distribution of these errors or the underlying scale are necessary. Second, we evaluate whether the 48 countries in the 2010 World Values Survey can be compared for the purpose of looking at the relationship between (post)materialism and correlates central to \citet{inglehart1997modernization}'s theory. Third, we develop the EPC-interest measure for latent class analysis, i.e. for models with discrete observed and latent variables. This development allows for more general application of the EPC-interest approach to measurement equivalence evaluation, for example in IRT analysis \citep[see also][]{Oberski:WP:model-based-GOF}, paired comparisons data, or ordinal factor analysis. 
 
-%[models alwin etc but better mcfadden/boeckenholt with LC, no assumptions bat distribution of lv's, ov's]
-%[comparability an issue but never applied to ranking data]
-
-%[epc-interest recent tool to evaluate whether comparable.]
-
-%[we apply ml lcm to wvs. use 48 countries to look at  country-level relationship w/ GDP and \% women in parliament. Implicit country comparison which might be threatened so apply epc-interest to this model. ]
-
-%[contribution: 1. allow for meas error in inglehart rankings, first application of this more attractive model to was; 2.  evaluate whether can be compared for these purposes across 48 countries in wvs; 3. develop epc-interest for lca w/ categorical data, allowing for other applications in with categorical data in which comparibility is an issue.]
-
-
-%The logic of measurement invariance testing is that groups may safely be compared when their measurement parameters are exactly equal: in that case, conclusions of substantive interest are uncontaminated by measurement differences. While this logic is sound, it does not follow that comparison is never warranted when measurement parameters are not exactly equal. Moreover, in practical applications exact equality is not often plausible. These observations have led to the concept of ``approximate'' measurement  invariance, in which a certain, ``small'' amount of non-invariance is permitted. 
-%``Approximate'' has in the past been taken to correspond to model fit in terms of CFI, RMSEA and other relative fit measures, while more recently Bayesian priors on group differences and the alignment method were introduced. 
-%However, while these methods ensure that measurement differences are ``small'', even ``small'' measurement differences could, in principle, still contaminate the conclusions of interest. Conversely, those measurement differences allowed for may not necessarily affect the conclusions of interest. 
 \bigskip
 
-[The next section..]
 
+Section \ref{sec:data} presents the data and the postmaterialism theory motivating our model. Since the obtained measures are rankings, Section \ref{sec:model} then presents the multilevel latent class model for partial ranking or paired comparisons data. We then present the EPC-interest for such and other latent variable models in Section \ref{sec:epc-interest}, after which the results of applying the EPC-interest to the postmaterialism model and data is discussed in Section \ref{sec:results}. Finally, Section \ref{sec:discussion} provides some conclusions and discusses limitations and connections with other work.
 
 
 \section{Background and Data}
-
+\label{sec:data}
 
 \begin{table}
 \begin{tabular}{p{0.01\textwidth}rrp{0.72\textwidth}}
@@ -157,7 +144,7 @@ It also implies that no differences in measurement exist across the countries to
 
 
 \section{Model}
-
+\label{sec:model}
 
 To examine differences in (post)materialism with respect to GDP per capita and the proportion of women in parliament, we develop a latent variable model for ranking data. The advantages of this approach are that there is no need to establish a priori rules for combining the three ranking tasks into a measure of ``(post)materialism''; that it does not presuppose a fixed number of ``(post)materialism'' classes; that it allows for measurement error in ``(post)materialism''; and that it allows for an examination of the impact of violations of measurement invariance on the conclusions of interest. 
 There are several approaches to modeling ranking data. We adopt a sequential approach originally due to \citet{luce1959individual} and \citet{mcfadden1974conditional}. A single-level latent variable  version of these models was described by \citet{bockenholt2002comparison}; \citet{moors2007heterogeneity} applied a multilevel latent class model for rankings to European Values Study data on (post)materialism. Different approaches to modeling ranking data using latent variables can be found in
@@ -242,6 +229,7 @@ In summary, we have attacked the problem of examining the differences in (post)-
 
 
 \section{EPC-interest}
+\label{sec:epc-interest}
 
 In the application discussed, as in any application of invariance testing, interest focuses on a particular (function of) free parameters of the model. As argued by \citet{Oberski:WP:EPC-interest}, the question of invariance testing is then relevant insofar as it affects these parameters of interest. Such parameters may differ in models that allow for non-invariance, which in the model introduced in the previous section was parameterized as direct main and interaction effects of a group random effect. Instead of investigating whether such effects are statistically significantly different from zero, we suggest to investigate the impact of such effects on the parameters of interest. This  is done using the ``expected parameter change'' in the parameter of interest, ``$\da$''.
 
@@ -334,6 +322,7 @@ where $X_x$ is the effect-coded value for class $x$ of the within-country latent
 
 
 \section{Results}
+\label{sec:results}
 
 
 We now estimate the multilevel latent class model using 48 countries from the World Values Survey\footnote{\url{http://www.worldvaluessurvey.org}} for  2010--2012. \citet{moors2007heterogeneity} applied a similar model to 19 countries in the 1990 European Values Study data and investigated the relationship of the latent (post)materialism classes with political attitudes scales. However, they did not consider the possible impact of violations of measurement invariance on such estimates. Since our goal is to compare countries with different levels of GDP per capita and proportion of women in parliament, in this study we evaluate the sensitivity of these effect estimates of interest to measurement invariance assumptions using the $\da$.
@@ -427,7 +416,7 @@ Class 	2&	Women&	0.020&	(0.001)&	&	-0.007&	-0.001&	0.002&	&&	&	0.007\\
 \end{table}
 
 Table \ref{tab:attribute-parameters} shows the sizes of the three (post)materialism classes (third row) as well as the ``attribute parameters'', i.e. each class's average log-utility. 
-Thus, when reading each row horizontally, the class with the highest log-utility represents respondents who value that priority highest. For example, priorities A.1, A.2, B.1, B.3, and C1 have the highest log-utilities in Class 1. Since all of these priorities are ``materialist'' (labeled ``M'' in Table \ref{tab:attribute-parameters}), we also labeled Class 1 ``materialist''. Similarly, Class 2 is labeled ``postmaterialist'' because it has the highest log-utilities for all of the postmaterialist priorities (labeled ``P'' in Table \ref{tab:attribute-parameters}), with the exception of A.4. Preferences in the third class appear to be for the most part in-between those of Classes 1 and 2. At the same time, however, this class has the highest log-utilities for A.4 (a ``postmaterialist'' priority) and C.4 (a ``materialist'' priority). For this reason we apply the label ``mixed'' to Class 3.
+Thus, when reading each row horizontally, the class with the highest log-utility represents respondents who value that priority highest. For example, priorities A.1, A.2, B.1, B.3, and C1 have the highest log-utilities in Class 1. Since all of these priorities are ``materialist'' (labeled ``M'' in Table \ref{tab:attribute-parameters}), we also labeled Class 1 ``materialist''. A caveat with this label is that the materialist priorities that are most strongly related to this class also happen to be the first item in each set, so that a primacy effect may play a role here as well.  Class 2 is labeled ``postmaterialist'' because it has the highest log-utilities for all of the postmaterialist priorities (labeled ``P'' in Table \ref{tab:attribute-parameters}), with the exception of A.4. Preferences in the third class appear to be for the most part in-between those of Classes 1 and 2. At the same time, however, this class has the highest log-utilities for A.4 (a ``postmaterialist'' priority) and C.4 (a ``materialist'' priority). For this reason we apply the label ``mixed'' to Class 3.
 
 \begin{table}\centering
 	\begin{tabular}{lllrrr}
@@ -490,11 +479,23 @@ The right-hand side of Figure \ref{fig:covariates} plots the estimated effect of
 
 
 \section{Discussion}
+\label{sec:discussion}
 
-The present application of a multilevel latent class model to the World Values Survey (post)materialism ranking tasks has shown how the $\da{}$ may be used to draw stable substantive conclusions when measurement invariance is a concern. Especially encouraging is the fact that the full invariance model provides estimates that contradict \citet{inglehart2010changing}'s values theory, whereas applying the procedure suggested here happens to yield estimates that corroborate it. This is not because we have adjusted the model to fit the theory but rather because freeing those misspecifications that could invalidate the conclusion  leads to this result. The $\da{}$ is a useful guide for this purpose, reducing a potentially 5076-dimensional problem to the examination of Tables \ref{tab:epc-interest-model1} and \ref{tab:epc-interest-model2}.
+
+This paper used a multilevel latent class model for rankings to evaluate the relationship between latent (post)materialism on the one hand and, on the other, log-GDP per capita and the percentage of women in parliament using data from  67,568 respondents to the WVS and 48 countries. Moreover, we demonstrated the sensitivity analysis approach to the issue of cross-country measurement equivalence using the EPC-interest. This was the first investigation of measurement equivalence for the WVS values priorities measures, often used in political science.
+For this purpose we was extended the  EPC-interest  from the linear structural equation modeling framework to apply to categorical latent and observed variables and implemented in user-friendly commercial software for latent class analysis. Program input is available in the online Appendix. 
+
+The application has shown how the $\da{}$ may be used to draw stable substantive conclusions when measurement invariance is a concern. Especially encouraging is the fact that the full invariance model provides estimates that contradict \citet{inglehart2010changing}'s values theory, whereas applying the procedure suggested here happens to yield estimates that corroborate it. This is not because we have adjusted the model to fit the theory but rather because freeing those misspecifications that could invalidate the conclusion  leads to this result. The $\da{}$ is a useful guide for this purpose, reducing a potentially 5076-dimensional problem to the examination of Tables \ref{tab:epc-interest-model1} and \ref{tab:epc-interest-model2}.
+
+The EPC-interest fits within the recent literature on ``approximate measurement invariance''. That is, the goal of incorporating important measurement differences in the model while ignoring unimportant ones. Invariance testing using ``approximate'' fit measures such as the CFI and RMSEA \citep[e.g.][]{cheung2002evaluating,chen2007sensitivity} can be thought of as such a method, since the fit of the model is thought to be ``approximate'', and relative to model complexity. Model-based approaches include random effects modeling \citep{dejong2007relaxing}, Bayesian priors on measurement differences \citep{muthen2012bayesian}, and factor rotation towards an invariant solution \citep{muthen2014alignment}. An advantage of these last three approaches is that a middle ground may be found between exact equality of measurement processes over groups and complete independence \citep{schoot2013facing}. However, a current problem  is that there is no agreed-upon definition of ``approximate''. At the same time, the EPC-interest approach does not offer a middle ground, but it does solve the problem of defining what ``approximate'' fit might be \citep[p. 12]{schoot2013facing}: for example, in the current application it was taken to be any measurement difference that cannot reverse the sign of the regression parameters of substantive interest.  An interesting direction for future work is therefore to combine the sensitivity analysis approach of the EPC-interest with the approaches to approximate measurement invariance of \citet{muthen2012bayesian,muthen2014alignment}. 
 
 
-\clearpage
+Some limitations remain.  First, the ``materialism'' class seems to coincide to a large extent with the first item in each set. This is inherent in the design of the WVS instrument, but it does mean that primacy effects form an alternative explanation for the correspondence between these choices. If so, the correspondence is likely to be only partial since we did find high utilities for the other ``materialism'' items also, as well the theoretically expected relationship, although weak, between this class and the external covariates.
+
+
+Second, the scope of the paper was limited to an application of the EPC-interest to a model with categorical observed and latent variables. While we consider this a useful contribution, we did not further investigate the performance of this measure. We do note that the actually observed change in the parameters of interest after freeing the suggested invariance restrictions was very close to that predicted by the EPC-interest in this particular application. The Monte Carlo simulation using linear structural equation models  in \citet{Oberski:WP:EPC-interest} demonstrates that this is the case for linear structural equation models with relatively simple setups. However, an  investigation of whether this is the case for categorical latent class models under a wider range of hypothetical conditions in a simulation study remains work for the future.
+
+
 
 \bibliographystyle{pa}
 \bibliography{/Users/daob/Dropbox/Bibliography/quality}
