@@ -130,14 +130,14 @@ The contributions of this paper are threefold. First, contrary to existing uses 
 \hline
 	\end{tabular}
 \caption{\label{tab:ranking-question}
-Values to be ranked for the three WVS 2010--2012 ranking sets. ``Materialist'' concerns are marked ``M'' while ``postmaterialist'' concerns are marked ``P''.
+Value priorities to be ranked for the three WVS 2010--2012 ranking sets. ``Materialist'' concerns are marked ``M'' while ``postmaterialist'' concerns are marked ``P''.
 The wording is ``People sometimes talk about what the aims of this country should be for the next ten years. On this card are listed some of the goals which different people would give top priority. Would you please say which one of these you, yourself, consider the most important?''; ``And which would be the next most important?''.
 }
 \end{table}
 
 
 We employ the 2010--2012 World Values Survey\footnote{\url{http://www.worldvaluessurvey.org/}} (WVS) comprising $n = 67^,568$ respondents in 48 different countries (Appendix \ref{sec:countries-included} provides a full list of countries).
-The WVS questionnaire includes \citet{inglehart1977silent}'s extended post-materialism questions, developed to measure political values priorities. This extended version includes three sets of four values (Table \ref{tab:ranking-question}). Of these, set B in Table \ref{tab:ranking-question} is known as the ``short scale'' that is commonly used in research on values priorities.  Two of the values in each set are intended to measure  ``materialist'' concerns while the two remaining values indicate ``postmaterialist'' political goals; for each of the   three sets, WVS respondents are then asked to rank their first and second priorities. 
+The WVS questionnaire includes \citet{inglehart1977silent}'s extended post-materialism questions, developed to measure political values priorities. This extended version includes three sets of four priorities (Table \ref{tab:ranking-question}). Of these, set B in Table \ref{tab:ranking-question} is known as the ``short scale'' that is commonly used in research on values priorities.  Two of the values in each set are intended to measure  ``materialist'' concerns while the two remaining priorities indicate ``postmaterialist'' political goals; for each of the   three sets, WVS respondents are then asked to rank their first and second priorities. 
 
 
 
@@ -147,7 +147,7 @@ The WVS questionnaire includes \citet{inglehart1977silent}'s extended post-mater
 (Post)materialism theory has been founded on the dual-hypotheses model \citep[p. 881]{inglehart1981post}. The first hypothesis holds that an individual's priority set reflects the socio-economic environment because one attaches relatively more importance to scarce objects. This scarcity hypothesis is complemented by a socialization hypothesis that stresses the importance of experiences in the `formative' years. The latter hypothesis constitutes the heart of the argument regarding generational differences in political priorities since it indicates that, in reaching adulthood, values tend to crystallize in personality. By a process of social metabolism, society gradually changes from  materialist to postmaterialist. %The socialization hypothesis is crucial in understanding generational differences. The socio-economic proposition on the other hand gains momentum when comparing different cultures. 
 
 In line with the scarcity hypothesis, \citet{inglehart1997modernization} and \citet{inglehart2010changing} argued that socio-economic development indicators per country such as GDP per capita correlate strongly with aggregated scores of self-expression values. 
-Moreover, in line with the socialization hypothesis, associations of aggregated values priorities with socio-cultural variations across countries such as religious heritage and gender equality have been found by \citet{inglehart2002gender}. In short, substantive interest in this literature focuses on the associations between (post)materialism and both socio-economic and socio-cultural country-level aggregates. In this study we will therefore following these authors by examining the aggregate relationship of values priorities and by using GDP per capita and the percentage of women in parliament to represent socio-economic and socio-cultural correlates of values, respectively. These country-level variables were obtained from the World Bank database\footnote{\url{http://data.worldbank.org/}} using the \texttt{WDI} package \citep{arel2013WDI} in \texttt{R 3.0.2} \citep{Rlanguage}.
+Moreover, in line with the socialization hypothesis, associations of aggregated values priorities with socio-cultural variations across countries such as religious heritage and gender equality have been found by \citet{inglehart2002gender}. In short, substantive interest in this literature focuses on the associations between (post)materialism and both socio-economic and socio-cultural country-level aggregates. In this study we will therefore following these authors by examining the aggregate relationship of values priorities and by using log-GDP per capita and the percentage of women in parliament to represent socio-economic and socio-cultural correlates of values, respectively. These country-level variables were obtained from the World Bank database\footnote{\url{http://data.worldbank.org/}} using the \texttt{WDI} package \citep{arel2013WDI} in \texttt{R 3.0.2} \citep{Rlanguage}.
 
 
 In their previous work, Inglehart and colleagues examined these relationships of interest between value priorities and country-level covariates by creating an observed categorization of the ranking choices into three groups:  ``materialist'', ``postmaterialist'' and ``mixed''. These groups are defined \emph{a priori}, and their usage as observed variables implies that a complete absence of measurement error is assumed. 
@@ -172,7 +172,7 @@ The ranking model departs by describing the joint probability of observing choic
 			\omega_{k x}},
 				\label{eq:ranking}
 \end{equation}
-where $\omega_{k x}$ is the utility ($0<\omega_{k x}<1$) of response option $k$ \citep{mcfadden1974conditional}. Crucially, the choice for second place, $A_2$, is modeled while excluding the alternative already chosen for first place, $A_1$. In other words, we model a sequential ranking process in which first place is chosen first, then second place is chosen from the remaining options.
+where $\omega_{k x}$ is the utility ($0<\omega_{k x}<1$) of priority $k$ \citep{mcfadden1974conditional}. Crucially, the choice for second place, $A_2$, is modeled while excluding the alternative already chosen for first place, $A_1$. In other words, we model a sequential ranking process in which first place is chosen first, then second place is chosen from the remaining options.
 This makes the model used here different from standard models for categorical data.
  The utilities $\omega_{kx}$ may differ over persons due to the latent class variable $X$ \citep[pp. 171--3]{bockenholt2002comparison}, which in our case will represent ``(post)materialism''. This latent class variable is typically chosen to have a fixed number of categories, $T$. To restrict the utilities to their allowed range and facilitate model interpretation, it is convenient instead of the utilities $\omega_{kx}$ to estimate the log-linear parameters,
 \begin{equation}
@@ -233,10 +233,10 @@ Thus, measurement invariance violations could be parameterized by extending Equa
 The base invariance model above can then be seen as fixing the intercept deviations $\tau^{*}_{k g}$  and slope deviations $\lambda^{*}_{k x g}$ to 0.  An example of this parameterization of measurement non-invariance for 
 the second ranking of Set C ($C_2$) is shown in Figure \ref{fig:model} as the dotted main effect and interaction effects for scalar and metric invariance, respectively. 
 
-With three sets of three non-redundant ranking options each, there are $9 (S - 1) T$ possible additional $\tau^{*}_{k g}$ and $\lambda^{*}_{k x g}$ parameters representing misspecification in the full invariance model specified above. For example, with $S=3, T=3$, there will be $54$ possible violations of invariance. %With three or more second-level classes ($S \geq 3$), there are more possible violations of measurement invariance than there are parameters in the base model.
+With three sets of three non-redundant priorities each, there are $9 (S - 1) T$ possible additional $\tau^{*}_{k g}$ and $\lambda^{*}_{k x g}$ parameters representing misspecification in the full invariance model specified above. For example, with $S=3, T=3$, there will be $54$ possible violations of invariance. %With three or more second-level classes ($S \geq 3$), there are more possible violations of measurement invariance than there are parameters in the base model.
 This is clearly a very large number of potential violations of measurement invariance, with an astronomical ($\approx 1.8 \times 10^{16}$) number of possible subsets of non-invariant models, making the fitting of each of these possible submodels infeasible. The EPC-interest, which considers the possible effect of freeing each of the restrictions separately, is therefore an attractive alternative. 
 
-However, there are strong correlations between the possible additional parameters. First, parameters for different categories of the same variable will necessarily be strongly correlated. Second, parameters corresponding to the same ranking set (A, B, or C) will be highly correlated due to the necessary dependence between the first and second choice in a ranking task. Therefore, instead of considering only one possible misspecification at a time, we consider freeing sets of restrictions corresponding to all main effects and all interaction effects of each set. The advantages are that the estimated change in the parameters of interest will be closer to the observed change when freeing these restrictions, and that a model space to be explored of order $10^{16}$ is reduced to the examination of the effect of six sets of misspecifications on $2 (T-1)$  parameters of interest, $\gamma_{jx}$.
+However, there are strong dependencies between the additional parameter estimates. First, estimates of parameters corresponding to  different categories of the same variable will necessarily be strongly dependent. Second, parameters corresponding to the same ranking set (A, B, or C) will be highly dependent due to the necessary dependence between the first and second choice in a ranking task. Therefore, instead of considering only one possible misspecification at a time, we consider freeing sets of restrictions corresponding to all main effects and all interaction effects of each set. The advantages are that the estimated change in the parameters of interest will be closer to the observed change when freeing these restrictions, and that a model space to be explored of order $10^{16}$ is reduced to the examination of the effect of six sets of misspecifications on $2 (T-1)$  parameters of interest, $\gamma_{jx}$.
 
 \bigskip
 In summary, we have attacked the problem of examining the differences in (post)-materialism over 48 countries with different levels of GDP per capita and percentage of women in parliament by formulating a multilevel latent class model for ranking data. Measurement invariance is important here because direct main and interaction effects from country groups on the ranking tasks could threaten the comparison of countries with different levels of the covariates. Therefore it becomes relevant to examine the impact of these possible violations of measurement invariance on the parameters of substantive interest. The following section will introduce a method for doing so without the need to fit the alternative models. 
@@ -249,7 +249,7 @@ In the application discussed, as in any application of invariance testing, inter
 The ``$\da$'' estimates the change in a free parameter of the model that one can expect to observe if a particular restriction were freed. It is therefore a method of sensitivity analysis. However, the researcher is not forced to estimate all possible alternative models, but can evaluate the sensitivity of the results after fitting the restrictive full invariance model. 
 The $\da{}$ is based on the work of \citet{saris_detection_1987}, who introduced the expected parameter change in a fixed parameter for linear structural equation models (SEM), and \citet{bentler1993some}, who introduced the expected parameter change in a free parameter after freeing a fixed parameter for SEM. \citet{Oberski:WP:EPC-interest} suggested using the $\da{}$ for invariance testing using linear structural equation models with continuous data.
 
-In this section we apply the $\da{}$ to models with categorical observed and latent variables. We also extend the measure to evaluate the probable impact of several misspecifications at the same time. This last extension is particularly relevant in categorical data models, since parameters related to different categories of the same variable are often highly correlated. In such cases, the impact of misspecifications is better evaluated in sets of strongly related parameters. In the application to ranking data discussed above, for instance, parameters relating to the different ranking objects in the same set will be highly correlated, since the second choice in each ranking is modeled conditionally upon the first choice (Equation \ref{eq:ranking}). The impact of freeing the parameter $\lambda_{111}$ can therefore not be seen separately from that of $\lambda_{211}, \lambda_{121}$, etc. We therefore consider the impact of all possible interactions of country grouping $G$ with the latent (post)materialism variable $X$ jointly for each of the three ranking tasks. 
+In this section we apply the $\da{}$ to models with categorical observed and latent variables. We also extend the measure to evaluate the probable impact of several misspecifications at the same time. This last extension is particularly relevant in categorical data models, since parameters related to different categories of the same variable are often highly dependent. In such cases, the impact of misspecifications is better evaluated in sets of strongly related parameters. In the application to ranking data discussed above, for instance, parameters relating to the different ranking objects in the same set will be highly dependent, since the second choice in each ranking is modeled conditionally upon the first choice (Equation \ref{eq:ranking}). The impact of freeing the parameter $\lambda_{111}$ can therefore not be seen separately from that of $\lambda_{211}, \lambda_{121}$, etc. We therefore consider the impact of all possible interactions of country grouping $G$ with the latent (post)materialism variable $X$ jointly for each of the three ranking tasks. 
 
 The key concept is considering the likelihood not only as a function of the free parameters of the model, but also as a function of the parameters that are fixed to obtain the full invariance model. Collecting the free parameters in a vector $\param$ and the fixed parameters in a vector $\bpsi$, we assume the likelihood can be written as an explicit function of both sets of parameters, $L(\param, \bpsi)$.  The maximum-likelihood estimates $\that$ of the free parameters can then be seen as obtained under the full invariance model that sets $\bpsi=0$, i.e. $\that = \arg\max_{\param} L(\param, \bpsi = 0)$. Further, define the parameters of substantive interest as $\vm{\pi} := \vm{P} \param$, where $\vm{P}$ is typically a logical (0/1) selection matrix, although any linear function of the free parameters $\param$ may be taken. 
 Interest then focuses on the likely value these free parameters $\vm{\pi}$ would take if the fixed $\bpsi$ parameters were freed in an alternative model, $\hat{\vm{\pi}}_a = \vm{P} \arg\max_{\param, \bpsi} L(\param, \bpsi)$. 
@@ -427,35 +427,36 @@ Class 	2&	Women&	0.020&	(0.001)&	&	-0.007&	-0.001&	0.002&	&&	&	0.007\\
 	\label{tab:epc-interest-model2}}
 \end{table}
 
-The measurement parameters for the final model are shown in Table \ref{tab:attribute-parameters}. This table shows the sizes of the three (post)materialism classes (third row) and the ``attribute parameters'' $\lambda_{jkx}$, i.e. each class's difference from the average log-utility. It can be seen that for respondents in the first class, which is also the largest, the log-utility for the items ``economic growth'', ``order in the nation'', and ``stable economy'' is much larger than average. This class therefore clearly represents ``materialists'' who value economic considerations. The second class represents those for whom ``more say''  (set A), ``more say''  (set B), ``freedom of speech'', and ``humane society'' has a higher log-utility than average. This second class constituting about 21\% of the respondents is therefore labeled ``post materialist''. Finally, preferences in the third class are mostly toward the ``materialist'' items of sets B and C, but this class also includes people for whom ``more say'' is important when compared with a ``strong defense'' rather than when compared with ``rising prices''. Therefore we apply the label ``Mixed'' to this class. 
+Table \ref{tab:attribute-parameters} shows the sizes of the three (post)materialism classes (third row) as well as the ``attribute parameters'', i.e. each class's average log-utility. 
+Thus, when reading each row horizontally, the class with the highest log-utility represents respondents who value that priority highest. For example, priorities A.1, A.2, B.1, B.3, and C1 have the highest log-utilities in Class 1. Since all of these priorities are ``materialist'' (labeled ``M'' in Table \ref{tab:attribute-parameters}), we also labeled Class 1 ``materialist''. Similarly, Class 2 is labeled ``postmaterialist'' because it has the highest log-utilities for all of the postmaterialist priorities (labeled ``P'' in Table \ref{tab:attribute-parameters}), with the exception of A.4. Preferences in the third class appear to be for the most part in-between those of Classes 1 and 2. At the same time, however, this class has the highest log-utilities for A.4 (a ``postmaterialist'' priority) and C.4 (a ``materialist'' priority). For this reason we apply the label ``mixed'' to Class 3.
 
 \begin{table}\centering
-	\begin{tabular}{llrrr}
+	\begin{tabular}{lllrrr}
 	\hline
-			&&	Class 1	&	Class 2	&	Class 3\\
-			&Class label& ``Materialist'' & ``Postmater.'' & ``Mixed''\\
-& Class size & 0.569 & 0.213 & 0.218\\
-& (s.e.)				& (0.0114)	&	(0.0179)	&	(0.0280)\\
+			&&&	Class 1	&	Class 2	&	Class 3\\
+			&&Class label& ``Materialist'' & ``Postmater.'' & ``Mixed''\\
+&& Class size & 0.569 & 0.213 & 0.218\\
+&& (s.e.)				& (0.0114)	&	(0.0179)	&	(0.0280)\\
 				\hline
 \multicolumn{3}{l}{Set A}\\
-& 1. Economic growth	&	2.1102	&	0.4837	&	0.4156\\
-& 2. Strong defense	&	-0.5285	&	-1.4984	&	-0.9249\\
-& 3. More say	&	-0.5519	&	1.4683	&	0.4643\\
-& 4. More beauty	&	-1.0298	&	-0.4536	&	0.0449\\
+& M & 1. Economic growth	&	\textbf{2.1102}	&	0.4837	&	0.4156\\
+& M & 2. Strong defense	&	\textbf{-0.5285}	&	-1.4984	&	-0.9249\\
+& P & 3. More say	&	-0.5519	&	\textbf{1.4683}	&	0.4643\\
+& P & 4. More beauty	&	-1.0298	&	-0.4536	&	\textbf{0.0449}\\
 \multicolumn{3}{l}{Set B}\\
-& 1. Order in the nation	&	1.0016	&	-0.5898	&	0.0435\\
-& 2. More say	&	-0.4592	&	0.6902	&	-0.2763\\
-& 3. Rising prices	&	0.4281	&	-0.2269	&	0.3719\\
-& 4. Freedom of speech	&	-0.9705	&	0.1266	&	-0.1390\\
+& M & 1. Order in the nation	&	\textbf{1.0016}	&	-0.5898	&	0.0435\\
+& P & 2. More say	&	-0.4592	&	\textbf{0.6902}	&	-0.2763\\
+& M & 3. Rising prices	&	\textbf{0.4281}	&	-0.2269	&	0.3719\\
+& P & 4. Freedom of speech	&	-0.9705	&	\textbf{0.1266}	&	-0.1390\\
 \multicolumn{3}{l}{Set C}\\
-& 1. Stable economy	&	2.0086	&	0.0789	&	0.1715\\
-& 2. Humane society	&	-0.7919	&	0.4450	&	-0.0943\\
-& 3. Ideas	&	-1.1402	&	-0.0593	&	-0.4550\\
-& 4. Fight crime	&	-0.0765	&	-0.4646	&	0.3778\\
+& M & 1. Stable economy	&	\textbf{2.0086}	&	0.0789	&	0.1715\\
+& P & 2. Humane society	&	-0.7919	&	\textbf{0.4450}	&	-0.0943\\
+& P & 3. Ideas	&	-1.1402	&	\textbf{-0.0593}	&	-0.4550\\
+& M & 4. Fight crime	&	-0.0765	&	-0.4646	&	\textbf{0.3778}\\
 	\hline
 	\end{tabular}
-	\caption{\label{tab:attribute-parameters}Attribute parameter estimates for the 
-		final model.}
+	\caption{\label{tab:attribute-parameters} Estimated log-utilities under the 
+		final model. In each row, the highest log-utility has been printed in \textbf{bold face} to facilitate interpretation of the classes.}
 \end{table}
 
 This combination of classes corresponds to the labels and groups created  by \citet{inglehart1997modernization}. However, a key difference with the predefined groups of  \citet{inglehart1997modernization}  and the latent classes in the current model is that the latent classes here arise purely from the model and the response patterns observed in the data, rather than being imposed a priori. Crucially also, our model allows for measurement error in the ranking tasks. 
