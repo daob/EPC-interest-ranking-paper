@@ -20,12 +20,10 @@
 \newcommand{\pkg}{\texttt}
 
 
-\title{Evaluating the impact of measurement non-equivalence on the relationship of  (post)materialism with country-level correlates}
-\date{}
+\title{Ensuring the cross-group comparability of latent variable models for ranking data with the $\da$}
 
-\author{DL Oberski \and JK Vermunt \and GBD Moors
-\and
-Department of Methodology and Statistics\\
+\author{DL Oberski \and JK Vermunt \and GBD Moors}
+\date{Department of Methodology and Statistics\\
 Tilburg University, The Netherlands}
 
 
@@ -56,43 +54,32 @@ Tilburg University, The Netherlands}
 
 
 
-\begin{abstract}% Rewrite
-Ranking data are central to political science, for example when  citizens vote by ranking candidates or rank their priorities on widely-used survey measures of (post)materialism. Such procedures yield categorical data that preclude certain joint outcomes, leading to complex dependencies that must be accounted for. Moreover, when the results of ranking tasks are compared across groups, not only measurement error, but also ``measurement equivalence''  becomes a concern:  conclusions of substantive interest should be uncontaminated by measurement differences.
-
-In this study, we apply a measure recently introduced in this journal, the ``EPC-interest'', to a  multilevel latent variable model for ranking data. The EPC-interest evaluates directly whether conclusions of substantive interest are sensitive to the problem of measurement differences. The approach is applied to 48 countries and 67,568 respondents to the 2010--2012 World Values Survey; interest focuses on the widely-used (post)materialism measures and their relationship with economic and social correlates. The contributions of this paper are threefold: first, we allow for measurement error in the WVS (post)materialism ranking tasks; second, we use the EPC-interest to evaluate the practical impact of measurement non-equivalence on analyses of central interest to (post)materialism values researchers; and third, we extend the EPC-interest measure to models with discrete observed and latent variables. 
+\begin{abstract}
+Ranking data are often encountered in political science, for example when modeling voters' choices in ``ranked choice'' voting systems or their priorities for political goals. When comparing different groups on such measures, a concern is whether such comparisons can be said to be unaffected by any differences in measurement. However,  there currently is no systematic way to examine this hypothesis for ranking data. This paper therefore extends the ``$\da$'' a measure recently introduced for that purpose in this journal, to the case of latent variable models with ranking data. We demonstrate the approach on a multilevel latent class analysis of three ``(post)materialism'' measures using data from 67,568 respondents in 48 different countries. 
 
 The newly developed methods discussed in this paper have been implemented in commercial software for latent variable modeling. Program inputs and data for the examples discussed in this article are provided in the electronic appendix (\url{http://}) [included as zip file in blinded version].
 \end{abstract}
 
+
 \section{Introduction}
-
-
-% Our model can be seen as a multilevel multinomial regression of (post)materialism on country-level covariates, in which the nominal dependent variable is latent (corrected for misclassification), and the random effects distribution is nonparametric rather than Gaussian. The measurement process for this latent nominal dependent variable accounts for the intrinsic dependencies of ranking data.
-
 
 \noindent
 Ranking  data are central to political science, occurring for example when voters rank candidates in ``ranked choice'' (``instant-runoff'') voting systems such as the Australian federal or London mayoral elections \citep[see e.g][]{karvonen2004preferential,toplak2010preferential},  or when respondents rank objects in a questionnaire, for example  post-materialist value orientations in the World Values Survey \citep{inglehart1997modernization,inglehart2010changing}. 
 
-%Ik weet niet of McFadden het ranking model heeft voorgesteld. Volgens mij het heeft hij "enkel" het model voor first choice voorgesteld. Je kunt volgens mij niet zeggen dat aanamen worden "relaxed", ze worden immers vervangen door andere (namelijk van onafhankelijke extreme value verdelingen). Wel wordt het daarmee allemaal een stuk simpler.
-%Dat sequentiele ranking model wordt ook wel exploded logit genoemd.
-% Croon
-% Francis
-% Kamakura
 Such procedures yield categorical and multivariate data, and, since they preclude certain joint outcomes, lead to complex dependencies that must be accounted for. 
 Probabilistic models with rankings as outcomes that account for these characteristics were introduced by \citet{thurstone1927law}, and extended by \citet{luce1959individual} and \citet{mcfadden1974conditional}. 
 
-These approaches treat the choices as perfectly measured; however, rankings may contain measurement error, so that latent variable models become necessary. %For example, a respondent's high priority for ``protecting freedom of speech'' may not be a perfect measure of their postmaterialism. 
-An example can be found in Inglehart's (1997) value scale measuring (post)materialism (see Table \ref{tab:ranking-question}). Respondents are asked to rank their first and second priorities out of four, thus leading to a partial ranking of values priorities. These priorities are divided into ``materialist'' (M in Table \ref{tab:ranking-question}) and ``postmaterialist'' (P) priorities. However, there is error in the measurement of ``postmaterialism'' when using a respondent's ranked priorities. For instance, while valuing a  beautiful countryside  might be a measure of ``postmaterialism'' for, say, a college professor, a farmer depending on ecotourism might prioritize the countryside for more ``materialist'' reasons.  To account for such measurement errors, \citet{croon1989latent} introduced a latent class model for ranking data. \citet{kamakura1994concomitant} extended this model to include covariates relating to class membership. Other approaches to modeling ranking outcomes with latent variables were discussed by \citet{jackson1980factor}, \citet{francis2002analysing} and \citet{maydeu2005structural}.
+These approaches treat the choices as perfectly measured; however, rankings may contain measurement error, so that latent variable models become necessary. An example can be found in Inglehart's (1997) value scale measuring (post)materialism (see Table \ref{tab:ranking-question}). Respondents are asked to rank their first and second priorities out of four, thus leading to a partial ranking of values priorities. These priorities are divided into ``materialist'' (M in Table \ref{tab:ranking-question}) and ``postmaterialist'' (P) priorities. However, there is error in the measurement of ``postmaterialism'' when using a respondent's ranked priorities. For instance, while valuing a  beautiful countryside  might be a measure of ``postmaterialism'' for, say, a college professor, a farmer depending on ecotourism might prioritize the countryside for more ``materialist'' reasons.  To account for such measurement errors, \citet{croon1989latent} introduced a latent class model for ranking data. \citet{kamakura1994concomitant} extended this model to include covariates relating to class membership. Other approaches to modeling ranking outcomes with latent variables were discussed by \citet{jackson1980factor}, \citet{francis2002analysing} and \citet{maydeu2005structural}.
 
 %\citet{maydeu2005structural} extended \citet{thurstone1927law}'s model to  multivariate outcomes incorporated into a structural equation modeling framework with latent variables \citep[see also][]{brown2011item,brown2012fitting};  \citet{jackson1980factor} described an earlier approach but did not account for the fact that choice data are categorical. \citet{bockenholt2002comparison}  extended \citet{mcfadden1974conditional}'s model to include discrete latent variables with an arbitrary distribution --  ``latent class'' variables. 
 
 % Explain equivalence, EPC-interest
 
-Whenever imperfectly measured variables are to be compared over groups, a concern is whether  such comparisons are ``fair''--that is, whether conclusions about the comparisons of interest are uncontaminated by any differences in measurement across the groups \citep{oberski2012comparability}. For example, Costa Rica's economy depends strongly upon ecotourism, whereas Russia's does not, conceivably causing measurement errors to differ over these countries. 
+Whenever imperfectly measured variables are to be compared over groups, a concern is whether  such comparisons are ``fair''--that is, whether conclusions about the comparisons of interest are uncontaminated by any differences in measurement across the groups \citep{oberski2012comparability}. For example, Costa Rica's economy depends strongly upon ecotourism, whereas Russia's does not, conceivably causing measurement errors in the item mentioned to differ over these countries. 
 %A ``materialist'' inhabitant of Costa Rica, which has no military at all, may not prioritize ``strong defense forces'' as much as an equally ``materialist'' Russian citizen, for instance. In addition, those Costa Ricans whose main source of income is ecotourism might value a ``beautiful countryside'' for entirely ``materialist'' reasons.
 %, contrary to citizens of countries in which the countryside is perceived to have a ``postmaterial'' value, but no economic one.  
 Such differences may lead a researcher to erroneously conclude that Costa Ricans are less materialist than others. Similarly, when comparing countries with different percentages of women in parliament, the country with the higher percentage\footnote{See Section 2 for data sources.}, Costa Rica (39\%), may erroneously appear to have fewer ``materialists'' than Russia, the country with the lower percentage (14\%). %Some Costa Ricans could, for instance, prioritize the ``postmaterialist'' goal of ``keeping our countryside beautiful'', but for the ``materialist'' reason of promoting ecotourism.
-Thus, measurement differences may, but need not, contaminate conclusions about both mean differences and relationships between variables.
+Thus, measurement differences may contaminate conclusions about both mean differences and relationships between variables.
 
 The assumption that groups are comparable in measurement is often called ``measurement equivalence'' or ``measurement invariance'', and evaluating measurement invariance is therefore a concern in any comparative study \citep[see][for reviews]{steenkamp_assessing_1998,vandenberg2000review,schmitt2008measurement}.
 %When the results of ranking tasks are compared across countries or other types of groups, not only measurement error, but also ``measurement equivalence''  becomes a concern. Inglehart's ``(post)materialism'' ranking tasks, for example, are often compared across countries to evaluate substantive theories on human values \citep[e.g.][]{inglehart1997modernization}. Such country comparisons may be threatened by cross-country differences in the way respondents' ranking choices measure ``(post)materialism''. In other words, ``measurement equivalence'' means  that conclusions of substantive interest should be uncontaminated by measurement differences \citep{oberski2012comparability}. 
@@ -169,7 +156,7 @@ The WVS questionnaire includes \citet{inglehart1977silent}'s extended (post)mate
 
 (Post)materialism theory is based on the ``dual-hypotheses model'' \citep[p. 881]{inglehart1981post}. The first hypothesis holds that an individual's priority set reflects the socio-economic environment because one attaches relatively more importance to scarce objects. In line with this scarcity hypothesis, \citet{inglehart1997modernization} and \citet{inglehart2010changing} argued that socio-economic development indicators per country such as GDP per capita will correlate strongly with aggregated values scores. 
 
-The second, ``socialization'' hypothesis stresses the importance of experiences in the ``formative'' years. By a process of social metabolism, society gradually changes from  materialist to postmaterialist.
+The second, ``socialization'', hypothesis stresses the importance of experiences in the ``formative'' years. By a process of social metabolism, society gradually changes from  materialist to postmaterialist.
 In line with the socialization hypothesis, associations of aggregated values priorities with socio-cultural variations across countries such as religious heritage and gender equality have been predicted and found by \citet{inglehart2002gender}. 
 
 %The latter hypothesis constitutes the heart of the argument regarding generational differences in political priorities since it indicates that, in reaching adulthood, values tend to crystallize in personality. By a process of social metabolism, society gradually changes from  materialist to postmaterialist. %The socialization hypothesis is crucial in understanding generational differences. The socio-economic proposition on the other hand gains momentum when comparing different cultures. 
@@ -487,21 +474,14 @@ The right-hand side of Figure \ref{fig:covariates} plots the estimated effect of
 
 
 
-\section{Discussion}
+\section{Discussion and conclusion}
 \label{sec:discussion}
 
-% change this 
-This paper used a multilevel latent class model for rankings to evaluate the relationship between latent (post)materialism on the one hand and, on the other, log-GDP per capita and the percentage of women in parliament using data from  67,568 respondents to the WVS and 48 countries. Moreover, we demonstrated the sensitivity analysis approach to the issue of cross-country measurement equivalence using the EPC-interest. This was the first investigation of measurement equivalence for the WVS values priorities measures, often used in political science.
-For this purpose we  extended the  EPC-interest  from the linear structural equation modeling framework to apply to categorical latent and observed variables and implemented in user-friendly commercial software for latent class analysis. Program input is available in the online Appendix. 
+Whenever groups are compared, measurement equivalence is a concern. Particularly, it should be verified that substantive conclusions of interest are uncontaminated by possible cross-group differences in measurement. The $\da$, a measure introduced by \citet{Oberski:WP:EPC-interest} for this purpose in the context of linear structural equation models, was extended in this paper to apply to categorical observed and latent variables as well as rankings and other types of data often encountered in the social sciences. An example application looked at the relationship between latent (post)materialism on the one hand and, on the other, log-GDP per capita and the percentage of women in parliament using data from  67,568 respondents in 48 countries. The $\da{}$ is a useful guide for this purpose, reducing a potentially 5076-dimensional problem to the examination of Tables \ref{tab:epc-interest-model1} and \ref{tab:epc-interest-model2}. Finally, we provided user-friendly  software implementing the $\da$; program input and data for the example application is available in the online Appendix. 
 
-The application has shown how the $\da{}$ may be used to draw stable substantive conclusions when measurement invariance is a concern. Especially encouraging is the fact that the full invariance model provides estimates that contradict \citet{inglehart2010changing}'s values theory, whereas applying the procedure suggested here happens to yield estimates that corroborate it. This is not because we have adjusted the model to fit the theory but rather because freeing those misspecifications that could invalidate the conclusion  leads to this result. The $\da{}$ is a useful guide for this purpose, reducing a potentially 5076-dimensional problem to the examination of Tables \ref{tab:epc-interest-model1} and \ref{tab:epc-interest-model2}.
+The EPC-interest fits within the recent literature on ``approximate measurement invariance''. That is, the goal of incorporating important measurement differences in the model while ignoring unimportant ones. Invariance testing using ``approximate'' fit measures such as the CFI and RMSEA \citep[e.g.][]{cheung2002evaluating,chen2007sensitivity} can be thought of as such a method, since the fit of the model is thought to be ``approximate'', and relative to model complexity. Model-based approaches include random effects modeling \citep{dejong2007relaxing,verhagen2013bayesian,jak2013test,jak2014measurement}, Bayesian priors on measurement differences \citep{muthen2012bayesian}, and factor rotation towards an invariant solution \citep{muthen2014alignment}. An advantage of these last three approaches is that a middle ground may be found between exact equality of measurement processes over groups and complete independence \citep{schoot2013facing}. However, a current problem  is that there is no agreed-upon definition of ``approximate''. At the same time, the EPC-interest approach does not offer a middle ground, but it does solve the problem of defining what ``approximate'' fit might be \citep[p. 12]{schoot2013facing}: for example, in the current application it was taken to be any measurement difference that cannot reverse the sign of the regression parameters of substantive interest.  An interesting direction for future work is therefore to combine the sensitivity analysis approach of the EPC-interest with the approaches to approximate measurement invariance of \citet{muthen2012bayesian,muthen2014alignment}, for example by weighting the cross-group measurement differences to be aligned by the possible change in parameters of interest. 
 
-The EPC-interest fits within the recent literature on ``approximate measurement invariance''. That is, the goal of incorporating important measurement differences in the model while ignoring unimportant ones. Invariance testing using ``approximate'' fit measures such as the CFI and RMSEA \citep[e.g.][]{cheung2002evaluating,chen2007sensitivity} can be thought of as such a method, since the fit of the model is thought to be ``approximate'', and relative to model complexity. Model-based approaches include random effects modeling \citep{dejong2007relaxing,verhagen2013bayesian,jak2013test,jak2014measurement}, Bayesian priors on measurement differences \citep{muthen2012bayesian}, and factor rotation towards an invariant solution \citep{muthen2014alignment}. An advantage of these last three approaches is that a middle ground may be found between exact equality of measurement processes over groups and complete independence \citep{schoot2013facing}. However, a current problem  is that there is no agreed-upon definition of ``approximate''. At the same time, the EPC-interest approach does not offer a middle ground, but it does solve the problem of defining what ``approximate'' fit might be \citep[p. 12]{schoot2013facing}: for example, in the current application it was taken to be any measurement difference that cannot reverse the sign of the regression parameters of substantive interest.  An interesting direction for future work is therefore to combine the sensitivity analysis approach of the EPC-interest with the approaches to approximate measurement invariance of \citet{muthen2012bayesian,muthen2014alignment}, for example by adapting the Bayesian prior to conform to the EPC-interest criterion. 
-
-Some limitations remain.  First, the ``materialism'' class seems to coincide to a large extent with the first item in each set. This is inherent in the design of the WVS instrument, but it does mean that primacy effects form an alternative explanation for the correspondence between these choices. If so, the correspondence is likely to be only partial since we did find high utilities for the other ``materialism'' items as well. In addition, we found the theoretically expected relationship between this class and external covariates, which appears to indicate the class definition is at least partially substantive.
-
-
-Second, the scope of the paper was limited to an application of the EPC-interest to a model with categorical observed and latent variables. While we consider this a useful contribution, we did not further investigate the performance of this measure. We do note that the actually observed change in the parameters of interest after freeing the suggested invariance restrictions was very close to that predicted by the EPC-interest in this particular application. The Monte Carlo simulation using linear structural equation models  in \citet{Oberski:WP:EPC-interest} demonstrates that this is the case for linear structural equation models with relatively simple setups. However, an  investigation of whether this is the case for categorical latent class models under a wider range of hypothetical conditions in a simulation study remains work for the future.
+The scope of the paper was limited to an application of the EPC-interest to a model with categorical observed and latent variables. While we consider this a useful contribution, we did not further investigate the performance of this measure. We do note that the actually observed change in the parameters of interest after freeing the suggested invariance restrictions was very close to that predicted by the EPC-interest in this particular application. The Monte Carlo simulation using linear structural equation models  in \citet{Oberski:WP:EPC-interest} demonstrates that this is the case for linear structural equation models with relatively simple setups. However, an  investigation of whether this is the case for categorical latent class models under a wider range of hypothetical conditions in a simulation study remains work for the future.
 
 %Dat jouw EPC-interest procedure een stap voorwaarts is, is zeer duidelijk. Dat je in dit empirisch voorbeeld sluitende resultaten hebt is veel minder en naar mijn aanvoelen te veel het gevolg van arbitraire keuzes die je hebt moeten maken in termen van het aantal latente klassen. Ik denk dat het verstandig is om aan de lezer alvast mee te geven dat het empirisch voorbeeld een illustratie is en niet een ?indepth? onderzoek naar de meetinvariante van het postmaterialisme meetinstrument.
 
@@ -545,6 +525,7 @@ MEX&	Mexico          &&ZWE&	Zimbabwe		\\
 \end{tabular}
 \doublespacing
 
+\clearpage
 \section{Latent Gold Choice input for the full invariance model}\label{sec:LGinput}
 
 The input below fits the full invariance model described in the paper, setting the possible violations of invariance to zero (0). The option ``score test'' in the output section (only available in Latent Gold or Latent Gold Choice $\geq5$) is then used to obtain the EPC-interest values.
@@ -619,6 +600,7 @@ equations
 \end{small}
 \doublespacing
 
+\clearpage
 \section{Model selection for the example application}
 
 \label{app:bic}
