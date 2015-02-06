@@ -51,15 +51,26 @@
 \begin{document}
 \maketitle
 
+%Examples of such latent variables include the ideological positions of US senators, countries' Democracy values, and people's (post)materialism. 
+%To deal with this problem, it is common to test the null hypothesis of exactly equal measurement and to account for those violations that are encountered, i.e. ``partial measurement invariance''. Several problems with measurement invariance testing have recently led to the introduction of several new approaches. 
 
 
-\begin{abstract}
-Ranking data are often encountered in political science, for example when modeling voters' choices in ``ranked choice'' voting systems or their stated priorities for political goals in a questionnaire. Group comparisons on such measures must first establish whether conclusions of interest are insensitive any differences in measurement--that is, whether the measures are ``equivalent''. To investigate this, the ``$\da$'', a measure of the sensitivity of conclusions to measurement equivalence, was recently introduced in this journal. However, the measure has not been applied to ranking data.
+\begin{abstract}Many variables crucial to the social sciences are not directly observed but instead are latent and measured indirectly. 
+When an external variable of interest affects this measurement, estimates of its relationship with the latent variable will then be biased. 
+Such violations of ``measurement invariance'' may, for example, confound true differences across countries in postmaterialism with measurement differences.
+To deal with this problem researchers commonly aim at ``partial measurement invariance'', i.e. to account for those differences that may be present and important. To evaluate this importance directly through sensitivity analysis, the ``EPC-interest''   was recently introduced  for continuous data. However, latent variable models in the social sciences often use categorical data. 
+The current paper therefore extends the EPC-interest to latent variable models for categorical data and demonstrates its use in example analyses of US Senate votes as well as respondent rankings of postmaterialism values in the World Values Study. 
 
-This paper therefore extends the $\da{}$ to the case of latent variable models with ranking data. We demonstrate the approach on a multilevel latent class analysis of three ``(post)materialism'' measures using ranking data from 67,568 respondents in 48 different countries. In this application, violations of measurement equivalence assumptions reverse substantive conclusions of interest; we show that the $\da$ can detect this problem.  
-
-The newly developed methods discussed in this paper have been implemented in user-friendly software for latent variable modeling. Program inputs and data for the examples discussed in this article are provided in the electronic appendix (\url{http://}[blinded]).
+Program inputs and data for the examples discussed in this article are provided in the electronic appendix (\url{http://}[blinded]).
 \end{abstract}
+
+
+%Ranking data are often encountered in political science, for example when modeling voters' choices in ``ranked choice'' voting systems or their stated priorities for political goals in a questionnaire. Group comparisons on such measures must first establish whether conclusions of interest are insensitive any differences in measurement--that is, whether the measures are ``equivalent''. To investigate this, the ``$\da$'', a measure of the sensitivity of conclusions to measurement equivalence, was recently introduced in this journal. However, the measure has not been applied to ranking data.
+
+%This paper therefore extends the $\da{}$ to the case of latent variable models with ranking data. We demonstrate the approach on a multilevel latent class analysis of three ``(post)materialism'' measures using ranking data from 67,568 respondents in 48 different countries. In this application, violations of measurement equivalence assumptions reverse substantive conclusions of interest; we show that the $\da$ can detect this problem.  
+
+%The newly developed methods discussed in this paper have been implemented in user-friendly software for latent variable modeling. Program inputs and data for the examples discussed in this article are provided in the electronic appendix (\url{http://}[blinded]).
+%\end{abstract}
 
 
 \section{Introduction}
