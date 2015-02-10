@@ -76,15 +76,19 @@ Program inputs and data for the examples discussed in this article are provided 
 \section{Introduction}
 
 \noindent
-Ranking  data are central to political science, occurring for example when voters rank candidates in ``ranked choice'' (``instant-runoff'') voting systems such as the Australian federal or London mayoral elections \citep[see e.g][]{karvonen2004preferential,toplak2010preferential},  or when respondents rank objects in a questionnaire, for example  post-materialist value orientations in the World Values Survey \citep{inglehart1997modernization,inglehart2010changing}. 
 
-Such procedures yield categorical and multivariate data, and, since they preclude certain joint outcomes, lead to complex dependencies that must be accounted for. 
-Probabilistic models with rankings as outcomes that account for these characteristics were introduced by \citet{thurstone1927law}, and extended by \citet{luce1959individual} and \citet{mcfadden1974conditional}. 
+%Examples of latent variable models with categorical data in social science: the ideological positions of US senators, ..., and people's (post)materialism.
 
-These approaches treat the choices as perfectly measured; however, rankings may contain measurement error, so that latent variable models become necessary. An example can be found in Inglehart's (1997) value scale measuring (post)materialism (see Table \ref{tab:ranking-question}). Respondents are asked to rank their first and second priorities out of four, thus leading to a partial ranking of values priorities. These priorities are divided into ``materialist'' (M in Table \ref{tab:ranking-question}) and ``postmaterialist'' (P) priorities. However, there is error in the measurement of ``postmaterialism'' when using a respondent's ranked priorities. For instance, while valuing a  beautiful countryside  might be a measure of ``postmaterialism'' for, say, a college professor, a farmer depending on ecotourism might prioritize the countryside for more ``materialist'' reasons.  To account for such measurement errors, \citet{croon1989latent} introduced a latent class model for ranking data. \citet{kamakura1994concomitant} extended this model to include covariates relating to class membership. Other approaches to modeling ranking outcomes with latent variables were discussed by \citet{jackson1980factor}, \citet{francis2002analysing} and \citet{maydeu2005structural}.
+%Relating these variables to external variables is often of interest, for example to Party or year, to ..., and to country or country characteristics such as GDP. But if measurement differs over external variable values the relationship estimate of interest may be wrong.
 
+%This is why people do measurement invariance testing (cites). Particularly, the common approach is to account for those violations of it that are present, partial measurement invariance (cites).
 
-Whenever imperfectly measured variables are to be compared over groups, a concern is whether  such comparisons are ``fair''--that is, whether conclusions about the comparisons of interest are uncontaminated by any differences in measurement across the groups \citep{oberski2012comparability}. For example, Costa Rica's economy depends strongly upon ecotourism, whereas Russia's does not, conceivably causing measurement errors in the item mentioned to differ over these countries. Such differences may lead a researcher to erroneously conclude that Costa Ricans are less materialist than others. Similarly, when comparing countries with different percentages of women in parliament, the country with the higher percentage\footnote{See Section 2 for data sources.}, Costa Rica (39\%), may erroneously appear to have fewer ``materialists'' than Russia, the country with the lower percentage (14\%). Thus, measurement differences may contaminate conclusions about both mean differences and relationships between variables.
+%As argued by Oberski (cites), presence is not so relevant but rather importance is, that is, whether measurement invariance affects the conclusions. Suggest to evaluate the robustness of the results of interest to measurmenet invariance assumptions using EPC-interest. EPC-interest estiamtes teh change in the parameter of interest when freeing a measurement invariance restriction. But only for continuous data.
+
+%Here for categorical data like the data mentioned above. Need to account for dependencies between parameters to do with the same category.
+
+%Next section,....
+
 
 The assumption that groups are comparable in measurement is often called ``measurement equivalence'' or ``measurement invariance'', and evaluating measurement invariance is therefore a concern in any comparative study \citep[see][for reviews]{steenkamp_assessing_1998,vandenberg2000review,schmitt2008measurement}. Recently, \citet{Oberski:WP:EPC-interest} introduced a measure to evaluate 
 measurement invariance in terms of the substantive parameters of interest, the ``EPC-interest''. The researcher initially fits a model that assumes full measurement invariance;  $\da{}$ then estimates the expected change in the parameters of interest that would occur if assumptions of measurement invariance were (partially) relaxed. To continue the previous example, $\da{}$ might indicate how much of the substantive mean difference in  ``materialism'' between Costa Rica and Russia is contaminated by possible measurement differences, and whether this contamination is capable of reversing the conclusions or not. While useful, currently $\da{}$ is only available for linear structural equation models for continuous data. Categorical observed and latent variables are, however, commonly found in the social sciences. Ranking data, moreover, have never been examined for cross-group equivalence in this sense.
@@ -93,15 +97,13 @@ This paper therefore develops the $\da{}$ in more generality. This allows for ap
 We demonstrate the application of the $\da{}$ to ranking data using comparison of the \citet{inglehart1997modernization} (post)materialism ranking measures over 48 countries. Each country's GDP per capita and percentage of women in parliament is related to the country proportion in categories of ``(post)materialism'' as measured by three separate ranking tasks. Since the measurement of these (post)materialism categories may be flawed,  (post)materialism becomes a latent variable that is discrete: a ``latent class'' variable \citep{bockenholt2002comparison,moors2007heterogeneity}. The measurement model for this variable accounts for the intrinsic dependencies between respondents' ranking choices, while the structural model accounts for dependencies between respondents within a country using a multilevel specification with a nonparametric random effect distribution \citep{vermunt2003multilevel}. The $\da{}$ is then applied to investigate the impact of measurement invariance assumptions on the latent relationship estimates of interest.
 
 
-\bigskip
 
 
-Section \ref{sec:data} presents the data and the postmaterialism theory used in the example application model. Since the obtained measures are rankings, Section \ref{sec:model} then presents the multilevel latent class model for partial rankings. We then present the EPC-interest for such and other latent variable models in Section \ref{sec:epc-interest}, after which the results of applying the EPC-interest to the postmaterialism model and data is discussed in Section \ref{sec:results}. Finally, Section \ref{sec:discussion} provides some conclusions and discusses limitations and further connections with other work.
 
 
 \pagebreak
 \section{Measurement invariance in categorical data}
-
+\label{sec:invariance}
 \subsection{The problem of measurement invariance}
 
 Many important variables in the social sciences are not or cannot be directly observed, but are instead latent  \citep{bollen2002latent} and measured using a vector of multiple indicators, $\mathbf{y}$, say. This measurement of the latent variable $\xi$ is defined by a ``measurement model'',
@@ -142,13 +144,14 @@ A violation of  measurement invariance is sometimes termed ``differential item f
 Intuitively, measurement invariance is necessary to identify the structural model of Equation \ref{eq:structural-model} because if all indicators are caused by both $\xi$ and $\mathbf{x}$, then there is no way of knowing whether an observed indicator difference  over values of the covariate is due to a covariate effect on  $\xi$ or to a difference over the covariate in the way $\xi$ is measured. For example, when comparing countries, an observed cross-country difference in anti-immigrant attitudes might be a substantive difference or it might equally well be explained as differing answer tendencies over countries. 
 %Since the same is true for all the other indicators, there is just no way of separating effects on indicators from effects on the latent variable: the structural model is therefore unidentifiable.  Full measurement invariance thus guarantees that $\xi$ can indeed be compared across values of the covariates.
 
-This identification problem only occurs, however, when there are no measurement invariant indicators at all. Any invariant indicator present can be used to disentangle measurement from substantive differences in the other, non-invariant, indicators. Full measurement invariance is therefore not strictly necessary to identify the structural model, but ``partial measurement invariance'' is \citep{byrne1989testing}. The common practice is to search for non-invariant indicators and either remove them from the analysis or parameterize their differential functioning. A common way of doing so when the observed variables are categorical with $K$ categories is a logistic regression, 
+This identification problem only occurs, however, when there are no measurement invariant indicators at all. A single invariant indicator can be used to disentangle measurement from substantive differences in the other, non-invariant, indicators. Full measurement invariance is therefore not strictly necessary to identify the structural model, but ``partial measurement invariance'' is \citep{byrne1989testing}. The standard practice is to search for non-invariant indicators and either remove them from the analysis or parameterize their differential functioning \citep{Holland:1993aa}. 
+A common way of doing so when the observed variables are categorical with $K$ categories is a logistic regression, 
 \begin{equation}
 	P(Y_j = k) = \frac{\exp(\tau_{jk} + \lambda_{jk} \xi + \delta_{jk} \mathbf{x})}{\sum_{m \in \{1..K\}} \exp(\tau_{jm} + \lambda_{jm} \xi + \delta_{jm} \mathbf{x})},
 	\label{eq:logistic-dif}
 \end{equation}
-where some restriction is imposed on the parameters for identification purposes such as ``effect coding'', $\sum_k \tau_{jk} = \sum_k \lambda_{jk} =\sum_k \delta_{jk} = 0$, or dummy coding, $\tau_{j1} = \lambda_{j1} = \delta_{j1} = 0$.
-It can be seen in Equation \ref{eq:logistic-dif} that setting $\delta_{jk} = 0$ corresponds to measurement invariance. This means that it is possible to estimate a model in which $\delta_{jk} \neq 0$ for \emph{some} indicators, while $\delta_{jk}$ is kept at zero, i.e. partially measurement invariant, for others. 
+\citep{mellenbergh1989item,kankaras2010testing,kankaras2011measurement}, where some restriction is imposed on the parameters for identification purposes such as ``effect coding'', $\sum_k \tau_{jk} = \sum_k \lambda_{jk} =\sum_k \delta_{jk} = 0$, or dummy coding, $\tau_{j1} = \lambda_{j1} = \delta_{j1} = 0$. 
+It can be seen in Equation \ref{eq:logistic-dif} that setting $\delta_{jk} = 0$ corresponds to measurement invariance\footnote{An interaction term $\mathbf{x}\xi$ could be added to Equation \ref{eq:logistic-dif} but has been omitted for clarity.}. This means that it is possible to estimate a model in which $\delta_{jk} \neq 0$ for \emph{some} indicators, while $\delta_{jk}$ is kept at zero, i.e. partially measurement invariant, for others. 
 Figure \ref{fig:LVM} shows this possible direct effect from covariate to indicator as a dashed arrow. 
 
 \subsection{Existing solutions}
@@ -334,9 +337,8 @@ In this section we investigated measurement invariance assumptions in the well-k
 
 
 
-\section{Second example application: ranking values in the WVS}
+\section{More complex example: ranking values in the WVS}
 
-\subsection{Background and Data}
 
 \begin{table}
 \label{sec:data}
@@ -370,28 +372,15 @@ The wording is ``People sometimes talk about what the aims of this country shoul
 \end{table}
 
 
-Our second, more complex example application employs the 2010--2012 World Values Survey\footnote{\url{http://www.worldvaluessurvey.org/}} (WVS) comprising $n = 67,568$ respondents in 48 different countries (Appendix \ref{sec:countries-included} provides a full list of countries).
-The WVS questionnaire includes \citet{inglehart1977silent}'s extended (post)materialism questions, developed to measure political values priorities. This extended version includes three sets of four priorities (Table \ref{tab:ranking-question}). Of these, set B in Table \ref{tab:ranking-question} is known as the ``short scale'' that is commonly used in research on values priorities.  
+Our second, more complex, example application employs the 2010--2012 World Values Survey\footnote{\url{http://www.worldvaluessurvey.org/}} (WVS) comprising $n = 67,568$ respondents in 48 different countries (Appendix \ref{sec:countries-included} provides a full list of countries).
+The WVS questionnaire includes \citet{inglehart1977silent}'s extended (post)materialism questions, developed to measure political values priorities. This extended version includes three sets of four priorities (Table \ref{tab:ranking-question}) to be ranked by the respondents. Of these, set B in Table \ref{tab:ranking-question} is known as the ``short scale'' that is commonly used in research on values priorities.  
 
-(Post)materialism theory is based on the ``dual-hypotheses model'' \citep[p. 881]{inglehart1981post}. The first hypothesis holds that an individual's priority set reflects the socio-economic environment because one attaches relatively more importance to scarce objects. In line with this scarcity hypothesis, \citet{inglehart1997modernization} and \citet{inglehart2010changing} argued that socio-economic development indicators per country such as GDP per capita will correlate strongly with aggregated values scores. 
-
-The second, ``socialization'', hypothesis stresses the importance of experiences in the ``formative'' years. By a process of social metabolism, society gradually changes from  materialist to postmaterialist.
-In line with the socialization hypothesis, associations of aggregated values priorities with socio-cultural variations across countries such as religious heritage and gender equality have been predicted and found by \citet{inglehart2002gender}. 
-
-In short, substantive interest in this literature focuses on the associations between (post)materialism and both socio-economic and socio-cultural country-level aggregates. 
-We will follow these authors and examine the aggregate relationship of values priorities with log-GDP per capita and the percentage of women in parliament. 
-These country-level variables were obtained from the World Bank database\footnote{\url{http://data.worldbank.org/}} using the \texttt{WDI} package \citep{arel2013WDI} in \texttt{R 3.0.2} \citep{Rlanguage}.
+Based on the ``dual hypothesis model'' \citep[p. 881]{inglehart1981post}, previous authors have suggested a structural relationship of interest between, on the one hand, (post)materialism, and socio-economic \citep{inglehart2010changing} as well as socio-cultural \citep{inglehart2002gender} variables, on the other.
+We will follow these authors and examine the aggregate relationship of values priorities with log-GDP per capita and the percentage of women in parliament\footnote{These country-level variables were obtained from the World Bank database\footnote{\url{http://data.worldbank.org/}} using the \texttt{WDI} package \citep{arel2013WDI} in \texttt{R 3.0.2} \citep{Rlanguage}.
+}. 
 
 
-
-
-\subsection{Model}
-\label{sec:model}
-
-
-To examine differences in (post)materialism with respect to GDP per capita and the proportion of women in parliament, we develop a latent variable model for ranking data. The advantages of this approach are that there is no need to establish a priori rules for combining the three ranking tasks into a measure of ``(post)materialism''; that it does not presuppose a fixed number of ``(post)materialism'' classes; that it allows for measurement error in ``(post)materialism''; and that it allows for an examination of the impact of violations of measurement invariance on the conclusions of interest. 
-
-In each of the $C$ countries we observe $\{n_1,\ldots, n_C\}$ respondents. Each respondent $i$ has ranked their first and second choice on three ranking tasks A, B, and C (see Table \ref{tab:ranking-question}); that is, only first choice and second choice are known. We assume that each object (e.g. value priority) has a particular ``utility'' and that the probability of choosing an object for each rank is proportional to that utility \citep[p. 171]{luce1959individual,bockenholt2002comparison}. Following \citet{croon1989latent} and \citet[p. 172]{bockenholt2002comparison}, we then model the probability of these rankings conditionally on unit $i$'s membership of latent class variable $X$, so that object utilities can differ over respondents in different classes. This latent class variable $X$ in our case will represent ``(post)materialism''. For example, for ranking task $A$ in country $c$, respondent $i$'s  choices for first and second place are modeled as
+Each respondent $i$ in the 48 countries has ranked only their first and second choice on three ranking tasks A, B, and C (see Table \ref{tab:ranking-question}). We assume that each object (e.g. value priority) has a particular ``utility'' and that the probability of choosing an object for each rank is proportional to that utility \citep[p. 171]{luce1959individual,bockenholt2002comparison}. Following \citet{croon1989latent} and \citet[p. 172]{bockenholt2002comparison}, we then model the probability of these rankings conditionally on unit $i$'s membership of latent class variable $X$, so that object utilities can differ over respondents in different classes. This latent class variable $X$ in our case will represent ``(post)materialism''. For example, for ranking task $A$ in country $c$, respondent $i$'s  choices for first and second place are modeled as
  \begin{equation}
 	P(A_{1ic} = a_1, A_{2ic} = a_2 | X_{ic} = x) = 
 		\frac{\omega_{a_1 x}}{\sum_{k} \omega_{k x}}
@@ -407,35 +396,8 @@ To facilitate model interpretation, it is convenient to separate the class-speci
 \begin{equation}
 	\ln \omega_{k x} = \tau_{k} + \lambda_{k x}.\label{eq:loglin-measurement}
 \end{equation}
-For identification, we use the ``effects coding'' \citep{vermunt2013technical} sum-to-zero restrictions $\sum_k \tau_{k} = \sum_{k} \lambda_{kx} = \sum_{x} \lambda_{kx} = 0$. The attribute parameters $\lambda_{k x}$ can then be interpreted as the deviation from option $k$'s average log-utility in latent class $x$. % $9 (T - 1)$ 
-
-Primary interest focuses on how the probabilities of belonging to these latent (post)materialism classes differ as a function of the country-level covariates log-GDP per capita ($Z_1$) and percentage of women in parliament ($Z_2$).  At the same time, it has become common practice to control for dependencies between units in the same country using a multilevel approach. We therefore model the probability that unit $i$ in country $c$ belongs to latent class $x$ using the multilevel multinomial logistic regression
-\begin{equation}
-P(X_{ic} = x| Z_{1ic} = z_{1ic}, Z_{2ic} = z_2, G_c = g) = \frac{\exp(\alpha_x + \gamma_{1x} z_1 +\gamma_{2x} z_2  + \beta_{gx})}
-					{\sum_t \exp(\alpha_t + \gamma_{1t} z_1 +  \gamma_{2t} z_2 +  + \beta_{tg})},
-					\label{eq:regression}
-\end{equation}
-where the country-level random effect variable $G$ has been introduced. The random effects $\beta_{tx}$ in Equation \ref{eq:regression} could be assumed to have a Gaussian (normal) distribution, leading to a standard multilevel model. However,  in the past very differing classes of countries have been observed \citep{vermunt2003multilevel}, 
-so that the normality assumption is rather implausible. Since an incorrect parametric specification of the distribution of $G$ can bias the results \citep[e.g.][p. 275]{heckman1984method}, we instead take $G$ to be a country-level latent class variable with $S$ classes and a freely estimated (nonparametric) distribution. Overall, then, our model can be seen as a multilevel multinomial regression of (post)materialism on country-level covariates, in which the nominal dependent variable is latent (corrected for misclassification), and the random effects distribution is nonparametric rather than Gaussian.  
-The main parameters of substantive interest in Equation \ref{eq:regression} are therefore the multinomial logistic regression coefficients $\gamma_{mx}$. 
-
-Combining the three ranking tasks, each modeled according to Equation \ref{eq:ranking}, with the multilevel latent class regression model in Equation \ref{eq:regression} leads to the full data likelihood
-\begin{multline}
-L(\param) = 
-	P(A_1, A_2, 
-		B_1, B_2, 
-		C_1, C_2 | Z_1, Z_2) = \\
-	\prod_{c = 1}^{C}
-	\sum_{G} P(G_c)	
-	\prod_{i = 1}^{n_c}
-	\sum_{X} P(X_{ic} | Z_{1ic}, Z_{2ic}, G_c) \times\\
-				P(A_{1ic}, A_{2ic} | X_{ic})
-				P(B_{1ic}, B_{2ic} | X_{ic}) 
-				P(C_{1ic}, C_{2ic} | X_{ic}),
-				\label{eq:lik}
-\end{multline}
-where the realizations of variables have been dropped for clarity, and $\param$ is a vector collecting the free parameters of the model\footnote{There are $ T (11 + S) -3$ free parameters overall.}. 
-To obtain the likelihood in Equation \ref{eq:lik},  $G$ is assumed to fully account for the dependency between units within countries, and $X$ fully accounts for the dependency between units within a country, i.e.  units are i.i.d. given $X$, and country likelihoods are independent given $G$. 
+For identification, we use  ``effects coding'' sum-to-zero restrictions $\sum_k \tau_{k} = \sum_{k} \lambda_{kx} = \sum_{x} \lambda_{kx} = 0$. The attribute parameters $\lambda_{k x}$ can then be interpreted as the deviation from option $k$'s average log-utility in latent class $x$. The measurement model for (post)materialism is shown in the bottom part of Figure \ref{fig:model}, using gray arrows to indicate that the choice for second place is modeled conditionally upon that for first place.
+% $9 (T - 1)$ 
 
 
 \begin{figure}\centering
@@ -446,45 +408,32 @@ To obtain the likelihood in Equation \ref{eq:lik},  $G$ is assumed to fully acco
 \end{figure}
 
 
-Figure \ref{fig:model} shows a graphical representation of the model in Equation \ref{eq:lik}. 
-The parameters of primary substantive interest are the effect-coded logistic regression coefficients for the effect of GDP per capita and percentage of women in parliament on the latent postmaterialism class (the stronger line labeled $\gamma$ in Figure \ref{fig:model}). 
-The top part of the model in Figure \ref{fig:model} is a multilevel latent class regression. The gray arrows between indicators within the same set are meant to show that a fixed conditional relationship is specified between the first and second choice within each set (Equation \ref{eq:ranking}). 
-
-Equation \ref{eq:lik} is, in fact, a ``full measurement invariance'' model: the measurement of (post)materialism by the three ranking tasks is  not allowed to differ over countries. 
-This excludes potential violations of ``scalar''  and ``metric'' measurement invariance, which can be conceptualized as, respectively, a direct main effect and a direct interaction effect of the grouping variable 
-\citep{mellenbergh1989item,kankaras2010testing,kankaras2011measurement}. Since we do not employ multiple groups (fixed effects) to deal with country effects, but a latent class multilevel (random effects) approach, instead of considering main and interaction effects from the countries directly, we consider these for the country random effects ($G$)  \citep[see][]{dejong2007relaxing,fox2011random,verhagen2013bayesian,jak2013test,jak2014measurement}.
+As shown in Section \ref{sec:invariance}, Equation \ref{eq:loglin-measurement} is a full measurement invariance model: it excludes potential  direct main effects and direct interaction effects of the grouping variable. Instead of considering main and interaction effects from the countries directly, we consider these for the country random effects ($G$)  \citep[see][]{dejong2007relaxing,fox2011random,verhagen2013bayesian,jak2013test,jak2014measurement}.
 Thus, measurement invariance violations could be parameterized by extending Equation  \ref{eq:loglin-measurement} to include country group class ($g$) effects:
 \begin{equation}
 	\ln \omega_{k x g} = \tau_{k} + \lambda_{k x} + 
 		\tau^{*}_{k g} + \lambda^{*}_{k x g}.
 			\label{eq:loglin-measurement-noninvariant}
 \end{equation}
-The base invariance model above can then be seen as fixing the intercept deviations $\tau^{*}_{k g}$  and slope deviations $\lambda^{*}_{k x g}$ to 0.  An example of this parameterization of measurement non-invariance for 
-the second ranking of Set C ($C_2$) is shown in Figure \ref{fig:model} as the dotted main effect and interaction effects for scalar and metric invariance, respectively. 
+The base invariance model above can then be seen as fixing the intercept deviations $\tau^{*}_{k g}$  and slope deviations $\lambda^{*}_{k x g}$ to 0.  An example of this parameterization of measurement non-invariance for the second ranking of Set C ($C_2$) is shown in Figure \ref{fig:model} as the dotted main effect and interaction effects for scalar and metric invariance, respectively. 
 
-With three sets of three non-redundant priorities each, there are $9 (S - 1) T$ possible additional $\tau^{*}_{k g}$ and $\lambda^{*}_{k x g}$ parameters representing misspecification in the full invariance model specified above. For example, with $S=3, T=3$, there will be $54$ possible violations of invariance. 
-This is clearly a very large number of potential violations of measurement invariance, with an astronomical ($\approx 1.8 \times 10^{16}$) number of possible subsets of non-invariant models, making the fitting of each of these possible submodels infeasible. The EPC-interest, which considers the possible effect of freeing each of the restrictions separately, is therefore an attractive alternative. 
-
-However, there are strong dependencies between the additional parameter estimates. First, estimates of parameters corresponding to  different categories of the same variable will necessarily be strongly dependent. Second, parameters corresponding to the same ranking set (A, B, or C) will be highly dependent due to the necessary dependence between the first and second choice in a ranking task. Therefore, instead of considering only one possible misspecification at a time, we consider freeing sets of restrictions corresponding to all main effects and all interaction effects of each set. The advantages are that the estimated change in the parameters of interest will be closer to the observed change when freeing these restrictions, and that a model space to be explored of order $10^{16}$ is reduced to the examination of the effect of six sets of misspecifications on $2 (T-1)$  parameters of interest, $\gamma_{jx}$.
-
-\bigskip
-In summary, we have attacked the problem of examining the differences in (post)-materialism over 48 countries with different levels of GDP per capita and percentage of women in parliament by formulating a multilevel latent class model for ranking data. Measurement invariance is important here because direct main and interaction effects from country groups on the ranking tasks could threaten the comparison of countries with different levels of the covariates. Therefore it becomes relevant to examine the impact of these possible violations of measurement invariance on the parameters of substantive interest. The following section will introduce a method for doing so without the need to fit the alternative models. 
+%With three sets of three non-redundant priorities each, there are $9 (S - 1) T$ possible additional $\tau^{*}_{k g}$ and $\lambda^{*}_{k x g}$ parameters representing misspecification in the full invariance model specified above. For example, with $S=3, T=3$, there will be $54$ possible violations of invariance. This is clearly a very large number of potential violations of measurement invariance, with an astronomical ($\approx 1.8 \times 10^{16}$) number of possible subsets of non-invariant models, making the fitting of each of these possible submodels infeasible. The EPC-interest, which considers the possible effect of freeing each of the restrictions separately, is therefore an attractive alternative. 
 
 
-\subsection{Results}
-\label{sec:results}
+In this model, primary interest focuses on how the probabilities of belonging to the latent (post)materialism classes differ as a function of the country-level covariates log-GDP per capita ($Z_1$) and percentage of women in parliament ($Z_2$).  At the same time, it has become common practice to control for dependencies between units in the same country using a multilevel approach. We therefore model the probability that unit $i$ in country $c$ belongs to latent class $x$ using the multilevel multinomial logistic regression
+\begin{equation}
+P(X_{ic} = x| Z_{1ic} = z_{1ic}, Z_{2ic} = z_2, G_c = g) = \frac{\exp(\alpha_x + \gamma_{1x} z_1 +\gamma_{2x} z_2  + \beta_{gx})}
+					{\sum_t \exp(\alpha_t + \gamma_{1t} z_1 +  \gamma_{2t} z_2 +  + \beta_{tg})},
+					\label{eq:regression}
+\end{equation}
+where the country-level random effect variable $G$ has been introduced. We take the ``random effects'' variable $G$ to be a country-level latent class variable with $S$ classes and a freely estimated (nonparametric) distribution. Overall, then, our model can be seen as a multilevel multinomial regression of (post)materialism on country-level covariates, in which the nominal dependent variable is latent (corrected for misclassification), and the random effects distribution is nonparametric. The main parameters of substantive interest in Equation \ref{eq:regression} are therefore the multinomial logistic regression coefficients $\gamma_{mx}$. This ``structural'' part of the model is shown in the top part of Figure \ref{fig:model}.
 
 
-We now estimate the multilevel latent class model using 48 countries from the World Values Survey\footnote{\url{http://www.worldvaluessurvey.org}} for  2010--2012. Since our goal is to compare countries with different levels of GDP per capita and proportion of women in parliament, in this study we evaluate the sensitivity of these effect estimates of interest to measurement invariance assumptions using the $\da$.
-
-The model as well as $\da{}$ measures  were implemented by one of the authors in the software Latent Gold Choice version 5.0.0.14157 and higher \citep[pp. 135--136]{vermunt2005lgchoice,vermunt2013technical}. Program input for this analysis can be found in Appendix \ref{sec:LGinput}, while output and data are included in the online Appendix at \url{http://[BLINDED]}.
-
-
-We select three  classes for both the latent ``(post)materialism'' variable and the country group class variable. For BIC values and the rationale behind these choices, please see Appendix \ref{app:bic}. Since class selection is not the focus of this example analysis, we will not discuss it here further. 
+The model as well as $\da{}$ measures  were implemented by one of the authors in the software Latent Gold Choice version 5.0.0.14157 and higher \citep[pp. 135--136]{vermunt2005lgchoice,vermunt2013technical}. Program input for this analysis can be found in Appendix \ref{sec:LGinput}, while output and data are included in the online Appendix at \url{http://[BLINDED]}. We select three  classes for both the latent ``(post)materialism'' variable and the country group class variable. For BIC values and the rationale behind these choices, please see Appendix \ref{app:bic}. Since class selection is not the focus of this example analysis, we will not discuss it here further. 
 
 The full invariance model imposes $\tau^*_{jkg} = 0$ and $\lambda^*_{jkxg} = 0$, i.e. there is no difference in measurement over the group random effect variable. Such violations of measurement invariance are relevant in the present analysis because they could potentially threaten the conclusions of substantive interest, namely the relationships $\gamma$ between (post)materialism on the one hand and GDP per capita and percentage of women in parliament on the other. In this particular analysis, it was thought to be pertinent whether, after freeing some of the measurement invariance restrictions,  one of these regression coefficients of interest could be estimated with a reversed sign. 
 
-We therefore calculated the $\da{}$ for these parameters, of which our three-class model has four: two for each for each of the two independent variables. Measurement invariance violations can potentially take the form of 6 direct main effects ($\tau^{*}_{j k g}$) --$(4-1)$ category effects in $(3-1)$ classes--  and 12 direct interaction effects ($\lambda^{*}_{j k x g}$) for each of the three ranking tasks, totaling 54 possible misspecifications in the full invariance model. However, these misspecifications are strongly correlated and should not be considered separately. Rather, we consider the probable impact on the $\gamma$ parameters of interest of freeing the direct main effects for each ranking task separately and of freeing the  direct interactions for each ranking task separately. In short, rather than consider the direct and interaction effects for each of the 48 countries on each of the 3 unique categories of each of the three ranking tasks, making for $4 \times 3 \times (4 - 1)\times  (48 - 1) \times(1 + (3 - 1)) = 5076$ potential $\da{}$ values, we evaluate direct effects of the country group random effect and consider their impact jointly for strongly correlated misspecifications, reducing the problem to 24 $\da{}$ values of interest.
+We therefore calculated the $\da{}$ for these parameters, of which our three-class model has four: two  for each of the two independent variables. Measurement invariance violations can potentially take the form of 6 direct main effects ($\tau^{*}_{j k g}$) --$(4-1)$ category effects in $(3-1)$ classes--  and 12 direct interaction effects ($\lambda^{*}_{j k x g}$) for each of the three ranking tasks, totaling 54 possible misspecifications in the full invariance model. However, these misspecifications are strongly correlated and should not be considered separately. Rather, we consider the probable impact on the $\gamma$ parameters of interest of freeing the direct main effects for each ranking task separately and of freeing the  direct interactions for each ranking task separately. In short, rather than consider the direct and interaction effects for each of the 48 countries on each of the 3 unique categories of each of the three ranking tasks, making for $4 \times 3 \times (4 - 1)\times  (48 - 1) \times(1 + (3 - 1)) = 5076$ potential $\da{}$ values, we evaluate direct effects of the country group random effect and consider their impact jointly for strongly correlated misspecifications, reducing the problem to 24 $\da{}$ values of interest.
 
 
 \begin{table}
@@ -509,7 +458,7 @@ Class	2&	Women&	-0.037&	(0.001)&	&	0.007&	-0.003&	0.002&&	-0.006&	-0.013&	0.002\
 
 Table \ref{tab:epc-interest-model1} shows these 34 $\da{}$ values calculated from the full invariance model. These $\da{}$ values estimate the likely change from the maximum likelihood estimates (column 3 in Table \ref{tab:epc-interest-model1}) in the four parameters of substantive interest after freeing the direct main or interaction effects for each of the three ranking tasks (columns 5--10 in  Table \ref{tab:epc-interest-model1}). In the full invariance model, Class 1 corresponds to a ``postmaterialism'' class. The estimate -0.035 (s.e. 0.007) shown in Table \ref{tab:epc-interest-model1}) would therefore suggest that more prosperous nations tend to be less postmaterialist. This directly contradicts the theory of \citet{inglehart1997modernization}, which suggests that this coefficient should be positive. 
 
-Since the theory specifies only that certain coefficients should be positive or negative, the key focus of substantive interest should be whether misspecifications in the invariance model can potentially change the sign of a parameter of interest. In Table \ref{tab:epc-interest-model1}, we therefore look for $\da{}$ values that, when added to the estimates in column 3, would change the sign of those estimates. It can be seen in the Table that two such $\da{}$ are indeed present, namely the direct interaction effect of the country group class with the postmaterialism class on ranking tasks 1 and 2. The analogous finding \citep{kankaras2011measurement} if CFA had been used would be that of ``metric equivalence'' for ranking task 3 but not ranking tasks 1 and 2.  This means that the attribute parameters that define the classes for these two tasks differ over country groups, and that after accounting for these differences the effect of GDP on postmaterialism is estimated to be positive rather than negative. This set of misspecifications is thus of substantive interest and should be amended in the model. 
+Since the theory specifies only that certain coefficients should be positive or negative, the key focus of substantive interest is whether misspecifications in the invariance model can potentially change the sign of a parameter of interest. In Table \ref{tab:epc-interest-model1}, we therefore look for $\da{}$ values that, when added to the estimates in column 3, would change the sign of those estimates. It can be seen in the Table that two such $\da{}$ are indeed present, namely the direct interaction effect of the country group class with the postmaterialism class on ranking tasks 1 and 2.  This means that the attribute parameters that define the classes for these two tasks differ over country groups, and that after accounting for these differences the effect of GDP on postmaterialism is estimated to be positive rather than negative. This set of misspecifications is thus of substantive interest and should be amended in the model. 
 
 We therefore free these two sets of measurement invariance violations, allowing for differences in the parameters of ranking tasks 1 and 2 across country groups. Table \ref{tab:epc-interest-model2} shows the substantive parameter estimates and $\da{}$ interest values for the resulting partial invariance model, which has 63 parameters and a log-likelihood of $-418610.0$ ($\text{BIC} = 837920.5$). The likelihood ratio test of improvement in model fit is highly significant ($\chi^2_{\text{df} = 28} = 24607$). Moreover, the substantive logistic regression coefficient for the effect of GDP on the postmaterialism class (Class 2 in Table \ref{tab:epc-interest-model2}), is indeed positive after freeing the detected misspecifications. Re-calculating $\da{}$ values for the remaining possible misspecifications reveals that none of the possible misspecifications in this partial invariance model has the potential to change the substantive conclusions. In this sense, we therefore conclude that the partial invariance model fits ``approximately'', since none of the substantive conclusions based on it are threatened by measurement invariance violations.
 
@@ -536,68 +485,9 @@ Class 	2&	Women&	0.020&	(0.001)&	&	-0.007&	-0.001&	0.002&	&&	&	0.007\\
 	\end{tabular}
 \end{table}
 
-Table \ref{tab:attribute-parameters} shows the sizes of the three (post)materialism classes (third row) as well as the ``attribute parameters'', i.e. each class's average log-utility. 
-Thus, when reading each row horizontally, the class with the highest log-utility represents respondents who value that object highest. For example, priorities A.1, A.2, B.1, B.3, and C1 have the highest log-utilities in Class 1. Since all of these priorities are ``materialist'' (labeled ``M'' in Table \ref{tab:attribute-parameters}), we also labeled Class 1 ``materialist''. A caveat with this label is that the materialist priorities that are most strongly related to this class also happen to be the first item in each set, so that a primacy effect may play a role here as well.  Class 2 is labeled ``postmaterialist'' because it has the highest log-utilities for all of the postmaterialist priorities (labeled ``P'' in Table \ref{tab:attribute-parameters}), with the exception of A.4. Preferences in the third class appear to be for the most part in-between those of Classes 1 and 2. At the same time, however, this class has the highest log-utilities for A.4 (a ``postmaterialist'' object) and C.4 (a ``materialist'' object). For this reason we apply the label ``mixed'' to Class 3.
+[]
 
-\begin{table}\centering
-	\caption{\label{tab:attribute-parameters} Estimated log-utilities under the 
-		final model. In each row, the highest log-utility has been printed in \textbf{bold face} to facilitate interpretation of the classes.}
-	\begin{tabular}{lllrrr}
-	\hline
-			&&&	Class 1	&	Class 2	&	Class 3\\
-			&&Class label& ``Materialist'' & ``Postmater.'' & ``Mixed''\\
-&& Class size & 0.569 & 0.213 & 0.218\\
-&& (s.e.)				& (0.0114)	&	(0.0179)	&	(0.0280)\\
-				\hline
-\multicolumn{3}{l}{Set A}\\
-& M & 1. Economic growth	&	\textbf{2.1102}	&	0.4837	&	0.4156\\
-& M & 2. Strong defense	&	\textbf{-0.5285}	&	-1.4984	&	-0.9249\\
-& P & 3. More say	&	-0.5519	&	\textbf{1.4683}	&	0.4643\\
-& P & 4. More beauty	&	-1.0298	&	-0.4536	&	\textbf{0.0449}\\
-\multicolumn{3}{l}{Set B}\\
-& M & 1. Order in the nation	&	\textbf{1.0016}	&	-0.5898	&	0.0435\\
-& P & 2. More say	&	-0.4592	&	\textbf{0.6902}	&	-0.2763\\
-& M & 3. Rising prices	&	\textbf{0.4281}	&	-0.2269	&	0.3719\\
-& P & 4. Freedom of speech	&	-0.9705	&	\textbf{0.1266}	&	-0.1390\\
-\multicolumn{3}{l}{Set C}\\
-& M & 1. Stable economy	&	\textbf{2.0086}	&	0.0789	&	0.1715\\
-& P & 2. Humane society	&	-0.7919	&	\textbf{0.4450}	&	-0.0943\\
-& P & 3. Ideas	&	-1.1402	&	\textbf{-0.0593}	&	-0.4550\\
-& M & 4. Fight crime	&	-0.0765	&	-0.4646	&	\textbf{0.3778}\\
-	\hline
-	\end{tabular}
-\end{table}
-
-This combination of classes corresponds to the labels and groups created  by \citet{inglehart1997modernization}. However, a key difference with the predefined groups of  \citet{inglehart1997modernization}  and the latent classes in the current model is that the latent classes here arise purely from the model and the response patterns observed in the data, rather than being imposed a priori. Crucially also, our model allows for measurement error in the ranking tasks. 
-
-\if 1=2
-\begin{figure}
-	\includegraphics[width=\textwidth]{figures/maps.pdf}
-	
-	\caption{\label{fig:maps}}
-\end{figure}
-
-\begin{figure}
-	\includegraphics[width=\textwidth]{figures/gdp-posterior.pdf}
-	
-	\includegraphics[width=\textwidth]{figures/women-posterior.pdf}
-
-	\caption{\label{fig:posterior}}
-\end{figure}
-\fi
-
-
-\begin{figure}
-	\includegraphics[width=\textwidth]{figures/covariates.pdf}
-	\caption{\label{fig:covariates}Estimated probability of choosing each class as a function of the covariates of interest under the final model.}
-\end{figure}
-
-Finally, Figure \ref{fig:covariates} summarizes the loglinear parameter estimates of interest shown column 3 of Table \ref{tab:epc-interest-model2}. These graphs plot the covariate level on the horizontal axes and the probability of belonging to each of the classes defined in Table \ref{tab:attribute-parameters} on the vertical axes. The left-hand plot in Figure \ref{fig:covariates} shows the estimated marginal relationship between the percentage of women in parliament and the (post)materialism classes. It can be seen that the probability of the ``post materialist'' class is much larger for countries with a large percentage of women in parliament than it is for countries for fewer female parliamentarians: the predicted probability of belonging to the postmaterialist class for countries with the observed maximum percentage of women in parliament is 0.30, which is 7 percentage points above the average ``postmaterialist'' class membership of 0.23 (shown in Table \ref{tab:attribute-parameters}). The probability of belonging to the purely economical ``materialist'' class also increases very slightly, to the overall detriment of membership of the ``mixed'' class in which ``order in the nation'' and ``fighting crime'' is sometimes endorsed. 
-
-The right-hand side of Figure \ref{fig:covariates} plots the estimated effect of log-GDP per capita on the three class membership probabilities. A similar pattern to that for percentage of women in parliament is observed for the ``postmaterialist'' and ``mixed'' classes, while the probability of belonging to the ``materialist'' class decreases somewhat with GDP per capita. The differences in predicted class membership are even larger over the observed GDP range than for the percentage of women in parliament: the predicted postmaterialist class membership at the maximum observed GDP is 0.40, which is 17 percentage points above the average. Greater prosperity is thus clearly strongly associated with postmaterialism. Crucially, the application of $\da{}$ leads to greater confidence that this conclusion is not an artefact of differences in measurement.
-
-
-
+\pagebreak
 
 \section{Discussion and conclusion}
 \label{sec:discussion}
@@ -763,6 +653,44 @@ In choosing the number of classes for the (post)materialism (within-country) and
 In the literature on (post)materialism \citep[e.g.][]{inglehart1997modernization,inglehart2002gender,inglehart2010changing}, the number of (post)materialism classes is typically fixed to three: ``postmaterialist'', ``materialist'', and ``mixed''. Clearly, using the WVS ranking tasks and imposing full invariance, many more qualitative (post)materialism classes can be distinguished than the traditional three classes. This corresponds to findings by \citet{moors2007heterogeneity}; however, these authors \citep[following][]{hagenaars1990categorical} also argued that ``one can safely interpret the results (...) if adding another class does not result in important changes of the latent class weights for the other classes'' (p. 637). While this is a somewhat subjective criterion, the three-class solution found in the data does correspond to  the theoretical ``postmaterialist'', ``materialist'', and ``mixed'' classes, whose  parameters appear to change little in the models with a greater number of classes. Moreover, the greatest reduction in BIC seen in Table \ref{tab:loglikelihood-models} takes place when moving from a one-class to a two-class model, with relatively small improvements after three or more classes. We therefore follow the theoretical literature in selecting the three-class model.
 
 While selecting the number of country-group classes, we find that the BIC improves little after three classes (right-hand side of Table \ref{tab:loglikelihood-models}), so that our initial full invariance model has three (post)materialism (within-country) and three country group (between-country) classes. 
+
+
+\section{WVS ranking data model estimates}
+
+
+
+Table \ref{tab:attribute-parameters} shows the sizes of the three (post)materialism classes (third row) as well as the ``attribute parameters'', i.e. each class's average log-utility. 
+Thus, when reading each row horizontally, the class with the highest log-utility represents respondents who value that object highest. For example, priorities A.1, A.2, B.1, B.3, and C1 have the highest log-utilities in Class 1. Since all of these priorities are ``materialist'' (labeled ``M'' in Table \ref{tab:attribute-parameters}), we also labeled Class 1 ``materialist''. A caveat with this label is that the materialist priorities that are most strongly related to this class also happen to be the first item in each set, so that a primacy effect may play a role here as well.  Class 2 is labeled ``postmaterialist'' because it has the highest log-utilities for all of the postmaterialist priorities (labeled ``P'' in Table \ref{tab:attribute-parameters}), with the exception of A.4. Preferences in the third class appear to be for the most part in-between those of Classes 1 and 2. At the same time, however, this class has the highest log-utilities for A.4 (a ``postmaterialist'' object) and C.4 (a ``materialist'' object). For this reason we apply the label ``mixed'' to Class 3.
+
+\begin{table}\centering
+	\caption{\label{tab:attribute-parameters} Estimated log-utilities under the 
+		final model. In each row, the highest log-utility has been printed in \textbf{bold face} to facilitate interpretation of the classes.}
+	\begin{tabular}{lllrrr}
+	\hline
+			&&&	Class 1	&	Class 2	&	Class 3\\
+			&&Class label& ``Materialist'' & ``Postmater.'' & ``Mixed''\\
+&& Class size & 0.569 & 0.213 & 0.218\\
+&& (s.e.)				& (0.0114)	&	(0.0179)	&	(0.0280)\\
+				\hline
+\multicolumn{3}{l}{Set A}\\
+& M & 1. Economic growth	&	\textbf{2.1102}	&	0.4837	&	0.4156\\
+& M & 2. Strong defense	&	\textbf{-0.5285}	&	-1.4984	&	-0.9249\\
+& P & 3. More say	&	-0.5519	&	\textbf{1.4683}	&	0.4643\\
+& P & 4. More beauty	&	-1.0298	&	-0.4536	&	\textbf{0.0449}\\
+\multicolumn{3}{l}{Set B}\\
+& M & 1. Order in the nation	&	\textbf{1.0016}	&	-0.5898	&	0.0435\\
+& P & 2. More say	&	-0.4592	&	\textbf{0.6902}	&	-0.2763\\
+& M & 3. Rising prices	&	\textbf{0.4281}	&	-0.2269	&	0.3719\\
+& P & 4. Freedom of speech	&	-0.9705	&	\textbf{0.1266}	&	-0.1390\\
+\multicolumn{3}{l}{Set C}\\
+& M & 1. Stable economy	&	\textbf{2.0086}	&	0.0789	&	0.1715\\
+& P & 2. Humane society	&	-0.7919	&	\textbf{0.4450}	&	-0.0943\\
+& P & 3. Ideas	&	-1.1402	&	\textbf{-0.0593}	&	-0.4550\\
+& M & 4. Fight crime	&	-0.0765	&	-0.4646	&	\textbf{0.3778}\\
+	\hline
+	\end{tabular}
+\end{table}
+
 
 
 
