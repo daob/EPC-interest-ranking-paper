@@ -20,7 +20,7 @@
 \newcommand{\pkg}{\texttt}
 
 
-\title{Ensuring the cross-group comparability of latent variable models for ranking data with the $\da$}
+\title{Evaluating measurement invariance in categorical data latent variable models with the  $\da$}
 
 \author{--BLINDED VERSION--}
 \date{}
@@ -76,6 +76,9 @@ Program inputs and data for the examples discussed in this article are provided 
 \section{Introduction}
 
 \noindent
+
+[TODO]
+
 
 %Examples of latent variable models with categorical data in social science: the ideological positions of US senators, ..., and people's (post)materialism.
 
@@ -265,7 +268,7 @@ where the utility $u_{ij}$ of the motion to that senator is simply the Euclidean
 \begin{equation}
 	u_{ij} = (x_{i} - \tau_{j})^2.
 \end{equation}
-The latent variable $x_i$ is known in the literature as an ``ideal point''. This model is equivalent to the well-known unidimensional \citet{poole1985spatial} (W-NOMINATE) model.%, and can be estimated in specialized software \citep[e.g.][]{poole2008scaling} or by software capable of  factor analysis with quadratic factors \citep{maraun2001extra}. 
+This model is equivalent to the well-known unidimensional \citet{poole1985spatial} (W-NOMINATE) model. The latent variable $x_i$ is known  as an ``ideal point''. 
 
 The Poole-Rosenthal model can be extended to incorporate covariates that predict the latent variable $x_i$, for example using the party of the senator as a predictor: 
 \begin{equation}
@@ -279,11 +282,7 @@ The usual choice $\epsilon_i \sim \text{Normal}(0, \sigma^2)$  leads to a quadra
 	P(x_i = k | \text{Party}) = \frac{\exp(\alpha_k + \gamma \cdot x^{(k)} \cdot \text{Party})}
 		{\sum^{K}_{m=1} \exp(\alpha_m + \gamma \cdot x^{(m)} \cdot \text{Party})},
 \end{equation}
-where $x^{(k)}$ is a latent score assigned to the $k$-th category of $x$. For this arbitrary choice of latent scale, we choose $x^{(k)}$ to go from 0 to 1 in equally spaced intervals \citep[following][]{vermunt2013technical}. The latent category intercepts $\alpha_k$ allow the distribution of the latent dimension to be freely estimated rather than assumed Normal. This leads to the ``latent class factor model'' \citep{vermunt_factor_2004}, for which the Likelihood is 
-\begin{equation}
-	P(\text{Voting pattern of senator } i) = \sum^{K}_{m=1} P(x_i = m) 
-	\prod^{J}_{j=1} P(\text{Senator's vote on motion } j| x_i).
-\end{equation}
+where $x^{(k)}$ is a latent score assigned to the $k$-th category of $x$. For this arbitrary choice of latent scale, we choose $x^{(k)}$ to go from 0 to 1 in equally spaced intervals \citep[following][]{vermunt2013technical}. The latent category intercepts $\alpha_k$ allow the distribution of the latent dimension to be freely estimated rather than assumed Normal. This leads to the ``latent class factor model'' \citep{vermunt_factor_2004}.
 
 
 %In familiar techniques such as W-NOMINATE or Optimal Classification Roll Call Scaling \citep{Poole:2005aa}, investigating the relationship of the latent dimension $x_i$ with external variables is often accomplished by first estimating the ideal point estimates $\hat{x}_i$ and then correlating or plotting these values with the covariate. The current formulation 	\label{eq:party-dimension} attains the same goal in one step, with the possible advantage that measurement error in the ideal point estimates is accounted for in the estimation of the polarization coefficient of interest $\gamma$.
@@ -302,7 +301,7 @@ However, violations of measurement invariance could conceivably bias this conclu
 The horizontal axis shows the $p$-value for the null hypothesis that the corresponding $\delta_j = 0$, adjusted for false discovery rate \citep{benjamini1995controlling}. The idea behind plotting both of these quantities at the same time is that the researcher will likely be interested in violations of measurement invariance that are both statistically and substantively significant \citep{saris2009testing}.
 
 \begin{figure}\centering
-\includegraphics[width=.9\textwidth]{../outputs/EPC-interest.pdf}
+\includegraphics[width=.8\textwidth]{../outputs/EPC-interest.pdf}
 \caption{The effect of twenty measurement invariance assumptions on the polarization parameter of interest $\gamma$, plotted against the p-values for each violation.}
 \label{fig:epc-interest}
 \end{figure}
@@ -321,7 +320,7 @@ After adjusting for this event, the polarization coefficient is estimated at 3.4
 The top part of Figure \ref{fig:ideal-points} shows the ideal point estimates under the full invariance model. These estimates range from zero to one; since Democrats, shown as black dots, are predominantly on the lower side of the scale, zero has been labeled ``Democrat'' and the score 1 has been labeled ``Republican'', since most Republicans (red circles) can be found here. To make the points more visible, they have been jittered randomly in the vertical direction. The bottom part of Figure \ref{fig:ideal-points} shows the ideal point estimates for the same senators, but this time while accounting for the partial violation of measurement invariance $\delta_{20}\neq0$. It can be seen that Republicans  are more spread out into the ``Democratic'' side of the scale. Especially the three Republican senators with a score below 0.2 experience a rather large shift in position. On the whole, therefore, the differences between the two distributions are modest, but the differences for individual senators' ideal point estimates can be quite substantial.
 
 \bigskip
-In this section we investigated measurement invariance assumptions in the well-known ``ideal point'' model for example binary roll call data. The  example  demonstrated that even when the model appears to fit the data well initially, it is still possible for violations of measurement invariance to bias the conclusions. The EPC-interest for categorical data was used here as a tool to detect such bias. After accounting for one violation of measurement invariance, the final model differed somewhat from the original conclusions: the estimated amount of polarization in the 90th Senate was lower and several Republican senators' estimated ideological positions were considerably more liberal. 
+In this section we investigated measurement invariance assumptions in the well-known ``ideal point'' model for  binary roll call data. The  example  demonstrated that even when the model fits the data well initially, it is still possible for violations of measurement invariance to bias the conclusions. The EPC-interest for categorical data was used here as a tool to detect such bias. After accounting for one violation of measurement invariance, the final model differed somewhat from the original conclusions: the estimated amount of polarization in the 90th Senate was lower and several Republican senators' estimated ideological positions were considerably more liberal. 
 
 
 
@@ -473,12 +472,14 @@ Class 	2&	Women&	0.020&	(0.001)&	&	-0.007&	-0.001&	0.002&	&&	&	0.007\\
 	\end{tabular}
 \end{small}\end{table}
 
-[]
+[TODO]
 
 \pagebreak
 
 \section{Discussion and conclusion}
 \label{sec:discussion}
+
+[TODO]
 
 Whenever groups are compared, measurement equivalence is a concern. Particularly, it should be verified that substantive conclusions of interest are uncontaminated by possible cross-group differences in measurement. The $\da$, a measure introduced by \citet{Oberski:WP:EPC-interest} for this purpose in the context of linear structural equation models, was extended in this paper to apply to categorical observed and latent variables as well as rankings and other types of data often encountered in the social sciences. An example application looked at the relationship between latent (post)materialism on the one hand and, on the other, log-GDP per capita and the percentage of women in parliament using data from  67,568 respondents in 48 countries. 
 %The $\da{}$ is a useful guide for this purpose, reducing a potentially 5076-dimensional problem to 12 $\da{}$ values (Tables \ref{tab:epc-interest-model1} and \ref{tab:epc-interest-model2}). 
@@ -709,26 +710,4 @@ A similar device was used to derive the so-called ``modification index'' or ``sc
 Equation \ref{eq:epc-interest}  follows directly by noting that $( \partial L(\param, \bpsi) / \partial \param ) |_{\param=\that} = \vm{0}$ and applying the standard linear algebra result on the inverse of a partitioned matrix $\left(\hat{\vm{H}}^{-1}\right)_{\param\bpsi} = 	- \hat{\vm{H}}^{-1}_{\param\param} \hat{\vm{H}}_{\param\bpsi}\vm{D}^{-1}$ \citep[e.g.][p. 12]{magnus2007matrix}.
 
 
-
-\if 1=2
-\section{Derivatives for the  multilevel latent class model}
-\label{app:derivatives}
-\doublespacing
-For the application involving categorical latent and observed variables, $\bpsi$  corresponds to the direct effects $\tau^*_{jkg}$ and $\lambda^*_{jkxg}$ in Equation \ref{eq:loglin-measurement-noninvariant} (see also Figure \ref{fig:model}). The Jacobian of the individual likelihood with respect to the $\tau^*_{jkg}$ parameters is 
-\begin{equation}
-	\frac{\partial L_i(\param) }{\partial \tau^*_{jkg}} = 
-		L_i(\param) \sum_G \left[ P(G|) \sum_X P(X|Z_1, Z_2) ( Y_{jk}G_g - E[ Y_{jk}G_g | X]) \right],
-		\label{eq:derivative-main}
-\end{equation}
-Similarly,
-\begin{equation}
-	\frac{\partial L_i(\param) }{\partial \lambda^*_{jkxg}} = 
-		L_i(\param) \sum_G \left[ P(G) \sum_X P(X|Z_1, Z_2) ( Y_{jk} X_x G_g  - E[ Y_{jk} X_x G_g | X]) \right],
-		\label{eq:derivative-interaction}
-\end{equation}
-where $X_x$ is the effect-coded value for class $x$ of the within-country latent (post)materialism variable $X$.  The derivatives for other parameters of the model are given by  \citet{vermunt2013technical}. These have a form similar to Equations \ref{eq:derivative-main} and \ref{eq:derivative-interaction}. Consistent estimates of all derivatives can be obtained by replacing the parameters of the model by their maximum likelihood estimates, providing the  vector $[ \left.\partial L(\param, \bpsi) / \partial \bpsi ] \right|_{\param = \that}$  necessary for calculating Equation \ref{eq:epc-interest}.
-
-
-
-\fi
 \end{document}
