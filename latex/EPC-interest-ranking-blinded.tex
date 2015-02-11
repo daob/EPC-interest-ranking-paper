@@ -126,12 +126,12 @@ For example, $\mathbf{x}$ could contain a set of dummy variables indicating a re
 	\label{fig:LVM}
 \end{figure}
 
-Latent variable models generally attack this problem by making two key assumptions about how $\xi$ is measured \citep{skrondal2004generalized}. The first assumption is necessary to identify the measurement model. It states that, given the latent variable, the indicators $y_j$ are ``locally independent'':
-\begin{equation}
+Latent variable models generally attack this problem by making two key assumptions about how $\xi$ is measured \citep{skrondal2004generalized}. The first assumption is necessary to identify the measurement model. It states that, given the latent variable, the indicators $y_j$ are ``locally independent'': $
+%\begin{equation}
 		p(\mathbf{y} | \xi) = \prod_{j \in \{1..J\}} p(y_j | \xi),
-		\label{eq:local-independence}
-\end{equation} 
-where $J$ is the number of indicators use to measure $\xi$; typically $J$ will be at least three. In Figure \ref{fig:LVM}, the  absence of relationships among the observed variables except those due to their common cause $\xi$ implies local independence.
+%		\label{eq:local-independence}
+%\end{equation} 
+$ where $J$ is the number of indicators use to measure $\xi$; typically $J$ will be at least three. In Figure \ref{fig:LVM}, the  absence of relationships among the observed variables except those due to their common cause $\xi$ implies local independence.
 %The local independence assumption is common to all multiple indicator latent variable models and not specific to the issue of relating the covariate to the latent variable. 
 
 The second assumption is necessary to identify the structural model. It states that, while the latent variable may depend on the covariate, its \emph{measurement} should not, i.e. the indictors should be ``measurement invariant'':
@@ -156,33 +156,17 @@ Figure \ref{fig:LVM} shows this possible direct effect from covariate to indicat
 
 \subsection{Existing solutions}
 
-In short, some form of measurement invariance is needed to estimate the structural model of interest: deciding which form, that is, selecting a model, is therefore crucial. Currently, there are broadly four existing approaches to doing so:
+In short, some form of measurement invariance is needed to estimate the structural model of interest: deciding which form, that is, selecting a model, is therefore crucial. Currently, there are broadly three existing approaches to doing so:
 \begin{enumerate}
 	\item Selecting one indicator as the reference indicator or ``anchor item'' \emph{a priori};
-		\item Imposing a strong prior on the differential functioning parameters;
-	\item Testing the null hypothesis of full measurement invariance;
-	\item Evaluating the size and statistical significance of the differential functioning parameters  to obtain a partially invariant model.
+	\item Imposing a strong prior on the differential functioning parameters \citep{muthen2012bayesian};
+	\item Testing the null hypothesis of full measurement invariance \citep{steenkamp_assessing_1998,french2006confirmatory} or partial measurement invariance, in which violations of invariance are freed  \citep{byrne1989testing,saris2009testing}.
 \end{enumerate}
 
-Each of these four procedures has its merits and drawbacks.
+\emph{A priori} reference indicators are often selected implicitly, for example by setting one loading to unity in multiple group CFA. A recent extension to this approach, the ``alignment method'', was suggested by \citet{muthen2014alignment}. When the researcher is not certain that the ``reference indicator'' is indeed invariant, however, it is impossible to select it based on the data \citep{hancock2009tenuousness}. The Bayesian approach suggested by \citet{muthen2012bayesian} has the distinct advantage that, when the prior has been chosen aptly, the data can determine which indicators should be more or less invariant -- hence the term ``approximate measurement invariance'' \citep[see also][]{schoot2013facing}. However, if the prior is not chosen adequately, for instance if it is too strong or too weak, bias in the parameters of interest may still occur. At current this remains a topic for future study, although the approach is promising. Finally, it is common to test for full or partial measurement invariance using various fit measures available for this purpose \citep{byrne1989testing,hu1998fit,cheung2002evaluating,chen2007sensitivity,saris2009testing}. However, this approach has recently been shown to have an unfortunate disadvantage: when a violation is detected, it need not have seriously affected the parameter of interest, and when an invariance model is selected, substantial bias in the parameter of interest may still remain \citep{Oberski:WP:EPC-interest}. In short, while measurement invariance is an important assumption in latent variable modeling, the existing methods do not directly account for the effect that violations of this assumption have on the parameters of interest.
 
-
-\emph{A priori} reference indicators are often selected implicitly. In multiple group confirmatory factor analysis (MGCFA), for example, when one loading is fixed to unity in each group, the corresponding indicator is implicitly assumed to be measurement invariant over groups \citep{hancock2009tenuousness}. Recently, \citet{muthen2014alignment} refined this approach by suggesting to rotate the \emph{a priori} reference indicator MGCFA solution towards the fully invariant solution. A disadvantage of the \emph{a priori} approach, however, is that  all models choosing exactly one \emph{a priori} single reference indicator per latent variable and group will fit the data equally well (are equivalent). Thus, it is impossible to select the reference indicator based on the data \citep{hancock2009tenuousness}. 
-
-Recently, \citet{muthen2012bayesian} introduced a Bayesian approach to dealing with lack of measurement invariance: estimate a single model in which all the ``direct effects'' are allowed to differ somewhat from zero by imposing a strongly informative  prior on them. When the prior is chosen adequately, this allows for a modest level of violation of measurement invariance while still identifying the structural model. For this reason \citet{muthen2012bayesian} termed this approach ``approximate measurement invariance''. This new approach is promising, but has some drawbacks as well:  
-
-An key issue with this approach, however, is that of choosing an adequately informative prior. At current, this issue remains unresolved, although future research may bring more clarification. 
-
-
-Testing for full measurement invariance is done by comparing a full measurement invariance model is compared with a model imposing no invariance besides an \emph{a priori} reference indicator \citep{steenkamp_assessing_1998,french2006confirmatory}.  If full measurement invariance  is not rejected, the structural relationships of interest is then estimated under this  model. Criteria used to accept or reject full measurement invariance include likelihood ratio (chi square) testing, information criteria such as AIC and BIC, and fit measures such as CFI, RMSEA, and gamma-hat \citep{hu1998fit,cheung2002evaluating,chen2007sensitivity}. 
-This approach has three serious disadvantages, however. First, the misfit may be due to only a few misspecifications, which could be accounted for in a partially invariant model \citep{byrne1989testing}.
-Second, when the full invariance model fits badly, this need not have a strong substantive impact on the parameter of interest \citep{saris2009testing}. And third, when the full invariance model fits well, \citet{Oberski:WP:EPC-interest} showed that there may still be violations of invariance in certain items that substantially bias the parameters of interest.
-
-	
-Evaluating size and significance of the direct effect solves the first of these problems by essentially performing a series of tests like the ones described for each possible misspecification, $\delta_{jk} \neq 0$, separately. The size of the direct effect $\delta_{jk}$ may be assessed by estimating $J$ separate models or by use of the ``expected parameter change'' (EPC). After fitting a full invariance model, the EPC estimates the size of $\delta_{jk}$ itself if that parameter were freed \citep{saris_detection_1987}. For this reason, we will refer to this well-known measure as the ``EPC-self''. 
-While this approach solves the first problem with omnibus measurement invariance testing, it suffers from the second and third problems, just as omnibus testing does. That is, even when significant and/or large misspecification are found these do not necessarily have a strong substantive impact on the parameters of interest; and, conversely, when the misspecification appears to be small in terms of, for instance, EPC-self, its effect on the parameters of interest may still be considerable \citep{Oberski:WP:EPC-interest}. In short, the problem with measurement invariance testing is that does not account for the effect that violations of measurement invariance have on the parameters of interest.
-
-The EPC-interest was recently introduced by \citet{Oberski:WP:EPC-interest} for continuous data structural equation models. Similar to the EPC-self, it assesses what would happen if a particular possible direct effect were freed. Rather than assessing the size of this direct effect itself, however, it assesses its impact on the parameter of interest. However, this measure is only available for continuous data, whereas many important measures of latent variables in the social sciences are categorical. Examples include the votes (Yea/Nay) of senators indicating their ideology, how respondents rank their value priorities (1 through 4), or answers (correct/incorrect) to political knowledge questions. The following section therefore explains the rationale of the EPC-interest in more detail, extending it to the case of categorical indicators.
+To complement measurement invariance testing, the 
+ EPC-interest was therefore recently introduced by \citet{Oberski:WP:EPC-interest} for continuous data structural equation models. The EPC-interest assesses what would happen if a particular possible direct effect were freed. Rather than assessing the size of this direct effect itself, however, it assesses its impact on the parameter of interest. However, this measure is only available for continuous data, whereas many important measures of latent variables in the social sciences are categorical. Examples include the votes (Yea/Nay) of senators indicating their ideology, how respondents rank their value priorities (1 through 4), or answers (correct/incorrect) to political knowledge questions. The following section therefore extends the EPC-interest to the case of categorical indicators.
 
 \subsection{EPC-interest}
 \label{sec:epc-interest}
@@ -190,7 +174,7 @@ The EPC-interest was recently introduced by \citet{Oberski:WP:EPC-interest} for 
 The ``$\da$'' estimates the change in a free parameter estimate of the model that one can expect to observe if a particular restriction were freed. It is therefore a method of sensitivity analysis. However, the researcher is not forced to estimate all possible alternative models, but can evaluate the sensitivity of the results after fitting the restrictive full invariance model. 
 The $\da{}$ is based on the work of \citet{saris_detection_1987}, who introduced the expected parameter change in a fixed parameter for linear structural equation models (SEM), and \citet{bentler1993some}, who introduced the expected parameter change in a free parameter after freeing a fixed parameter for SEM. It was applied to invariance testing with continuous data by \citet{Oberski:WP:EPC-interest}.
 
-In models for categorical data, the EPC-interest can be derived, as shown below, by applying general results of maximum likelihood analysis. An additional problem with categorical data, however, is that there is usually a large set of parameters relating to a particular variable. For example, in Equation \ref{eq:logistic-dif}, there will be $K$ ``loadings'' $\lambda_{jk}$, $K$ ``intercepts'' $\tau_{jk}$,  $K$ ``direct effects'' $\delta_{jk}$, and, if present, $K$ ``interaction effects'' $\delta^*_{jk}$ for each variable. These parameters will, moreover, be strongly dependent on one another, so that the impact of freeing one of them cannot be seen separately from the impact of freeing another parameter relating to the same variable. For this reason, when extending EPC-interest to the categorical case, it also becomes necessary to allow for the consideration of \emph{sets} of parameters to free rather than just investigating the effect of single restrictions.
+In models for categorical data, the EPC-interest can be derived, as shown below and in the Appendix, by applying general results of maximum likelihood analysis. An additional problem with categorical data, however, is that there is usually a large set of parameters relating to a particular variable. For example, in Equation \ref{eq:logistic-dif}, there will be $K$ ``loadings'' $\lambda_{jk}$, $K$ ``intercepts'' $\tau_{jk}$,  $K$ ``direct effects'' $\delta_{jk}$, and, if present, $K$ ``interaction effects'' $\delta^*_{jk}$ for each variable. These parameters will, moreover, be strongly dependent on one another, so that the impact of freeing one of them cannot be seen separately from the impact of freeing another parameter relating to the same variable. For this reason, when extending EPC-interest to the categorical case, it also becomes necessary to allow for the consideration of \emph{sets} of parameters to free rather than just investigating the effect of single restrictions.
 
 
 In deriving the EPC-interest, the key concept is considering the likelihood not only as a function of the free parameters of the model, but also as a function of the parameters that are fixed to obtain the full invariance model. Collecting the free parameters in a vector $\param$ and the fixed parameters in a vector $\bpsi$, we assume the likelihood can be written as an explicit function of both sets of parameters, $L(\param, \bpsi)$.  The maximum-likelihood estimates $\that$ of the free parameters can then be seen as obtained under the full invariance model that sets $\bpsi=0$, i.e. $\that = \arg\max_{\param} L(\param, \bpsi = 0)$. Further, define the parameters of substantive interest as $\vm{\pi} := \vm{P} \param$, where $\vm{P}$ is typically a logical (0/1) selection matrix, although any linear function of the free parameters $\param$ may be taken. 
@@ -222,30 +206,8 @@ Furthermore, since $\hat{\bpsi}$ and $\hat{\param}$ are implicitly related by th
 	\da = \vm{P} \left( \frac{\partial \param} {\partial \bpsi^\prime} \right) \left( \bpsi - \hat{\bpsi}\right),
 	\label{eq:epc-linear}
 \end{equation}
-that is, the $\da{}$ can be seen simply as the coefficient of a linear approximation to the relationship between the free and fixed parameters, multiplied by the change in the fixed parameters. This demonstrates the difference with the sensitivity analysis approach common in econometrics \citep[p. 168]{magnus2007local} and applied to SEM by \citet{yuan2003assessing}, in which only $\partial \param / \partial \bpsi^\prime$ is considered: the $\da{}$ combines both the direction ($\partial \param / \partial \bpsi^\prime$) and the magnitude ($ \bpsi - \hat{\bpsi}$) of the misspecification.
+that is, the $\da{}$ can be seen simply as the coefficient of a linear approximation to the relationship between the free and fixed parameters, multiplied by the change in the fixed parameters. This demonstrates the difference with the sensitivity analysis approach common in econometrics \citep[p. 168]{magnus2007local} in which only $\partial \param / \partial \bpsi^\prime$ is considered: the $\da{}$ combines both the direction ($\partial \param / \partial \bpsi^\prime$) and the magnitude ($ \bpsi - \hat{\bpsi}$) of the misspecification.
 
-
-The derivation of the $\da{}$ given in Equation \ref{eq:epc-interest} starts from the full invariance solution. We then find a hypothetical new  maximum of the likelihood by setting the gradient of a Taylor expansion of the likelihood around the full invariance solution to zero:
-\begin{equation}
- \frac{\partial L(\param, \bpsi)}{\partial \vm{\vartheta}}= \vm{0} = 
-	\left( \begin{array}{cc}
-	\frac{\partial L(\param, \bpsi) }{ \partial \param}|_{\param=\that}\\
-	\frac{\partial L(\param, \bpsi) }{ \partial \bpsi}|_{\param=\that}\\
-	\end{array} \right)  + 
-%	\left(\frac{\partial^2 L(\param, \bpsi) }{ \partial \vm{\vartheta}^\prime \partial \vm{\vartheta}} \right)
-	\left( \begin{array}{cc}
-		\hat{\vm{H}}_{\param\param} & \hat{\vm{H}}_{\bpsi\param}\\
-		\hat{\vm{H}}_{\bpsi\param} & \hat{\vm{H}}_{\bpsi\bpsi}\\
-	\end{array} \right)  
-		\left( \begin{array}{cc}
-		\param - \that\\
-		\bpsi - \hat{\bpsi}
-	\end{array} \right)+
-O(\vm{\delta}^\prime\vm{\delta}).
-	\label{eq:gradient}
-\end{equation}
-A similar device was used to derive the so-called ``modification index'' or ``score test'' for the significance of the hypothesis $\bpsi = \vm{0}$ by \citet[p. 373]{sorbom1989model}.
-Equation \ref{eq:epc-interest}  follows directly by noting that $( \partial L(\param, \bpsi) / \partial \param ) |_{\param=\that} = \vm{0}$ and applying the standard linear algebra result on the inverse of a partitioned matrix $\left(\hat{\vm{H}}^{-1}\right)_{\param\bpsi} = 	- \hat{\vm{H}}^{-1}_{\param\param} \hat{\vm{H}}_{\param\bpsi}\vm{D}^{-1}$ \citep[e.g.][p. 12]{magnus2007matrix}.
 
 The accuracy of the approximation of the $\da{}$ as a measure of the change in the parameters of interest is reflected in the order of approximation term, $O(\vm{\delta}^\prime\vm{\delta})$. It can be seen that this accuracy is quadratic in the overall change in parameters, so that the approximation can be expected to work best when the misspecifications are not ``too large''. This result corresponds to results on the score test (``modification index'') and ``EPC-self'' in the literature on structural equation modeling, which can be shown to be exact under a ``sequence of local alternatives'', i.e. when $\vm{\vartheta} = \lim_{n\rightarrow\infty} \hat{\vm{\vartheta}} + n^{-\frac{1}{2}}\vm{\delta}$ \citep[p. 135]{satorra1989alternative}.
 It is important to note here that $\vm{\delta}$ is the deviation from the ``true'' value of $\vm{\vartheta}$, rather than the deviation from the limit of the parameter estimates under the alternative model. Therefore another view on the accuracy is that it will be better when the alternative model is not strongly misspecified. For this reason it is also important to consider freeing sets of very strongly related parameters simultaneously, since a change in one of them will then imply a change in the others, and, consequently, a misspecified alternative model.
@@ -253,31 +215,26 @@ It is important to note here that $\vm{\delta}$ is the deviation from the ``true
 \subsection{Small simulation study}
 
 To demonstrate the extent of the approximation bias in the EPC-interest, we performed a small simulation study. In this study, we specified a latent variable model for four binary indicators:
-$$
+$
 	P(Y_j = 1 | x) = [1 + \exp(-x)]^{-1},
-$$
+$
 with $j \in \{2,3,4\}$, and structural model
-$$
+$
 	x = \gamma z + \epsilon
-$$
+$
 with $\gamma = 1$ and $\epsilon \sim N(0, 1)$. We then introduced a violation of measurement invariance for the first indicator,
-$$
-	P(Y_1 = 1 | x) = [1 + \exp(-x - \delta_1 z)]^{-1}.
-$$
-Nine conditions varied the following experimental factors:
-\begin{itemize}	
-	\item Sample size: $n=$ 250, 500, or 1000;
-	\item The size of the invariance violation:  $\delta = $ 0 (no violation), 0.5 (moderate), or 1 (extreme). 
-\end{itemize}
+$
+	P(Y_1 = 1 | x) = [1 + \exp(-x - \delta z)]^{-1}.
+$
+Nine conditions varied sample size, $n \in \{250, 500, 1000\}$, and the size of the invariance violation:  $\delta = $ 0 (no violation), 0.5 (moderate), or 1 (extreme). 
+Data were generated using R 3.1.2 and analyzed using Latent Gold 5.0.0.14161. 
 
-Data were generated using R 3.1.2 and analyzed using Latent Gold 5.0.0.14161. The results over 200 samples under the nine conditions are shown in Table \ref{tab:simulation}. The first two rows of this table show the average point estimate of the parameter of interest $\hat{\gamma}$, and its deviation from the true value $\gamma = 1$, respectively. It can be seen that a modest violation $\delta = 0.5$ can still have a substantively important impact on bias. Under this condition, that bias is reasonably well approximated by the EPC-interest, which has average values close to the true bias. When the violation is extreme, however, the approximation causes the EPC-interest to somewhat overestimate the bias: for example, in the last column of the table the true bias is -0.327 but EPC-interest estimates it at about -0.448. This effect appears to be strongest with the smallest sample size, a phenomenon that can be explained by the approximation term being more likely to take on large values in small samples. 
- 
 \begin{table}\begin{small}
 \begin{tabular}{lrrrrrrrrrrrr}
 \hline
 $n$	& \multicolumn{3}{c}{250} && \multicolumn{3}{c}{500} && \multicolumn{3}{c}{1000} \\
 	\cline{2-4}	\cline{6-8} 	\cline{10-12}
-True $\delta_1$	&   0	& 0.5	& 1	&& 0	& 0.5	& 1	&& 0	& 0.5	& 1\\
+True $\delta$	&   0	& 0.5	& 1	&& 0	& 0.5	& 1	&& 0	& 0.5	& 1\\
 	\hline
 	Est. $\hat{\gamma}$	& 1.010	& 1.151	& 1.353	&& 0.980	& 1.152	& 1.330	&& 1.013	& 1.163	& 1.327\\
 	Bias $\hat{\gamma}$ & -0.010	& -0.151	& -0.353	& 	& 0.020	& -0.152	& -0.330	& 	& -0.013	& -0.163	& -0.327\\
@@ -289,12 +246,15 @@ True $\delta_1$	&   0	& 0.5	& 1	&& 0	& 0.5	& 1	&& 0	& 0.5	& 1\\
 \label{tab:simulation}
 \end{small}\end{table}
 
+The results over 200 samples are shown in Table \ref{tab:simulation}. The first two rows  show the average point estimate of the parameter of interest $\hat{\gamma}$, and its deviation from the true value $\gamma = 1$, respectively. It can be seen that a modest violation $\delta = 0.5$ still has a substantively important impact on bias. Under this condition, that bias is reasonably well approximated by the EPC-interest, which has average values close to the true bias. When the violation is extreme, however, the approximation causes the EPC-interest to somewhat overestimate the bias: for example, in the last column of the table the true bias is -0.327 but EPC-interest estimates it at about -0.448. This effect appears to be strongest with the smallest sample size, a phenomenon that can be explained by the approximation term being more likely to take on large values in small samples. 
+ 
+
 Overall, the results of this very limited simulation study demonstrate the analytic results discussed above. As expected, for small samples and very large violations of invariance, the EPC-interest will overestimate the bias caused somewhat. In these cases, the researcher may wish to verify that after freeing the violation in question, the results of interest do indeed change substantially. Alternatively, where this is feasible, one may also resort to estimating all alternative models and examining the results. In other conditions, the EPC-interest performs as expected: when there is no bias, it estimates zero on average, and when there is moderate bias in the parameter of interest, EPC-interest approximates this bias adequately. 
 
 
 \section{Example application \#1: 90th US Senate roll call data}
 
-To exemplify the use of the EPC-interest using a relatively simple latent variable model with categorical variables that is well-known in political science, we estimate an ideal point model on roll call data \citep{jackman2010pscl} for senators in the 90th US Senate, which met from 1967 to 1969 during the Lyndon B. Johnson Administration. 
+To exemplify the use of the EPC-interest using a relatively simple latent variable model with categorical variables that is well-known in political science, we estimate an ideal point model on roll call data for senators in the 90th US Senate, which met from 1967 to 1969 during the Lyndon B. Johnson Administration. 
 
 The probability that senator $i$ votes ``Yea'' on motion $j$ is modeled as a logistic regression on the motion's (unobserved) utility, 
 \begin{equation}
@@ -305,8 +265,7 @@ where the utility $u_{ij}$ of the motion to that senator is simply the Euclidean
 \begin{equation}
 	u_{ij} = (x_{i} - \tau_{j})^2.
 \end{equation}
-The latent variable $x_i$ is known in the literature as an ``ideal point''. This model is equivalent to the well-known unidimensional \citet{poole1985spatial} (W-NOMINATE) model, and can be estimated in specialized software \citep[e.g.][]{poole2008scaling} or by software capable of  factor analysis with quadratic factors \citep{maraun2001extra}. 
-
+The latent variable $x_i$ is known in the literature as an ``ideal point''. This model is equivalent to the well-known unidimensional \citet{poole1985spatial} (W-NOMINATE) model.%, and can be estimated in specialized software \citep[e.g.][]{poole2008scaling} or by software capable of  factor analysis with quadratic factors \citep{maraun2001extra}. 
 
 The Poole-Rosenthal model can be extended to incorporate covariates that predict the latent variable $x_i$, for example using the party of the senator as a predictor: 
 \begin{equation}
@@ -362,7 +321,7 @@ After adjusting for this event, the polarization coefficient is estimated at 3.4
 The top part of Figure \ref{fig:ideal-points} shows the ideal point estimates under the full invariance model. These estimates range from zero to one; since Democrats, shown as black dots, are predominantly on the lower side of the scale, zero has been labeled ``Democrat'' and the score 1 has been labeled ``Republican'', since most Republicans (red circles) can be found here. To make the points more visible, they have been jittered randomly in the vertical direction. The bottom part of Figure \ref{fig:ideal-points} shows the ideal point estimates for the same senators, but this time while accounting for the partial violation of measurement invariance $\delta_{20}\neq0$. It can be seen that Republicans  are more spread out into the ``Democratic'' side of the scale. Especially the three Republican senators with a score below 0.2 experience a rather large shift in position. On the whole, therefore, the differences between the two distributions are modest, but the differences for individual senators' ideal point estimates can be quite substantial.
 
 \bigskip
-In this section we investigated measurement invariance assumptions in the well-known ``ideal point'' model for example binary roll call data. The  example  demonstrated that even when the model appears to fit the data well initially, it is still possible for violations of measurement invariance to bias the conclusions. The EPC-interest was used here as a tool to detect such bias. After accounting for one violation of measurement invariance, the final model differed somewhat from the original conclusions: the estimated amount of polarization in the 90th Senate was lower and several Republican senators' estimated ideological positions were considerably more liberal. 
+In this section we investigated measurement invariance assumptions in the well-known ``ideal point'' model for example binary roll call data. The  example  demonstrated that even when the model appears to fit the data well initially, it is still possible for violations of measurement invariance to bias the conclusions. The EPC-interest for categorical data was used here as a tool to detect such bias. After accounting for one violation of measurement invariance, the final model differed somewhat from the original conclusions: the estimated amount of polarization in the 90th Senate was lower and several Republican senators' estimated ideological positions were considerably more liberal. 
 
 
 
@@ -425,7 +384,7 @@ where the country-level random effect variable $G$ has been introduced. We take 
 
 
 \begin{figure}\centering
-	\includegraphics[width=0.7\textwidth]{figures/model}
+	\includegraphics[width=0.6\textwidth]{figures/model}
 	\caption{\label{fig:model}Graphical representation of 
 	the multilevel latent class regression model for 
 	(post)materialism measured by three partial ranking tasks. Observed variables are shown in rectangles while unobserved (``latent'') variables are shown in ellipses.	}
@@ -459,15 +418,14 @@ P(A_{1ic} = a_1, A_{2ic} = a_2 | X_{ic} = x) =
 \end{equation}
 The base invariance model above can then be seen as fixing the intercept deviations $\delta_{k g} = 0$  and slope deviations $\delta^{*}_{k x g} = 0$.  An example of this parameterization of measurement non-invariance for the second ranking of Set C ($C_2$) is shown in Figure \ref{fig:model} as the dotted main effect and interaction effects for scalar and metric invariance, respectively. In line with Section \ref{sec:invariance}, we now investigate whether the possible misspecifications in the measurement invariance model, $\delta_{k g} \neq 0$ and $\delta^{*}_{k x g} \neq 0$, substantially affect the parameters of interest $\gamma_{mx}$ using EPC-interest for categorical data.
 
-%With three sets of three non-redundant priorities each, there are $9 (S - 1) T$ possible additional $\delta_{k g}$ and $\delta^{*}_{k x g}$ parameters representing misspecification in the full invariance model specified above. For example, with $S=3, T=3$, there will be $54$ possible violations of invariance. This is clearly a very large number of potential violations of measurement invariance, with an astronomical ($\approx 1.8 \times 10^{16}$) number of possible subsets of non-invariant models, making the fitting of each of these possible submodels infeasible. The EPC-interest, which considers the possible effect of freeing each of the restrictions separately, is therefore an attractive alternative. 
 
-The model as well as $\da{}$ measures  were implemented by one of the authors in the software Latent Gold Choice version 5.0.0.14157 and higher \citep[pp. 135--136]{vermunt2005lgchoice,vermunt2013technical}. Program input for this analysis can be found in Appendix \ref{sec:LGinput}, while output and data are included in the online Appendix at \url{http://[BLINDED]}. We select three  classes for both the latent ``(post)materialism'' variable and the country group class variable. For BIC values and the rationale behind these choices, please see Appendix \ref{app:bic}. Since class selection is not the focus of this example analysis, we will not discuss it here further. 
+The model was estimated using Latent Gold 5.  Following \citet{moors2007heterogeneity}, we select three  classes for both the latent ``(post)materialism'' variable and the country group class variable. For BIC values and the rationale behind these choices, please see Appendix \ref{app:bic}. Since class selection is not the focus of this example analysis, we will not discuss it here further. 
 
-After estimating the full invariance model, we calculated the $\da{}$ for the $\delta$ and $\delta^*$ parameters, of which our three-class model has four: two for each of the two independent variables. Measurement invariance violations can potentially take the form of 6 direct main effects ($\delta_{j k g}$) and 12 direct interaction effects ($\delta^{*}_{j k x g}$) for each of the three ranking tasks, totaling 54 possible misspecifications in the full invariance model. These misspecifications are strongly correlated and should not be considered separately. Rather, we consider the probable impact of freeing the direct main effects for each ranking task separately and of freeing the  direct interactions for each ranking task separately. Thus, rather than consider the direct and interaction effects for each of the 48 countries on each of the 3 unique categories of each of the three ranking tasks, making for $5076$ potential $\da{}$ values, we evaluate direct effects of the country group random effect and consider their impact jointly for strongly correlated misspecifications, reducing the problem to 24 $\da{}$ values of interest.
+After estimating the full invariance model, we calculated the $\da{}$ for the $\delta$ and $\delta^*$ parameters, of which our three-class model has four: two for each of the two independent variables. Measurement invariance violations can potentially take the form of 6 direct main effects ($\delta_{j k g}$) and 12 direct interaction effects ($\delta^{*}_{j k x g}$) for each of the three ranking tasks, totaling 54 possible misspecifications in the full invariance model. These misspecifications are strongly correlated and should not be considered separately. Rather, we consider the probable impact of freeing the direct main effects for each ranking task separately and of freeing the  direct interactions for each ranking task separately. Thus, rather than consider the direct and interaction effects for each of the 48 countries on each of the three unique categories of each of the three ranking tasks, making for $5076$ potential $\da{}$ values, we evaluate direct effects of the country group random effect and consider their impact jointly for strongly correlated misspecifications, reducing the problem to 24 $\da{}$ values of interest.
 
 
-\begin{table}
-	\caption{Full invariance multilevel latent class model: parameter estimates of interest with standard errors (columns 3 and 4), as well as expected change in these parameters measured by the  $\da{}$ when freeing each of six sets of possible misspecifications (columns 5--10). \label{tab:epc-interest-model1}}
+\begin{table}\begin{small}
+	\caption{Full invariance multilevel latent class model: parameter estimates of interest with standard errors, and  $\da{}$ when freeing each of six sets of possible misspecifications. \label{tab:epc-interest-model1}}
 	\begin{tabular}{lrrrrrrrrrrr}
 	\hline
 		&&&&&\multicolumn{7}{c}{EPC-interest for...}\\
@@ -484,7 +442,7 @@ Class	1&	Women&	0.013&	(0.001)&	&	-0.006&	0.002&	0.000&&	-0.003&	0.029&	0.002\\
 Class	2&	Women&	-0.037&	(0.001)&	&	0.007&	-0.003&	0.002&&	-0.006&	-0.013&	0.002\\
 	\hline
 \end{tabular}
-\end{table}
+\end{small}\end{table}
 
 Table \ref{tab:epc-interest-model1} shows these 24 $\da{}$ values calculated from the full invariance model. These $\da{}$ values estimate the likely change from the maximum likelihood estimates (column 3 in Table \ref{tab:epc-interest-model1}) in the four parameters of substantive interest after freeing the direct main or interaction effects for each of the three ranking tasks (columns 5--10 in  Table \ref{tab:epc-interest-model1}). In the full invariance model, Class 1 corresponds to a ``postmaterialism'' class. The estimate -0.035 (s.e. 0.007) shown in Table \ref{tab:epc-interest-model1}) would therefore suggest that more prosperous nations tend to be less postmaterialist. This directly contradicts the theory of \citet{inglehart2010changing}, which suggests that this coefficient should be positive. 
 
@@ -492,9 +450,9 @@ Since the theory specifies only that certain coefficients should be positive or 
 
 Following the common practice of partial invariance models, we therefore free these two sets of measurement invariance violations, allowing for differences in the parameters of ranking tasks 1 and 2 across country groups. Table \ref{tab:epc-interest-model2} shows the substantive parameter estimates and $\da{}$ interest values for the resulting partial invariance model, which has 63 parameters and a log-likelihood of $-418610.0$ ($\text{BIC} = 837920.5$). The likelihood ratio test of improvement in model fit is highly significant ($\chi^2_{\text{df} = 28} = 24607$). Moreover, the substantive logistic regression coefficient for the effect of GDP on the postmaterialism class (Class 2 in Table \ref{tab:epc-interest-model2}), is indeed positive after freeing the detected misspecifications. Re-calculating $\da{}$ values for the remaining possible misspecifications reveals that none of the possible misspecifications in this partial invariance model has the potential to change the substantive conclusions. In this sense, we therefore conclude that the partial invariance model fits ``approximately'', since none of the substantive conclusions based on it are threatened by measurement invariance violations.
 
-\begin{table}
+\begin{table}\begin{small}
 	\caption{
-	Partially invariant multilevel latent class model: parameter estimates of interest with standard errors (columns 3 and 4), as well as expected change in these parameters measured by the  $\da{}$ when freeing each of four sets of remaining possible misspecifications (columns 5--7 and 10).
+	Partially invariant  multilevel latent class model: parameter estimates of interest with standard errors, and  $\da{}$ when freeing each of six sets of possible misspecifications. 
 	\label{tab:epc-interest-model2}}
 	\begin{tabular}{lrrrrrrrrrrr}
 	\hline
@@ -513,7 +471,7 @@ Class 	1&	Women&	0.008&	(0.001)&	&	-0.002&	0.000&	0.002&	&&	&	0.001\\
 Class 	2&	Women&	0.020&	(0.001)&	&	-0.007&	-0.001&	0.002&	&&	&	0.007\\
 \hline
 	\end{tabular}
-\end{table}
+\end{small}\end{table}
 
 []
 
@@ -528,7 +486,7 @@ A violation of measurement invariance existed that, when unaccounted for, could 
  Finally, we provided user-friendly  software implementing the $\da$; program input and data for the example application is available in the online Appendix. 
 
 % REMOVE:
-The EPC-interest fits within the recent literature on ``approximate measurement invariance''. That is, the goal of incorporating important measurement differences in the model while ignoring unimportant ones. Invariance testing using ``approximate'' fit measures such as the CFI and RMSEA \citep[e.g.][]{cheung2002evaluating,chen2007sensitivity} can be thought of as such a method, since the fit of the model is thought to be ``approximate'', and relative to model complexity. Model-based approaches include random effects modeling \citep{dejong2007relaxing,jak2014measurement}, Bayesian priors on measurement differences \citep{muthen2012bayesian}, and factor rotation towards an invariant solution \citep{muthen2014alignment}. An advantage of these last three approaches is that a middle ground may be found between exact equality of measurement processes over groups and complete independence \citep{schoot2013facing}. However, a current problem  is that there is no agreed-upon definition of ``approximate''. At the same time, the EPC-interest approach does not offer a middle ground, but it does solve the problem of defining what ``approximate'' fit might be \citep[p. 12]{schoot2013facing}: for example, in the current application it was taken to be any measurement difference that cannot reverse the sign of the regression parameters of substantive interest.  An interesting direction for future work is therefore to combine the sensitivity analysis approach of the EPC-interest with the approaches to approximate measurement invariance of \citet{muthen2012bayesian,muthen2014alignment}, for example by weighting the cross-group measurement differences to be aligned by the possible change in parameters of interest. 
+%The EPC-interest fits within the recent literature on ``approximate measurement invariance''. That is, the goal of incorporating important measurement differences in the model while ignoring unimportant ones. Invariance testing using ``approximate'' fit measures such as the CFI and RMSEA \citep[e.g.][]{cheung2002evaluating,chen2007sensitivity} can be thought of as such a method, since the fit of the model is thought to be ``approximate'', and relative to model complexity. Model-based approaches include random effects modeling \citep{dejong2007relaxing,jak2014measurement}, Bayesian priors on measurement differences \citep{muthen2012bayesian}, and factor rotation towards an invariant solution \citep{muthen2014alignment}. An advantage of these last three approaches is that a middle ground may be found between exact equality of measurement processes over groups and complete independence \citep{schoot2013facing}. However, a current problem  is that there is no agreed-upon definition of ``approximate''. At the same time, the EPC-interest approach does not offer a middle ground, but it does solve the problem of defining what ``approximate'' fit might be \citep[p. 12]{schoot2013facing}: for example, in the current application it was taken to be any measurement difference that cannot reverse the sign of the regression parameters of substantive interest.  An interesting direction for future work is therefore to combine the sensitivity analysis approach of the EPC-interest with the approaches to approximate measurement invariance of \citet{muthen2012bayesian,muthen2014alignment}, for example by weighting the cross-group measurement differences to be aligned by the possible change in parameters of interest. 
 
 The scope of the paper was limited to an application of the EPC-interest to a model with categorical observed and latent variables. While we consider this a useful contribution, we did not further investigate the performance of this measure. We do note that the actually observed change in the parameters of interest after freeing the suggested invariance restrictions was very close to that predicted by the EPC-interest in this particular application. The Monte Carlo simulation using linear structural equation models  in \citet{Oberski:WP:EPC-interest} demonstrates that this is the case for linear structural equation models with relatively simple setups. However, an  investigation of whether this is the case for categorical latent class models under a wider range of hypothetical conditions in a simulation study remains work for the future.
 
@@ -722,6 +680,33 @@ Thus, when reading each row horizontally, the class with the highest log-utility
 	\end{tabular}
 \end{table}
 
+
+
+
+\section{Derivation of the EPC-interest}
+
+
+The derivation of the $\da{}$ given in Equation \ref{eq:epc-interest} starts from the full invariance solution. We then find a hypothetical new  maximum of the likelihood by setting the gradient of a Taylor expansion of the likelihood around the full invariance solution to zero:
+\begin{equation}
+ \frac{\partial L(\param, \bpsi)}{\partial \vm{\vartheta}}= \vm{0} = 
+	\left( \begin{array}{cc}
+	\frac{\partial L(\param, \bpsi) }{ \partial \param}|_{\param=\that}\\
+	\frac{\partial L(\param, \bpsi) }{ \partial \bpsi}|_{\param=\that}\\
+	\end{array} \right)  + 
+%	\left(\frac{\partial^2 L(\param, \bpsi) }{ \partial \vm{\vartheta}^\prime \partial \vm{\vartheta}} \right)
+	\left( \begin{array}{cc}
+		\hat{\vm{H}}_{\param\param} & \hat{\vm{H}}_{\bpsi\param}\\
+		\hat{\vm{H}}_{\bpsi\param} & \hat{\vm{H}}_{\bpsi\bpsi}\\
+	\end{array} \right)  
+		\left( \begin{array}{cc}
+		\param - \that\\
+		\bpsi - \hat{\bpsi}
+	\end{array} \right)+
+O(\vm{\delta}^\prime\vm{\delta}).
+	\label{eq:gradient}
+\end{equation}
+A similar device was used to derive the so-called ``modification index'' or ``score test'' for the significance of the hypothesis $\bpsi = \vm{0}$ by \citet[p. 373]{sorbom1989model}.
+Equation \ref{eq:epc-interest}  follows directly by noting that $( \partial L(\param, \bpsi) / \partial \param ) |_{\param=\that} = \vm{0}$ and applying the standard linear algebra result on the inverse of a partitioned matrix $\left(\hat{\vm{H}}^{-1}\right)_{\param\bpsi} = 	- \hat{\vm{H}}^{-1}_{\param\param} \hat{\vm{H}}_{\param\bpsi}\vm{D}^{-1}$ \citep[e.g.][p. 12]{magnus2007matrix}.
 
 
 
