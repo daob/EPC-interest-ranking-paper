@@ -55,56 +55,44 @@
 
 
 \begin{abstract}
-Many variables crucial to the social sciences are not directly observed but instead are latent and measured indirectly. 
-When an external variable of interest affects this measurement, estimates of its relationship with the latent variable will then be biased. 
-Such violations of ``measurement invariance'' may, for example, confound true differences across countries in postmaterialism with measurement differences.
-To deal with this problem researchers commonly aim at ``partial measurement invariance'', i.e. to account for those differences that may be present and important. To evaluate this importance directly through sensitivity analysis, the ``EPC-interest''   was recently introduced  for continuous data. However, latent variable models in the social sciences often use categorical data. 
-The current paper therefore extends the EPC-interest to latent variable models for categorical data and demonstrates its use in example analyses of US Senate votes as well as respondent rankings of postmaterialism values in the World Values Study. 
+Many variables crucial to the social sciences are not directly observed but instead are latent and measured indirectly. When an external variable of interest affects this measurement, estimates of its relationship with the latent variable will then be biased. Such violations of ``measurement invariance'' may, for example, confound true differences across countries in postmaterialism with measurement differences.
+To deal with this problem, researchers commonly aim at ``partial measurement invariance'', i.e. to account for those differences that may be present and important. To evaluate this importance directly through sensitivity analysis, the ``EPC-interest''   was recently introduced  for continuous data. However, latent variable models in the social sciences often use categorical data. The current paper therefore extends the EPC-interest to latent variable models for categorical data and demonstrates its use in example analyses of US Senate votes as well as respondent rankings of postmaterialism values in the World Values Study. 
 
 Program inputs and data for the examples discussed in this article are provided in the electronic appendix (\url{http://}[blinded]).
 \end{abstract}
 
 
-%Ranking data are often encountered in political science, for example when modeling voters' choices in ``ranked choice'' voting systems or their stated priorities for political goals in a questionnaire. Group comparisons on such measures must first establish whether conclusions of interest are insensitive any differences in measurement--that is, whether the measures are ``equivalent''. To investigate this, the ``$\da$'', a measure of the sensitivity of conclusions to measurement equivalence, was recently introduced in this journal. However, the measure has not been applied to ranking data.
 
-%This paper therefore extends the $\da{}$ to the case of latent variable models with ranking data. We demonstrate the approach on a multilevel latent class analysis of three ``(post)materialism'' measures using ranking data from 67,568 respondents in 48 different countries. In this application, violations of measurement equivalence assumptions reverse substantive conclusions of interest; we show that the $\da$ can detect this problem.  
-
-%The newly developed methods discussed in this paper have been implemented in user-friendly software for latent variable modeling. Program inputs and data for the examples discussed in this article are provided in the electronic appendix (\url{http://}[blinded]).
-%\end{abstract}
 
 
 \section{Introduction}
 
 \noindent
-
-[TODO]
-
+Latent variable models for categorical data are commonly used in the social and behavioral sciences, and include well-known special cases such as latent class analysis, item response theory (IRT), and ordinal factor analysis. Examples of such analyses include ideological positions of US senators measured by Yea/Nay votes \citep{poole1985spatial}, public tolerance for nonconformity measured by categorical questions in a survey \citep{mccutcheon1985latent}, and  postmaterialism  measured by respondents' rankings of values \citep{inglehart1977silent,moors2007heterogeneity}.
 
 %Examples of latent variable models with categorical data in social science: the ideological positions of US senators, ..., and people's (post)materialism.
 
+Primary scientific interest in latent variable models often focuses on the relationship such latent variables have with external variables. For example, on the polarization of ideology by political party, on education and cohort differences in tolerance, or on cross-country differences in postmaterialism. However, if the measurement of the latent variable differs over values of such external variables,  relationship estimates of interest may be biased \citep{steenkamp_assessing_1998}. Thus, ``measurement invariance'' is needed to estimate such relationships. 
+
 %Relating these variables to external variables is often of interest, for example to Party or year, to ..., and to country or country characteristics such as GDP. But if measurement differs over external variable values the relationship estimate of interest may be wrong.
+
+%by detecting any observed indicators that might violate measurement invariance and accounting for this violation in the model
+For this reason, whenever the aim is to compare  values of the latent variable, it is common practice to perform ``measurement invariance testing''  \citep[see][for reviews]{vandenberg2000review,schmitt2008measurement}, a practice also known as  testing for ``differential item functioning'' (DIF) in the IRT literature \citep{Holland:1993aa}. That is, detecting any observed indicators that might violate measurement invariance and accounting for these violations in the model. The aim of measurement invariance testing is to ensure the comparability of latent variable scores over values of an external variable. However, currently existing procedures do not necessarily reach this aim because they do not account for the substantive impact of violations of measurement invariance on the relationship parameters of interest \citep{Oberski:WP:EPC-interest}. 
 
 %This is why people do measurement invariance testing (cites). Particularly, the common approach is to account for those violations of it that are present, partial measurement invariance (cites).
 
+To this end, \citet{Oberski:WP:EPC-interest}  suggested supplementing measurement invariance testing for linear structural equation models with sensitivity analysis. Sensitivity analysis investigates directly the impact of measurement invariance violations on the relationship parameters of interest. It can be performed by fitting many alternative models, with the disadvantage that this process will sometimes be infeasible. \citet{Oberski:WP:EPC-interest} therefore also introduced the EPC-interest, a measure that approximates the change in parameters of interest without the need to fit alternative models. Since  EPC-interest was only introduced for continuous data linear structural equation models, however, it is not applicable to categorical data analyses such as those described above.
+
 %As argued by Oberski (cites), presence is not so relevant but rather importance is, that is, whether measurement invariance affects the conclusions. Suggest to evaluate the robustness of the results of interest to measurmenet invariance assumptions using EPC-interest. EPC-interest estiamtes teh change in the parameter of interest when freeing a measurement invariance restriction. But only for continuous data.
+
+In this paper we therefore extend the EPC-interest approach to measurement invariance testing  to  the case of categorical data latent variable models. The extended measure is evaluated in a small simulation study, and its use demonstrated in two example applications. In the first of these applications the polarization of the 90th US senate is examined by applying an ideal point model; the second application analyzes the rankings of value priorities given by 67,568 WVS respondents in 48 countries. 
 
 %Here for categorical data like the data mentioned above. Need to account for dependencies between parameters to do with the same category.
 
-%Next section,....
+\bigskip
+Section \ref{sec:invariance} explains categorical data latent variable models  and the problem of measurement invariance. The EPC-interest is introduced in Section \ref{sec:epc-interest} as an approximation to the sensitivity analysis approach to measurement invariance testing and a small simulation study evaluates the approximation in Section \ref{sec:simulation}. Sections \ref{sec:rollcall} and \ref{sec:WVS} then elaborate the two example applications, while Section \ref{sec:discussion} concludes. 
 
 
-The assumption that groups are comparable in measurement is often called ``measurement equivalence'' or ``measurement invariance'', and evaluating measurement invariance is therefore a concern in any comparative study \citep[see][for reviews]{steenkamp_assessing_1998,vandenberg2000review,schmitt2008measurement}. Recently, \citet{Oberski:WP:EPC-interest} introduced a measure to evaluate 
-measurement invariance in terms of the substantive parameters of interest, the ``EPC-interest''. The researcher initially fits a model that assumes full measurement invariance;  $\da{}$ then estimates the expected change in the parameters of interest that would occur if assumptions of measurement invariance were (partially) relaxed. To continue the previous example, $\da{}$ might indicate how much of the substantive mean difference in  ``materialism'' between Costa Rica and Russia is contaminated by possible measurement differences, and whether this contamination is capable of reversing the conclusions or not. While useful, currently $\da{}$ is only available for linear structural equation models for continuous data. Categorical observed and latent variables are, however, commonly found in the social sciences. Ranking data, moreover, have never been examined for cross-group equivalence in this sense.
-
-This paper therefore develops the $\da{}$ in more generality. This allows for application of the $\da{}$ approach to measurement equivalence evaluation in, for example, IRT models \citep[see also][]{Oberski:WP:model-based-GOF}, ordinal factor analysis, latent class analysis, and to models for ranking data. 
-%We demonstrate the application of the $\da{}$ to ranking data using comparison of the \citet{inglehart1997modernization} (post)materialism ranking measures over 48 countries. Each country's GDP per capita and percentage of women in parliament is related to the country proportion in categories of ``(post)materialism'' as measured by three separate ranking tasks. Since the measurement of these (post)materialism categories may be flawed,  (post)materialism becomes a latent variable that is discrete: a ``latent class'' variable \citep{bockenholt2002comparison,moors2007heterogeneity}. The measurement model for this variable accounts for the intrinsic dependencies between respondents' ranking choices, while the structural model accounts for dependencies between respondents within a country using a multilevel specification with a nonparametric random effect distribution \citep{vermunt2003multilevel}. The $\da{}$ is then applied to investigate the impact of measurement invariance assumptions on the latent relationship estimates of interest.
-
-
-
-
-
-
-\pagebreak
 \section{Measurement invariance in categorical data}
 \label{sec:invariance}
 \subsection{The problem of measurement invariance}
@@ -216,6 +204,7 @@ The accuracy of the approximation of the $\da{}$ as a measure of the change in t
 It is important to note here that $\vm{\delta}$ is the deviation from the ``true'' value of $\vm{\vartheta}$, rather than the deviation from the limit of the parameter estimates under the alternative model. Therefore another view on the accuracy is that it will be better when the alternative model is not strongly misspecified. For this reason it is also important to consider freeing sets of very strongly related parameters simultaneously, since a change in one of them will then imply a change in the others, and, consequently, a misspecified alternative model.
 
 \subsection{Small simulation study}
+\label{sec:simulation}
 
 To demonstrate the extent of the approximation bias in the EPC-interest, we performed a small simulation study. In this study, we specified a latent variable model for four binary indicators:
 $
@@ -256,6 +245,7 @@ Overall, the results of this very limited simulation study demonstrate the analy
 
 
 \section{Example application \#1: 90th US Senate roll call data}
+\label{sec:rollcall}
 
 To exemplify the use of the EPC-interest using a relatively simple latent variable model with categorical variables that is well-known in political science, we estimate an ideal point model on roll call data for senators in the 90th US Senate, which met from 1967 to 1969 during the Lyndon B. Johnson Administration. 
 
@@ -327,7 +317,7 @@ In this section we investigated measurement invariance assumptions in the well-k
 
 
 \section{Example application \#2: ranking values in the WVS}
-
+\label{sec:WVS}
 
 Our second, more complex, example application employs the 2010--2012 World Values Survey\footnote{\url{http://www.worldvaluessurvey.org/}} (WVS) comprising $n = 67,568$ respondents in 48 different countries (Appendix \ref{sec:countries-included} provides a full list of countries).
 The WVS questionnaire includes \citet{inglehart1977silent}'s extended (post)materialism questions, developed to measure political values priorities. This extended version includes three sets of four priorities (Table \ref{tab:ranking-question}) to be ranked by the respondents. Of these, set B in Table \ref{tab:ranking-question} is known as the ``short scale'' that is commonly used in research on values priorities.  
@@ -399,14 +389,11 @@ Each respondent in the 48 countries has ranked only their first and second choic
 			\exp(\tau_{k} + \lambda_{k x})},
 				\label{eq:ranking}
 \end{equation}
-Crucially, the choice for second place, $A_{2ic}$, is modeled while excluding the alternative already chosen for first place, $A_{1ic}$. In other words, we model a sequential ranking process in which first place is chosen from all options, then second place is chosen from the remaining options.
-This dependency intrinsic to ranking tasks makes the model used here different from standard models for qualitative dependent variables  such as multinomial regression.
+Crucially, the choice for second place, $A_{2ic}$, is modeled while excluding the alternative already chosen for first place, $A_{1ic}$. In other words, we model a sequential ranking process in which first place is chosen from all options, then second place is chosen from the remaining options. This dependency intrinsic to ranking tasks makes the model used here different from standard models for categorical dependent variables.
 The measurement model for (post)materialism is shown in the bottom part of Figure \ref{fig:model}, using gray arrows to indicate that the choice for second place is modeled conditionally upon that for first place.
 
-
-
-As shown in Section \ref{sec:invariance}, Equation \ref{eq:ranking} is a full measurement invariance model: it excludes potential  direct main effects and direct interaction effects of the grouping variable. Instead of considering main and interaction effects from the countries directly, we consider these for the country random effects ($G$)  \citep[see][]{dejong2007relaxing,fox2011random,jak2014measurement}.
-Thus, measurement invariance violations could be parameterized by extending Equation  \ref{eq:ranking} to include country group class ($g$) effects:
+%As shown in Section \ref{sec:invariance}, Equation \ref{eq:ranking} is a full measurement invariance model: it excludes potential  direct main effects and direct interaction effects of the grouping variable. Instead of considering main and interaction effects from the countries directly, we consider these for the country random effects ($G$)  \citep[see][]{dejong2007relaxing,fox2011random,jak2014measurement}.
+Measurement invariance violations could be parameterized by extending Equation  \ref{eq:ranking} to include country group class ($g$) effects:
 \begin{equation}
 P(A_{1ic} = a_1, A_{2ic} = a_2 | X_{ic} = x) = 
 		\frac{\exp(\tau_{a_1} + \lambda_{a_1 x} + 
@@ -415,10 +402,10 @@ P(A_{1ic} = a_1, A_{2ic} = a_2 | X_{ic} = x) =
 		\ldots
 			\label{eq:loglin-measurement-noninvariant}
 \end{equation}
-The base invariance model above can then be seen as fixing the intercept deviations $\delta_{k g} = 0$  and slope deviations $\delta^{*}_{k x g} = 0$.  An example of this parameterization of measurement non-invariance for the second ranking of Set C ($C_2$) is shown in Figure \ref{fig:model} as the dotted main effect and interaction effects for scalar and metric invariance, respectively. In line with Section \ref{sec:invariance}, we now investigate whether the possible misspecifications in the measurement invariance model, $\delta_{k g} \neq 0$ and $\delta^{*}_{k x g} \neq 0$, substantially affect the parameters of interest $\gamma_{mx}$ using EPC-interest for categorical data.
+The base invariance model in Equation \ref{eq:ranking} can be seen as fixing the direct main effects $\delta_{k g} = 0$  and direct interaction effects $\delta^{*}_{k x g} = 0$. Figure \ref{fig:model}  shows an example for the second ranking of Set C ($C_2$) as the dotted main effect and interaction effects. In line with Section \ref{sec:invariance}, we now investigate whether the possible misspecifications in the measurement invariance model, $\delta_{k g} \neq 0$ and $\delta^{*}_{k x g} \neq 0$, substantially affect the parameters of interest $\gamma_{mx}$ using EPC-interest for categorical data.
 
 
-The model was estimated using Latent Gold 5.  Following \citet{moors2007heterogeneity}, we select three  classes for both the latent ``(post)materialism'' variable and the country group class variable. For BIC values and the rationale behind these choices, please see Appendix \ref{app:bic}. Since class selection is not the focus of this example analysis, we will not discuss it here further. 
+The full measurement invariance model  including parameters of interest $\gamma_{mx}$ was estimated using Latent Gold 5.  Following \citet{moors2007heterogeneity}, we select three  classes for both the latent ``(post)materialism'' variable and the country group class variable. For BIC values and the rationale behind these choices, please see Appendix \ref{app:bic}. Since class selection is not the focus of this example analysis, we will not discuss it here further. 
 
 After estimating the full invariance model, we calculated the $\da{}$ for the $\delta$ and $\delta^*$ parameters, of which our three-class model has four: two for each of the two independent variables. Measurement invariance violations can potentially take the form of 6 direct main effects ($\delta_{j k g}$) and 12 direct interaction effects ($\delta^{*}_{j k x g}$) for each of the three ranking tasks, totaling 54 possible misspecifications in the full invariance model. These misspecifications are strongly correlated and should not be considered separately. Rather, we consider the probable impact of freeing the direct main effects for each ranking task separately and of freeing the  direct interactions for each ranking task separately. Thus, rather than consider the direct and interaction effects for each of the 48 countries on each of the three unique categories of each of the three ranking tasks, making for $5076$ potential $\da{}$ values, we evaluate direct effects of the country group random effect and consider their impact jointly for strongly correlated misspecifications, reducing the problem to 24 $\da{}$ values of interest.
 
@@ -430,7 +417,7 @@ After estimating the full invariance model, we calculated the $\da{}$ for the $\
 		&&&&&\multicolumn{7}{c}{EPC-interest for...}\\
 	&&&&&\multicolumn{3}{c}{$\delta_{j k g}$} && \multicolumn{3}{c}{$\delta^{*}_{j k x g}$}\\
 			\hline
-		&&\multicolumn{2}{c}{Estimates}&&\multicolumn{3}{c}{Ranking task} && \multicolumn{3}{c}{Ranking task}\\
+		&&\multicolumn{2}{c}{Estimates $\hat{\gamma_{mx}}$}&&\multicolumn{3}{c}{Ranking task} && \multicolumn{3}{c}{Ranking task}\\
 \cline{3-4}\cline{6-8}\cline{10-12}
 			&	&	Est.&	s.e.&	&	1  &	2  &	3  &&	  1&	2 &	3\\
 				\hline
@@ -443,11 +430,9 @@ Class	2&	Women&	-0.037&	(0.001)&	&	0.007&	-0.003&	0.002&&	-0.006&	-0.013&	0.002\
 \end{tabular}
 \end{small}\end{table}
 
-Table \ref{tab:epc-interest-model1} shows these 24 $\da{}$ values calculated from the full invariance model. These $\da{}$ values estimate the likely change from the maximum likelihood estimates (column 3 in Table \ref{tab:epc-interest-model1}) in the four parameters of substantive interest after freeing the direct main or interaction effects for each of the three ranking tasks (columns 5--10 in  Table \ref{tab:epc-interest-model1}). In the full invariance model, Class 1 corresponds to a ``postmaterialism'' class. The estimate -0.035 (s.e. 0.007) shown in Table \ref{tab:epc-interest-model1}) would therefore suggest that more prosperous nations tend to be less postmaterialist. This directly contradicts the theory of \citet{inglehart2010changing}, which suggests that this coefficient should be positive. 
+Table \ref{tab:epc-interest-model1} shows these 24 $\da{}$ values together with the parameter estimates from the full invariance model. The $\da{}$ values estimate the change from the current estimates of interest after freeing the direct main effects ($\delta_{jkg}$) or interaction effects ($\delta^*_{jkg}$). In the full invariance model, Class 1 corresponds to a ``postmaterialism'' class. The estimate -0.035 (s.e. 0.007) shown in Table \ref{tab:epc-interest-model1} would therefore suggest that more prosperous nations tend to be less postmaterialist. This directly contradicts the theory of \citet{inglehart2010changing}.
 
 Since the theory specifies only that certain coefficients should be positive or negative, the key focus of substantive interest is whether misspecifications in the invariance model can potentially change the sign of a parameter of interest. In Table \ref{tab:epc-interest-model1}, we therefore look for $\da{}$ values that, when added to the estimates in column 3, would change the sign of those estimates. It can be seen in the Table that two such $\da{}$ are indeed present, namely the direct interaction effect of the country group class with the postmaterialism class on ranking tasks 1 and 2.  This means that the attribute parameters that define the classes for these two tasks differ over country groups, and that after accounting for these differences the effect of GDP on postmaterialism is estimated to be positive rather than negative. This set of misspecifications is thus of substantive interest and should be amended in the model. 
-
-Following the common practice of partial invariance models, we therefore free these two sets of measurement invariance violations, allowing for differences in the parameters of ranking tasks 1 and 2 across country groups. Table \ref{tab:epc-interest-model2} shows the substantive parameter estimates and $\da{}$ interest values for the resulting partial invariance model, which has 63 parameters and a log-likelihood of $-418610.0$ ($\text{BIC} = 837920.5$). The likelihood ratio test of improvement in model fit is highly significant ($\chi^2_{\text{df} = 28} = 24607$). Moreover, the substantive logistic regression coefficient for the effect of GDP on the postmaterialism class (Class 2 in Table \ref{tab:epc-interest-model2}), is indeed positive after freeing the detected misspecifications. Re-calculating $\da{}$ values for the remaining possible misspecifications reveals that none of the possible misspecifications in this partial invariance model has the potential to change the substantive conclusions. In this sense, we therefore conclude that the partial invariance model fits ``approximately'', since none of the substantive conclusions based on it are threatened by measurement invariance violations.
 
 \begin{table}\begin{small}
 	\caption{
@@ -459,7 +444,7 @@ Following the common practice of partial invariance models, we therefore free th
 %		&&\multicolumn{2}{c}{Estimates}&&\multicolumn{3}{c}{Set} && \multicolumn{3}{c}{Set}\\
 	&&&&&\multicolumn{3}{c}{$\delta_{k g}$} && \multicolumn{3}{c}{$\delta^{*}_{k x g}$}\\
 			\hline
-		&&&&&\multicolumn{3}{c}{Ranking task} && \multicolumn{3}{c}{Ranking task}\\
+		&&\multicolumn{2}{c}{Estimates $\hat{\gamma}_{mx}$}&&\multicolumn{3}{c}{Ranking task} && \multicolumn{3}{c}{Ranking task}\\
 \cline{3-4}\cline{6-8}\cline{10-12}
 			&	&	Est.&	s.e.&	&	1  &	2  &	3  &&	  1&	2 &	3\\
 				\hline
@@ -472,7 +457,10 @@ Class 	2&	Women&	0.020&	(0.001)&	&	-0.007&	-0.001&	0.002&	&&	&	0.007\\
 	\end{tabular}
 \end{small}\end{table}
 
-[TODO]
+Following the common practice of partial invariance models, we free these two sets of measurement invariance violations, allowing for differences in the parameters of ranking tasks 1 and 2 across country groups. Table \ref{tab:epc-interest-model2} shows the substantive parameter estimates and $\da{}$ interest values for the resulting partial invariance model. The likelihood ratio test of improvement in model fit is highly significant ($\chi^2_{\text{df} = 28} = 24607$). Moreover, the substantive  regression coefficient for the effect of GDP on the postmaterialism class (Class 2 in Table \ref{tab:epc-interest-model2}), is indeed positive after freeing the detected misspecifications. Re-calculating $\da{}$ values for the remaining possible misspecifications reveals that none of the possible misspecifications in this partial invariance model has the potential to change the substantive conclusions. We therefore conclude that the partial invariance model fits ``approximately'', since none of the substantive conclusions based on it are threatened by measurement invariance violations.
+
+\bigskip
+This section demonstrated the use of the EPC-interest for measurement invariance testing in a more complex example. A violation of measurement invariance was detected that could reverse the conclusions of substantive interest. After accounting for this violation, no further such violations are detected. 
 
 \pagebreak
 
@@ -480,16 +468,23 @@ Class 	2&	Women&	0.020&	(0.001)&	&	-0.007&	-0.001&	0.002&	&&	&	0.007\\
 \label{sec:discussion}
 
 [TODO]
+\bigskip
+
+
 
 Whenever groups are compared, measurement equivalence is a concern. Particularly, it should be verified that substantive conclusions of interest are uncontaminated by possible cross-group differences in measurement. The $\da$, a measure introduced by \citet{Oberski:WP:EPC-interest} for this purpose in the context of linear structural equation models, was extended in this paper to apply to categorical observed and latent variables as well as rankings and other types of data often encountered in the social sciences. An example application looked at the relationship between latent (post)materialism on the one hand and, on the other, log-GDP per capita and the percentage of women in parliament using data from  67,568 respondents in 48 countries. 
 %The $\da{}$ is a useful guide for this purpose, reducing a potentially 5076-dimensional problem to 12 $\da{}$ values (Tables \ref{tab:epc-interest-model1} and \ref{tab:epc-interest-model2}). 
 A violation of measurement invariance existed that, when unaccounted for, could reverse substantive conclusions. The $\da{}$ allowed us to detect this problem and account for those violations of assumptions that were indeed influential on the substantive conclusions of interest.
  Finally, we provided user-friendly  software implementing the $\da$; program input and data for the example application is available in the online Appendix. 
 
+
+\pagebreak
+p2
+\pagebreak
 % REMOVE:
 %The EPC-interest fits within the recent literature on ``approximate measurement invariance''. That is, the goal of incorporating important measurement differences in the model while ignoring unimportant ones. Invariance testing using ``approximate'' fit measures such as the CFI and RMSEA \citep[e.g.][]{cheung2002evaluating,chen2007sensitivity} can be thought of as such a method, since the fit of the model is thought to be ``approximate'', and relative to model complexity. Model-based approaches include random effects modeling \citep{dejong2007relaxing,jak2014measurement}, Bayesian priors on measurement differences \citep{muthen2012bayesian}, and factor rotation towards an invariant solution \citep{muthen2014alignment}. An advantage of these last three approaches is that a middle ground may be found between exact equality of measurement processes over groups and complete independence \citep{schoot2013facing}. However, a current problem  is that there is no agreed-upon definition of ``approximate''. At the same time, the EPC-interest approach does not offer a middle ground, but it does solve the problem of defining what ``approximate'' fit might be \citep[p. 12]{schoot2013facing}: for example, in the current application it was taken to be any measurement difference that cannot reverse the sign of the regression parameters of substantive interest.  An interesting direction for future work is therefore to combine the sensitivity analysis approach of the EPC-interest with the approaches to approximate measurement invariance of \citet{muthen2012bayesian,muthen2014alignment}, for example by weighting the cross-group measurement differences to be aligned by the possible change in parameters of interest. 
 
-The scope of the paper was limited to an application of the EPC-interest to a model with categorical observed and latent variables. While we consider this a useful contribution, we did not further investigate the performance of this measure. We do note that the actually observed change in the parameters of interest after freeing the suggested invariance restrictions was very close to that predicted by the EPC-interest in this particular application. The Monte Carlo simulation using linear structural equation models  in \citet{Oberski:WP:EPC-interest} demonstrates that this is the case for linear structural equation models with relatively simple setups. However, an  investigation of whether this is the case for categorical latent class models under a wider range of hypothetical conditions in a simulation study remains work for the future.
+%The scope of the paper was limited to an application of the EPC-interest to a model with categorical observed and latent variables. While we consider this a useful contribution, we did not further investigate the performance of this measure. We do note that the actually observed change in the parameters of interest after freeing the suggested invariance restrictions was very close to that predicted by the EPC-interest in this particular application. The Monte Carlo simulation using linear structural equation models  in \citet{Oberski:WP:EPC-interest} demonstrates that this is the case for linear structural equation models with relatively simple setups. However, an  investigation of whether this is the case for categorical latent class models under a wider range of hypothetical conditions in a simulation study remains work for the future.
 
 \bibliographystyle{pa}
 \bibliography{/Users/daob/Dropbox/Bibliography/quality}
