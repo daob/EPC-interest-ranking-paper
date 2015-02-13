@@ -4,6 +4,9 @@
 
 \frenchspacing  % Removes extra spacing after period.
 
+\usepackage{xfrac}
+
+
 \usepackage{hyperref}
 
 \usepackage{natbib}
@@ -97,52 +100,52 @@ Section \ref{sec:invariance} explains categorical data latent variable models  a
 \label{sec:invariance}
 \subsection{The problem of measurement invariance}
 
-Many important variables in the social sciences are not or cannot be directly observed, but are instead latent  \citep{bollen2002latent} and measured using a vector of multiple indicators, $\mathbf{y}$, say. This measurement of the latent variable $\xi$ is defined by a ``measurement model'',
+Many important variables in the social sciences are not or cannot be directly observed, but are instead latent  \citep{bollen2002latent} and measured using a vector of multiple indicators, $\mathbf{y}$, say. This measurement of the latent variable $x$ is defined by a ``measurement model'',
 \begin{equation}
-	p(\mathbf{y} | \xi).
+	p(\mathbf{y} | x).
 		\label{eq:measurement-model}
 \end{equation}
-The latent $\xi$ variable could, for example, be a ``random effect'', a person's unobserved utility for a choice, a general attitude, or a variable measured with error such as voter turnout.
-Often the measurement model in Equation \ref{eq:measurement-model} is not, however, of primary interest to the researcher, but rather  the relationship between the latent variable and some covariate vector $\mathbf{x}$ is, i.e. the ``structural model'',
+The latent $x$ variable could, for example, be a ``random effect'', a person's unobserved utility for a choice, a general attitude, or a variable measured with error such as voter turnout.
+Often the measurement model in Equation \ref{eq:measurement-model} is not, however, of primary interest to the researcher, but rather  the relationship between the latent variable and some covariate vector $\mathbf{z}$ is, i.e. the ``structural model'',
 \begin{equation} 
-	p(\xi | \mathbf{x}).
+	p(x | \mathbf{z}).
 		\label{eq:structural-model}
 \end{equation}
-Figure \ref{fig:LVM} shows this relationship as an arrow between the observed covariate $\mathbf{x}$ and latent variable $\xi$.
-For example, $\mathbf{x}$ could contain a set of dummy variables indicating a respondent's country or gender, so that Equation \ref{eq:structural-model} simply compares values of $\xi$ across countries or genders. Alternatively, interest could focus on the influence of continuous covariates such as GDP or age on the latent $\xi$. Of course, the problem is that $\xi$ is not observed, but only $\mathbf{y}$ and $\mathbf{x}$ are. 
+Figure \ref{fig:LVM} shows this relationship as an arrow between the observed covariate $\mathbf{z}$ and latent variable $x$.
+For example, $\mathbf{z}$ could contain a set of dummy variables indicating a respondent's country or gender, so that Equation \ref{eq:structural-model} simply compares values of $x$ across countries or genders. Alternatively, interest could focus on the influence of continuous covariates such as GDP or age on the latent $x$. Of course, the problem is that $x$ is not observed, but only $\mathbf{y}$ and $\mathbf{z}$ are. 
 
 \begin{figure}\centering
 	\includegraphics[width=.4\textwidth]{figures/LVM}
-	\caption{Graph of a latent variable model. The latent variable $\xi$ is shown in a circle to indicate that it is unobserved. }
+	\caption{Graph of a latent variable model. The latent variable $x$ is shown in a circle to indicate that it is unobserved. }
 	\label{fig:LVM}
 \end{figure}
 
-Latent variable models generally attack this problem by making two key assumptions about how $\xi$ is measured \citep{skrondal2004generalized}. The first assumption is necessary to identify the measurement model. It states that, given the latent variable, the indicators $y_j$ are ``locally independent'': $
+Latent variable models generally attack this problem by making two key assumptions about how $x$ is measured \citep{skrondal2004generalized}. The first assumption is necessary to identify the measurement model. It states that, given the latent variable, the indicators $y_j$ are ``locally independent'': $
 %\begin{equation}
-		p(\mathbf{y} | \xi) = \prod_{j \in \{1..J\}} p(y_j | \xi),
+		p(\mathbf{y} | x) = \prod_{j \in \{1..J\}} p(y_j | x),
 %		\label{eq:local-independence}
 %\end{equation} 
-$ where $J$ is the number of indicators use to measure $\xi$; typically $J$ will be at least three. In Figure \ref{fig:LVM}, the  absence of relationships among the observed variables except those due to their common cause $\xi$ implies local independence.
+$ where $J$ is the number of indicators use to measure $x$; typically $J$ will be at least three. In Figure \ref{fig:LVM}, the  absence of relationships among the observed variables except those due to their common cause $x$ implies local independence.
 %The local independence assumption is common to all multiple indicator latent variable models and not specific to the issue of relating the covariate to the latent variable. 
 
 The second assumption is necessary to identify the structural model. It states that, while the latent variable may depend on the covariate, its \emph{measurement} should not, i.e. the indictors should be ``measurement invariant'':
 \begin{equation}
-	p(y_j | \xi, \mathbf{x}) = p(y_j | \xi).
+	p(y_j | x, \mathbf{z}) = p(y_j | x).
 	\label{eq:no-dif}
 \end{equation}
 When Equation \ref{eq:no-dif} holds for \emph{all} $J$ indicators this is called ``full measurement invariance'' \citep{meredith1993measurement}. 
-A violation of  measurement invariance is sometimes termed ``differential item functioning'' (DIF), since the ``items'' $y_j$ have differing conditional probability distributions given $\xi$ for differing values of $\mathbf{x}$ \citep{mellenbergh1989item}.
-Intuitively, measurement invariance is necessary to identify the structural model of Equation \ref{eq:structural-model} because if all indicators are caused by both $\xi$ and $\mathbf{x}$, then there is no way of knowing whether an observed indicator difference  over values of the covariate is due to a covariate effect on  $\xi$ or to a difference over the covariate in the way $\xi$ is measured. For example, when comparing countries, an observed cross-country difference in anti-immigrant attitudes might be a substantive difference or it might equally well be explained as differing answer tendencies over countries. 
-%Since the same is true for all the other indicators, there is just no way of separating effects on indicators from effects on the latent variable: the structural model is therefore unidentifiable.  Full measurement invariance thus guarantees that $\xi$ can indeed be compared across values of the covariates.
+A violation of  measurement invariance is sometimes termed ``differential item functioning'' (DIF), since the ``items'' $y_j$ have differing conditional probability distributions given $x$ for differing values of $\mathbf{z}$ \citep{mellenbergh1989item}.
+Intuitively, measurement invariance is necessary to identify the structural model of Equation \ref{eq:structural-model} because if all indicators are caused by both $x$ and $\mathbf{z}$, then there is no way of knowing whether an observed indicator difference  over values of the covariate is due to a covariate effect on  $x$ or to a difference over the covariate in the way $x$ is measured. For example, when comparing countries, an observed cross-country difference in anti-immigrant attitudes might be a substantive difference or it might equally well be explained as differing answer tendencies over countries. 
+%Since the same is true for all the other indicators, there is just no way of separating effects on indicators from effects on the latent variable: the structural model is therefore unidentifiable.  Full measurement invariance thus guarantees that $x$ can indeed be compared across values of the covariates.
 
 This identification problem only occurs, however, when there are no measurement invariant indicators at all. A single invariant indicator can disentangle measurement from substantive differences in the other, non-invariant, indicators. Full measurement invariance is therefore not necessary to identify the structural model, but ``partial measurement invariance'' is \citep{byrne1989testing}. The standard practice is to search for non-invariant indicators and either remove them or parameterize their differential functioning \citep{Holland:1993aa}. 
 A common way of doing so when the observed variables are categorical with $K$ categories is a logistic regression, 
 \begin{equation}
-	P(Y_j = k) = \frac{\exp(\tau_{jk} + \lambda_{jk} \xi + \delta_{jk} \mathbf{x})}{\sum_{m \in \{1..K\}} \exp(\tau_{jm} + \lambda_{jm} \xi + \delta_{jm} \mathbf{x})},
+	P(Y_j = k) = \frac{\exp(\tau_{jk} + \lambda_{jk} x + \delta_{jk} \mathbf{z})}{\sum_{m \in \{1..K\}} \exp(\tau_{jm} + \lambda_{jm} x + \delta_{jm} \mathbf{z})},
 	\label{eq:logistic-dif}
 \end{equation}
 \citep{mellenbergh1989item,kankaras2010testing}, where some restriction is imposed on the parameters for identification purposes such as ``effect coding'', $\sum_k \tau_{jk} = \sum_k \lambda_{jk} =\sum_k \delta_{jk} = 0$, or dummy coding, $\tau_{j1} = \lambda_{j1} = \delta_{j1} = 0$. 
-It can be seen in Equation \ref{eq:logistic-dif} that setting $\delta_{jk} = 0$ corresponds to measurement invariance\footnote{An interaction term $\delta_{jk}^* \mathbf{x}\xi$ could be added to Equation \ref{eq:logistic-dif} but has been omitted for clarity.}. This means that it is possible to estimate a model in which $\delta_{jk} \neq 0$ for \emph{some} indicators, while $\delta_{jk}$ is kept at zero, i.e. partially measurement invariant, for others. 
+It can be seen in Equation \ref{eq:logistic-dif} that setting $\delta_{jk} = 0$ corresponds to measurement invariance\footnote{An interaction term $\delta_{jk}^* \mathbf{z}x$ could be added to Equation \ref{eq:logistic-dif} but has been omitted for clarity.}. This means that it is possible to estimate a model in which $\delta_{jk} \neq 0$ for \emph{some} indicators, while $\delta_{jk}$ is kept at zero, i.e. partially measurement invariant, for others. 
 Figure \ref{fig:LVM} shows this possible direct effect from covariate to indicator as a dashed arrow. 
 
 \subsection{Existing solutions}
@@ -219,7 +222,7 @@ $
 	P(Y_1 = 1 | x) = [1 + \exp(-x - \delta z)]^{-1}.
 $
 Nine conditions varied sample size, $n \in \{250, 500, 1000\}$, and the size of the invariance violation:  $\delta = $ 0 (no violation), 0.5 (moderate), or 1 (extreme). 
-Data were generated using R 3.1.2 and analyzed using Latent Gold 5.0.0.14161. 
+Data were generated using R 3.1.2 and analyzed using Latent GOLD 5.0.0.14161. 
 
 \begin{table}\begin{small}
 \begin{tabular}{lrrrrrrrrrrrr}
@@ -238,10 +241,10 @@ True $\delta$	&   0	& 0.5	& 1	&& 0	& 0.5	& 1	&& 0	& 0.5	& 1\\
 \label{tab:simulation}
 \end{small}\end{table}
 
-The results over 200 samples are shown in Table \ref{tab:simulation}. The first two rows  show the average point estimate of the parameter of interest $\hat{\gamma}$, and its deviation from the true value $\gamma = 1$, respectively. It can be seen that a modest violation $\delta = 0.5$ still has a substantively important impact on bias. Under this condition, that bias is reasonably well approximated by the EPC-interest, which has average values close to the true bias. When the violation is extreme, however, the approximation causes the EPC-interest to somewhat overestimate the bias: for example, in the last column of the table the true bias is -0.327 but EPC-interest estimates it at about -0.448. This effect appears to be strongest with the smallest sample size, a phenomenon that can be explained by the approximation term being more likely to take on large values in small samples. 
+The results over 200 samples are shown in Table \ref{tab:simulation}. The first two rows  show the average point estimate of the parameter of interest $\hat{\gamma}$, and its deviation from the true value $\gamma = 1$, respectively. It can be seen that a modest violation $\delta = 0.5$ still has a substantively important impact on bias. Under this condition, the amount of bias is reasonably well approximated by the EPC-interest, which has average values close to the true bias. When the violation is extreme, however, the approximation causes the EPC-interest to somewhat overestimate the bias: for example, in the last column of the table the true bias is -0.327 but EPC-interest estimates it at about -0.448. This effect appears to be strongest with the smallest sample size, a phenomenon that can be explained by the approximation term being more likely to take on large values in small samples. 
  
 
-Overall, the results of this very limited simulation study demonstrate the analytic results discussed above. As expected, for small samples and very large violations of invariance, the EPC-interest will overestimate the bias caused somewhat. In these cases, the researcher may wish to verify that after freeing the violation in question, the results of interest do indeed change substantially. Alternatively, where this is feasible, one may also resort to estimating all alternative models and examining the results. In other conditions, the EPC-interest performs as expected: when there is no bias, it estimates zero on average, and when there is moderate bias in the parameter of interest, EPC-interest approximates this bias adequately. 
+Overall, the results of this very limited simulation study demonstrate the analytic results discussed above. As expected, for small samples and very large violations of invariance, the EPC-interest will overestimate the bias caused somewhat. In these cases, the EPC-interest is still a useful guide but the researcher may wish to verify that after freeing the violation in question, the results of interest do indeed change substantially. Alternatively, where this is feasible, one may also resort to estimating all alternative models and examining the results. In other conditions, the EPC-interest performs as expected: when there is no bias, it estimates zero on average, and when there is moderate bias in the parameter of interest, EPC-interest approximates this bias adequately. 
 
 
 \section{Example application \#1: 90th US Senate roll call data}
@@ -258,14 +261,14 @@ where the utility $u_{ij}$ of the motion to that senator is simply the Euclidean
 \begin{equation}
 	u_{ij} = (x_{i} - \tau_{j})^2.
 \end{equation}
-This model is equivalent to the well-known unidimensional \citet{poole1985spatial} (W-NOMINATE) model. The latent variable $x_i$ is known  as an ``ideal point''. 
+This model is equivalent to the well-known unidimensional \citet{poole1985spatial} (W-NOMINATE) model. The latent value $x_i$ is known  as an ``ideal point''. 
 
 The Poole-Rosenthal model can be extended to incorporate covariates that predict the latent variable $x_i$, for example using the party of the senator as a predictor: 
 \begin{equation}
 	x_i = \alpha + \gamma \cdot \text{Party} + \epsilon_i.
 	\label{eq:party-dimension}
 \end{equation}
-Using party (Democratic or Republican) as a predictor allows the researcher to see how strongly  party membership relates to the senator's ideological position, which ultimately influences their votes. A higher value of $\gamma$ thus indicates more ideological homogeneity  within parties in the Senate: we therefore call $\gamma$ the ``polarization coefficient''.  
+Using party (Democratic or Republican) as a predictor allows the researcher to see how strongly  party membership relates to  senators' ideological positions, which ultimately influences their votes. A higher value of $\gamma$ thus indicates more ideological homogeneity  within parties in the Senate: we therefore call $\gamma$ the ``polarization coefficient''.  
 
 The usual choice $\epsilon_i \sim \text{Normal}(0, \sigma^2)$  leads to a quadratic structural equation model (SEM) for categorical data, or, equivalently, a quadratic 2PL IRT model with a covariate \citep{rabe2004generalized}. Alternatively, the distribution of $x$ can be estimated from the data by choosing some number $K$ of categories for $x$ (``latent classes'') and modeling the probability of belong to class $k$ as an ordered multinomial regression,
 \begin{equation}
@@ -282,10 +285,9 @@ A possible problem when using ideal point models to investigate polarization is 
 		P(\text{``Yea'' on motion } j | x_i) = [1 + \exp(-\beta_j u_{ij} - \delta_j \cdot\text{Party})]^{-1},
 	\label{eq:vote-dif}
 \end{equation}
-then replaces Equation \ref{eq:vote-nodif}. In other words, the usual ideal point model assumes measurement invariance with respect to the covariate, an assumption that can be expressed as $\delta_j=0$. In the current application, where such direct effects do exist they are relevant to the investigation of polarization insofar as ignoring them biases the estimate of the Senate's overall polarization. Thus, we investigate whether the assumption of measurement invariance $\delta_j=0$  seriously affects the estimate of interest $\hat{\gamma}$ using the EPC-interest.
+then replaces Equation \ref{eq:vote-nodif}. In other words, the usual ideal point model assumes measurement invariance with respect to the covariate, an assumption that can be expressed as $\delta_j=0$. Where such direct effects do exist they are relevant to the investigation of polarization insofar as ignoring them biases the estimate of the Senate's overall polarization. Thus, we investigate whether the assumption of measurement invariance $\delta_j=0$  seriously affects the estimate of interest $\hat{\gamma}$ using the EPC-interest.
 
-Maximum likelihood estimates of the parameters were obtained using the software Latent Gold, taking $K=4$ and the first 20 motions introduced in the 90th Senate as an example. The model appears to fit the data well, with an $L^2$ bootstrapped $p$-value of $0.14$, The factor scores $\hat{x}_i$ obtained from this simple model correlated highly (0.79) with those obtained from W-NOMINATE \citep{poole2008scaling} and from Optimal Classification Roll Call Scaling \citep[0.81;][]{poole2012oc}.
-Based on the full invariance model, the polarization coefficient $\hat{\gamma}$ was estimated at $4.164$ (s.e. 1.3077). Since $\gamma$ is a logistic regression coefficient, this means that a Republican senator has a $\exp(\hat{\gamma})=\exp(4.164)\approx64$ times higher odds of being one category above a Democratic senator than of being in the same category. There was therefore considerable polarization in the 90th Senate. 
+Maximum likelihood estimates of the parameters were obtained using the software Latent GOLD, taking $K=4$ and the first 20 motions introduced in the 90th Senate as an example. The model appears to fit the data well, with an $L^2$ bootstrapped $p$-value of $0.14$, The factor scores $\hat{x}_i$ obtained from this simple model correlated highly (0.79) with those obtained from W-NOMINATE \citep{poole2008scaling} and from Optimal Classification Roll Call Scaling \citep[0.81;][]{poole2012oc}. Based on the full invariance model, the polarization coefficient $\hat{\gamma}$ was estimated at $4.164$ (s.e. 1.3077). Since $\gamma$ is a logistic regression coefficient,  a Republican senator has about four times higher odds of being one category above a Democratic senator than of being in the same category\footnote{Because there are four $x$ categories scored $\{0, \sfrac{1}{3}, \sfrac{2}{3}, 1\}$, the odds are $\exp(\hat{\gamma}/3)\approx4$.}. There was therefore considerable polarization in the 90th Senate. 
 
 However, violations of measurement invariance could conceivably bias this conclusion. To investigate this, Figure \ref{fig:epc-interest} plots the EPC-interest values of freeing the direct effects $\delta_j$ on the parameter estimate of interest $\hat{\gamma}$. Each number in Figure \ref{fig:epc-interest} corresponds to a motion number introduced in the Senate. The vertical axis, labeled ``EPC-interest'', estimates the change from the current estimate ($\hat{\gamma}=4.164$) under full measurement invariance that one can expect to observe in $\hat{\gamma}$ when freeing the direct effect of Party for that motion. 
 The horizontal axis shows the $p$-value for the null hypothesis that the corresponding $\delta_j = 0$, adjusted for false discovery rate \citep{benjamini1995controlling}. The idea behind plotting both of these quantities at the same time is that the researcher will likely be interested in violations of measurement invariance that are both statistically and substantively significant \citep{saris2009testing}.
@@ -296,7 +298,7 @@ The horizontal axis shows the $p$-value for the null hypothesis that the corresp
 \label{fig:epc-interest}
 \end{figure}
 
-Figure \ref{fig:epc-interest} shows that, of the statistically significant violations of measurement invariance, motion \#03 violates measurement invariance in a manner that augments the estimated polarization (EPC-interest is positive). Motions \#04 and \#13, violate measurement invariance in an approximately opposite manner (EPC-interests are negative). However, one motion, \#20, clearly stands out as an important violation of measurement invariance.
+Figure \ref{fig:epc-interest} shows that, of the statistically significant violations of measurement invariance, motion \#03 violates measurement invariance in a manner that augments the estimated polarization (EPC-interest is positive). Motions \#04 and \#13, violate measurement invariance in an approximately opposite manner (EPC-interests are negative). However, motion \#20, clearly stands out as an important violation of measurement invariance.
 After introducing the direct effect of party on voting ``Yea'' to Motion \#20 (freeing $\delta_{20}$), no other measurement invariance violations are statistically significant (all false discovery rate-adjusted $p$-values $\geq 0.05$). Thus, it seems that Motion \#20 (HR4573, which increased the public debt limit) was an issue on which the ranks were closed more than usual. Indeed, the 1967 CQ Almanac\footnote{\url{http://library.cqpress.com/cqalmanac/document.php?id=cqal67-1314297}} specifically reports on this motion, remarking that ``Republicans launched their first major attacks in the 90th Congress on the Administration's fiscal policies'', with no Republicans voting in favor. 
 
 After adjusting for this event, the polarization coefficient is estimated at 3.422 (s.e. 1.0630): the tight-knittedness between party membership and voting pattern is therefore somewhat loosened, but still strong.  The partial invariance model after accounting for this one violation becomes acceptable, in  the sense that those violations that are present do not substantially change the results of interest regarding polarization. The model fit the data well with an $L^2$ bootstrapped $p$-value of $0.11$. Its BIC (1379) indicates an improvement over that of the full invariance model (1405).  Overall, the difference between the fully and partially invariant models are modest. Figure \ref{fig:ideal-points} shows the effect of freeing $\delta_{20}$ on the ``ideal point'' estimates, i.e. the latent variable estimates $\hat{x}_i$. 
@@ -363,7 +365,7 @@ We will follow these authors and examine the aggregate relationship of values pr
 }. 
 
 
-We  model the probability that unit $i$ in country $c$ belongs to category $x$ of the latent (post)materialism variable using the multilevel multinomial logistic regression
+We  model the probability that unit $i$ in country $c$ belongs to category $x$ of a latent (post)materialism variable with $T$ classes using the multilevel multinomial logistic regression
 \begin{equation}
 P(X_{ic} = x| Z_{1ic} = z_{1ic}, Z_{2ic} = z_2, G_c = g) = \frac{\exp(\alpha_x + \gamma_{1x} z_1 +\gamma_{2x} z_2  + \beta_{gx})}
 					{\sum_t \exp(\alpha_t + \gamma_{1t} z_1 +  \gamma_{2t} z_2 +  + \beta_{tg})},
@@ -405,7 +407,7 @@ P(A_{1ic} = a_1, A_{2ic} = a_2 | X_{ic} = x) =
 The base invariance model in Equation \ref{eq:ranking} can be seen as fixing the direct main effects $\delta_{k g} = 0$  and direct interaction effects $\delta^{*}_{k x g} = 0$. Figure \ref{fig:model}  shows an example for the second ranking of Set C ($C_2$) as the dotted main effect and interaction effects. In line with Section \ref{sec:invariance}, we now investigate whether the possible misspecifications in the measurement invariance model, $\delta_{k g} \neq 0$ and $\delta^{*}_{k x g} \neq 0$, substantially affect the parameters of interest $\gamma_{mx}$ using EPC-interest for categorical data.
 
 
-The full measurement invariance model  including parameters of interest $\gamma_{mx}$ was estimated using Latent Gold 5.  Following \citet{moors2007heterogeneity}, we select three  classes for both the latent ``(post)materialism'' variable and the country group class variable. For BIC values and the rationale behind these choices, please see Appendix \ref{app:bic}. Since class selection is not the focus of this example analysis, we will not discuss it here further. 
+The full measurement invariance model  including parameters of interest $\gamma_{mx}$ was estimated using Latent GOLD 5.  Following \citet{moors2007heterogeneity}, we select three  classes for both the latent ``(post)materialism'' variable and the country group class variable, $T = S = 3$. For BIC values and the rationale behind these choices, please see Appendix \ref{app:bic}. Since class selection is not the focus of this example analysis, we will not discuss it here further. 
 
 After estimating the full invariance model, we calculated the $\da{}$ for the $\delta$ and $\delta^*$ parameters, of which our three-class model has four: two for each of the two independent variables. Measurement invariance violations can potentially take the form of 6 direct main effects ($\delta_{j k g}$) and 12 direct interaction effects ($\delta^{*}_{j k x g}$) for each of the three ranking tasks, totaling 54 possible misspecifications in the full invariance model. These misspecifications are strongly correlated and should not be considered separately. Rather, we consider the probable impact of freeing the direct main effects for each ranking task separately and of freeing the  direct interactions for each ranking task separately. Thus, rather than consider the direct and interaction effects for each of the 48 countries on each of the three unique categories of each of the three ranking tasks, making for $5076$ potential $\da{}$ values, we evaluate direct effects of the country group random effect and consider their impact jointly for strongly correlated misspecifications, reducing the problem to 24 $\da{}$ values of interest.
 
@@ -467,24 +469,14 @@ This section demonstrated the use of the EPC-interest for measurement invariance
 \section{Discussion and conclusion}
 \label{sec:discussion}
 
-[TODO]
-\bigskip
 
+Whenever groups are compared, measurement invariance is a concern. Particularly, it should be verified that substantive conclusions of interest are uncontaminated by possible cross-group differences in measurement. The ``expected parameter change in the parameter of interest'' or EPC-interest, a measure introduced by \citet{Oberski:WP:EPC-interest} for this purpose in the context of linear structural equation models, was extended in this paper  to categorical observed and latent variables as well as rankings and other types of data often encountered in the social sciences. 
 
+The EPC-interest for categorical data is an approximation of the change in the parameters of substantive interest that we can expect to observe if a particular violation of measurement invariance were freed. A small simulation study showed that this approximation works well when the misspecification is moderate, and overestimates the bias somewhat when it is extreme. In this case, EPC-interest still indicates the most important violations of measurement invariance but the researcher may wish to verify that the expected parameter change is close to the actually observed change. 
 
-Whenever groups are compared, measurement equivalence is a concern. Particularly, it should be verified that substantive conclusions of interest are uncontaminated by possible cross-group differences in measurement. The $\da$, a measure introduced by \citet{Oberski:WP:EPC-interest} for this purpose in the context of linear structural equation models, was extended in this paper to apply to categorical observed and latent variables as well as rankings and other types of data often encountered in the social sciences. An example application looked at the relationship between latent (post)materialism on the one hand and, on the other, log-GDP per capita and the percentage of women in parliament using data from  67,568 respondents in 48 countries. 
-%The $\da{}$ is a useful guide for this purpose, reducing a potentially 5076-dimensional problem to 12 $\da{}$ values (Tables \ref{tab:epc-interest-model1} and \ref{tab:epc-interest-model2}). 
-A violation of measurement invariance existed that, when unaccounted for, could reverse substantive conclusions. The $\da{}$ allowed us to detect this problem and account for those violations of assumptions that were indeed influential on the substantive conclusions of interest.
- Finally, we provided user-friendly  software implementing the $\da$; program input and data for the example application is available in the online Appendix. 
+Two example applications of categorical data latent variable models demonstrated the utility of the EPC-interest. The first application formulated a simple IRT-type ``ideal point'' model for US senators' votes, modeling their latent ideology as a function of party membership to estimate polarization in the 90th US Senate. After fitting the full invariance model, EPC-interest detected one violation of measurement invariance that substantially reduced the estimated polarization and made the ideal point estimates for some Republican senators considerably more liberal. The second example application looked at the relationship between latent (post)materialism on the one hand and, on the other, log-GDP per capita and the percentage of women in parliament using data from  67,568 respondents in 48 countries. A violation of measurement invariance existed that, when unaccounted for, could reverse substantive conclusions. The $\da{}$ allowed us to detect this problem and account for those violations of assumptions that were indeed influential on the substantive conclusions of interest.
 
-
-\pagebreak
-p2
-\pagebreak
-% REMOVE:
-%The EPC-interest fits within the recent literature on ``approximate measurement invariance''. That is, the goal of incorporating important measurement differences in the model while ignoring unimportant ones. Invariance testing using ``approximate'' fit measures such as the CFI and RMSEA \citep[e.g.][]{cheung2002evaluating,chen2007sensitivity} can be thought of as such a method, since the fit of the model is thought to be ``approximate'', and relative to model complexity. Model-based approaches include random effects modeling \citep{dejong2007relaxing,jak2014measurement}, Bayesian priors on measurement differences \citep{muthen2012bayesian}, and factor rotation towards an invariant solution \citep{muthen2014alignment}. An advantage of these last three approaches is that a middle ground may be found between exact equality of measurement processes over groups and complete independence \citep{schoot2013facing}. However, a current problem  is that there is no agreed-upon definition of ``approximate''. At the same time, the EPC-interest approach does not offer a middle ground, but it does solve the problem of defining what ``approximate'' fit might be \citep[p. 12]{schoot2013facing}: for example, in the current application it was taken to be any measurement difference that cannot reverse the sign of the regression parameters of substantive interest.  An interesting direction for future work is therefore to combine the sensitivity analysis approach of the EPC-interest with the approaches to approximate measurement invariance of \citet{muthen2012bayesian,muthen2014alignment}, for example by weighting the cross-group measurement differences to be aligned by the possible change in parameters of interest. 
-
-%The scope of the paper was limited to an application of the EPC-interest to a model with categorical observed and latent variables. While we consider this a useful contribution, we did not further investigate the performance of this measure. We do note that the actually observed change in the parameters of interest after freeing the suggested invariance restrictions was very close to that predicted by the EPC-interest in this particular application. The Monte Carlo simulation using linear structural equation models  in \citet{Oberski:WP:EPC-interest} demonstrates that this is the case for linear structural equation models with relatively simple setups. However, an  investigation of whether this is the case for categorical latent class models under a wider range of hypothetical conditions in a simulation study remains work for the future.
+An anonymous reviewer raised the issue of whether it is appropriate to free violations of measurement invariance where these are encountered. While freeing violations of measurement invariance has long been standard practice in both the ``partial invariance'' literature \citep{byrne1989testing} and the DIF literature \citep{Holland:1993aa}, there are indeed situations in which this approach can be misleading. In particular, freeing violations can be misleading when this leads to an alternative model in which freeing such violations for the other indicators is no longer identifiable. An example is a model with only one invariance restriction so that the alternative model is simply the model with only \emph{a priori} reference indicators. In such cases the choice of indicator for which to free the parameters (i.e. the choice of reference indicator) cannot be determined based on model fit, and will often lead to opposite changes in the parameters of interest \citep{hancock2009tenuousness}. The EPC-interest can then still be used to investigate whether the conclusions are robust to violations of the assumptions. When they are not, however, there is no empirical basis on which to select a model. In other situations such as in the example applications, however, the alternative model still imposes testable restrictions on the data. It then seems reasonable to proceed by freeing some restrictions while retaining others as is the common practice.
 
 \bibliographystyle{pa}
 \bibliography{/Users/daob/Dropbox/Bibliography/quality}
@@ -527,9 +519,9 @@ MEX&	Mexico          &&ZWE&	Zimbabwe		\\
 \doublespacing
 
 \clearpage
-\section{Latent Gold Choice input for the full invariance model}\label{sec:LGinput}
+\section{Latent GOLD Choice input for the full invariance model}\label{sec:LGinput}
 
-The input below fits the full invariance model described in the paper, setting the possible violations of invariance to zero (0). The option ``score test'' in the output section (only available in Latent Gold or Latent Gold Choice $\geq5$) is then used to obtain the EPC-interest values.
+The input below fits the full invariance model described in the paper, setting the possible violations of invariance to zero (0). The option ``score test'' in the output section (only available in Latent GOLD or Latent GOLD Choice $\geq5$) is then used to obtain the EPC-interest values.
 Output and data for this example can be obtained from the online appendix at \url{http://}.
 
 \begin{small}
