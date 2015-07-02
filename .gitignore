@@ -21,3 +21,5 @@
 inputs/pars-3class-covts.txt
 
 outputs/table-bics.xlsx
+
+*.docx
