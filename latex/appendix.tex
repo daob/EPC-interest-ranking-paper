@@ -240,6 +240,38 @@ Thus, when reading each row horizontally, the class with the highest log-utility
 \section{Derivation of the EPC-interest}
 
 
+In deriving the EPC-interest, the key concept is considering the likelihood not only as a function of the free parameters of the model, but also as a function of the parameters that are fixed to obtain the full invariance model. Collecting the free parameters in a vector $\param$ and the fixed parameters in a vector $\bpsi$, we assume the likelihood can be written as an explicit function of both sets of parameters, $L(\param, \bpsi)$.  The maximum-likelihood estimates $\that$ of the free parameters can then be seen as obtained under the full invariance model that sets $\bpsi=0$, i.e. $\that = \arg\max_{\param} L(\param, \bpsi = 0)$. Further, define the parameters of substantive interest as $\vm{\pi} := \vm{P} \param$, where $\vm{P}$ is typically a logical (0/1) selection matrix, although any linear function of the free parameters $\param$ may be taken. 
+Interest then focuses on the likely value these free parameters $\vm{\pi}$ would take if the fixed $\bpsi$ parameters were freed in an alternative model, $\hat{\vm{\pi}}_a = \vm{P} \arg\max_{\param, \bpsi} L(\param, \bpsi)$. 
+
+We now show how these changes in the parameters of interest as a consequence of freeing the fixed parameters $\bpsi$ can be estimated without fitting the alternative model. Let the Hessian $\hat{\vm{H}}_{\vm{a}\vm{b}}$ be the matrix of second derivatives of the likelihood with respect to vectors $\vm{a}$ and $\vm{b}$, evaluated at the maximum likelihood solution of the full invariance model, $\hat{\vm{H}}_{\vm{a}\vm{b}} := (\partial^2 L /\partial \vm{a} \partial \vm{b}^\prime)|_{\param=\that}$. 
+The expected change in the parameters of interest is then measured by the $\da$, 
+\begin{equation}
+\da = \hat{\vm{\pi}}_a - \hat{\vm{\pi}} = \vm{P}
+%	\left( \frac{\partial^2 L(\param, \bpsi)}{\partial (\param, \bpsi)^\prime \partial (\param, \bpsi)} \right)^{-1}
+%		\vm{D}^{-1} \hat{\vm{H}}_{\param\bpsi}^\prime \hat{\vm{H}}^{-1}_{\param\param}
+\hat{\vm{H}}^{-1}_{\param\param} \hat{\vm{H}}_{\param\bpsi}\vm{D}^{-1}
+		\left[ \left.\frac{\partial L(\param, \bpsi)}{\partial \bpsi}\right|_{\param = \that} \right] +	
+		O(\vm{\delta}^\prime\vm{\delta}),
+		\label{eq:epc-interest}
+\end{equation}
+where $\vm{D}:= \hat{\vm{H}}_{\bpsi\bpsi} - \hat{\vm{H}}_{\param\bpsi}^\prime \hat{\vm{H}}^{-1}_{\param\param} \hat{\vm{H}}_{\param\bpsi}$ and the deviation from the true values is $\vm{\delta}:= \vm{\vartheta} - \hat{\vm{\vartheta}}$, with $\vm{\vartheta}$ collecting the free and fixed parameters in a vector, $\vm{\vartheta}:= (\param^\prime, \bpsi^\prime)^\prime$. Note that, apart from the order of approximation term $O(\vm{\delta}^\prime \vm{\delta})$,  Equation \ref{eq:epc-interest} contains only terms that can be calculated after fitting the invariance model.
+%(Relevant derivatives for the special case of the multilevel latent class model are given in Appendix \ref{app:derivatives}.)
+ Thus, it is not necessary to fit the alternative model to obtain the $\da{}$.
+
+In the structural equation modeling literature, the expected change in the fixed parameters $\bpsi$  is commonly found and implemented in standard SEM software. This measure is commonly know as the ``EPC'', but to avoid confusion we term it ``EPC-self'' here. The EPC-self and $\da{}$ both consider the impact of freeing restrictions, but differ in the target of this impact: the EPC-self evaluates the impact on the restriction itself, whereas the $\da{}$ evaluates the impact on the parameters of interest. In spite of these differences, the two measures are related: this can be seen by recognizing that $- \vm{D}^{-1}
+		\left[ \left.\frac{\partial L(\param, \bpsi)}{\partial \bpsi}\right|_{\param = \that} \right] = \text{EPC-self} \approx \bpsi - \hat{\bpsi}$ so that, from Equation \ref{eq:epc-interest}, 
+\begin{equation}
+\da=- \vm{P} \hat{\vm{H}}^{-1}_{\param\param} \hat{\vm{H}}_{\param\bpsi} \,\text{EPC-self} \approx
+- \vm{P} \hat{\vm{H}}^{-1}_{\param\param} \hat{\vm{H}}_{\param\bpsi} \left( \bpsi - \hat{\bpsi}\right)
+\end{equation}
+Furthermore, since $\hat{\bpsi}$ and $\hat{\param}$ are implicitly related by the fact that they are both solutions to the equation $\partial L / \partial \vm\vartheta = \vm{0}$, invoking the implicit function theorem yields $- \hat{\vm{H}}^{-1}_{\param\param} \hat{\vm{H}}_{\param\bpsi}  = \partial \param / \partial \bpsi^\prime$, so that 
+\begin{equation}
+	\da = \vm{P} \left( \frac{\partial \param} {\partial \bpsi^\prime} \right) \left( \bpsi - \hat{\bpsi}\right),
+	\label{eq:epc-linear}
+\end{equation}
+that is, the $\da{}$ can be seen simply as the coefficient of a linear approximation to the relationship between the free and fixed parameters, multiplied by the change in the fixed parameters. This demonstrates the difference with the sensitivity analysis approach common in econometrics \citep[p. 168]{magnus2007local} in which only $\partial \param / \partial \bpsi^\prime$ is considered: the $\da{}$ combines both the direction ($\partial \param / \partial \bpsi^\prime$) and the magnitude ($ \bpsi - \hat{\bpsi}$) of the misspecification.
+
+\bigskip
 The derivation of the $\da{}$ given in Equation \ref{eq:epc-interest} starts from the full invariance solution. We then find a hypothetical new  maximum of the likelihood by setting the gradient of a Taylor expansion of the likelihood around the full invariance solution to zero:
 \begin{equation}
  \frac{\partial L(\param, \bpsi)}{\partial \vm{\vartheta}}= \vm{0} = 
