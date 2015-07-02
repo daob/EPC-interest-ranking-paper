@@ -25,8 +25,8 @@
 
 \title{Evaluating measurement invariance in categorical data latent variable models with the  $\da$}
 
-\author{--BLINDED VERSION--}
-\date{}
+\author{DL Oberski \and JK Vermunt \and G Moors}
+\date{Tilburg University, The Netherlands}
 
 \usepackage{bm}
 \newcommand\vm[1]{% Vector or matrix
@@ -60,8 +60,6 @@
 \begin{abstract}
 Many variables crucial to the social sciences are not directly observed but instead are latent and measured indirectly. When an external variable of interest affects this measurement, estimates of its relationship with the latent variable will then be biased. Such violations of ``measurement invariance'' may, for example, confound true differences across countries in postmaterialism with measurement differences.
 To deal with this problem, researchers commonly aim at ``partial measurement invariance'', i.e. to account for those differences that may be present and important. To evaluate this importance directly through sensitivity analysis, the ``EPC-interest''   was recently introduced  for continuous data. However, latent variable models in the social sciences often use categorical data. The current paper therefore extends the EPC-interest to latent variable models for categorical data and demonstrates its use in example analyses of US Senate votes as well as respondent rankings of postmaterialism values in the World Values Study. 
-
-Program inputs and data for the examples discussed in this article are provided in the electronic appendix (\url{http://}[blinded]).
 \end{abstract}
 
 
@@ -94,6 +92,7 @@ In this paper we therefore extend the EPC-interest approach to measurement invar
 
 \bigskip
 Section \ref{sec:invariance} explains categorical data latent variable models  and the problem of measurement invariance. The EPC-interest is introduced in Section \ref{sec:epc-interest} as an approximation to the sensitivity analysis approach to measurement invariance testing and a small simulation study evaluates the approximation in Section \ref{sec:simulation}. Sections \ref{sec:rollcall} and \ref{sec:WVS} then elaborate the two example applications, while Section \ref{sec:discussion} concludes. 
+Program inputs and data for the simulation and examples discussed in this article are provided in the electronic appendix \citep{oberski2015replication}.
 
 
 \section{Measurement invariance in categorical data}
@@ -307,12 +306,12 @@ After introducing the direct effect of party on voting ``Yea'' to Motion \#20 (f
 After adjusting for this event, the polarization coefficient is estimated at 3.422 (s.e. 1.0630): the tight-knittedness between party membership and voting pattern is therefore somewhat loosened, but still strong.  The partial invariance model after accounting for this one violation becomes acceptable, in  the sense that those violations that are present do not substantially change the results of interest regarding polarization. The model fit the data well with an $L^2$ bootstrapped $p$-value of $0.11$. Its BIC (1379) indicates an improvement over that of the full invariance model (1405).  Overall, the difference between the fully and partially invariant models are modest. Figure \ref{fig:ideal-points} shows the effect of freeing $\delta_{20}$ on the ``ideal point'' estimates, i.e. the latent variable estimates $\hat{x}_i$. 
 
 \begin{figure}\centering
-\includegraphics[width=.9\textwidth]{../outputs/ideal-points.pdf}
-\caption{Posterior point estimates of the latent variable ``ideal point'' score $\hat{x}_i$ for all senators (points), jittered vertically for visual clarity. Black points are Democrats, red circles Republicans. Top: estimates under the fully invariant model; Bottom: estimates allowing for the direct effect $\delta_{20}\neq0$.}
+\includegraphics[width=.85\textwidth]{../outputs/ideal-points.pdf}
+\caption{Posterior point estimates of the latent variable ``ideal point'' score $\hat{x}_i$ for all senators (points), jittered vertically for visual clarity. Filled points are Democrats, open circles Republicans. Top: estimates under the fully invariant model; Bottom: estimates allowing for the direct effect $\delta_{20}\neq0$.}
 \label{fig:ideal-points}
 \end{figure}
 
-The top part of Figure \ref{fig:ideal-points} shows the ideal point estimates under the full invariance model. These estimates range from zero to one; since Democrats, shown as black dots, are predominantly on the lower side of the scale, zero has been labeled ``Democrat'' and the score 1 has been labeled ``Republican'', since most Republicans (red circles) can be found here. To make the points more visible, they have been jittered randomly in the vertical direction. The bottom part of Figure \ref{fig:ideal-points} shows the ideal point estimates for the same senators, but this time while accounting for the partial violation of measurement invariance $\delta_{20}\neq0$. It can be seen that Republicans  are more spread out into the ``Democratic'' side of the scale. Especially the three Republican senators with a score below 0.2 experience a rather large shift in position. On the whole, therefore, the differences between the two distributions are modest, but the differences for individual senators' ideal point estimates can be quite substantial.
+The top part of Figure \ref{fig:ideal-points} shows the ideal point estimates under the full invariance model. These estimates range from zero to one; since Democrats, shown as black dots, are predominantly on the lower side of the scale, zero has been labeled ``Democrat'' and the score 1 has been labeled ``Republican'', since most Republicans (open circles) can be found here. To make the points more visible, they have been jittered randomly in the vertical direction. The bottom part of Figure \ref{fig:ideal-points} shows the ideal point estimates for the same senators, but this time while accounting for the partial violation of measurement invariance $\delta_{20}\neq0$. It can be seen that Republicans  are more spread out into the ``Democratic'' side of the scale. Especially the three Republican senators with a score below 0.2 experience a rather large shift in position. On the whole, therefore, the differences between the two distributions are modest, but the differences for individual senators' ideal point estimates can be quite substantial.
 
 \bigskip
 In this section we investigated measurement invariance assumptions in the well-known ``ideal point'' model for  binary roll call data. The  example  demonstrated that even when the model fits the data well initially, it is still possible for violations of measurement invariance to bias the conclusions. The EPC-interest for categorical data was used here as a tool to detect such bias. After accounting for one violation of measurement invariance, the final model differed somewhat from the original conclusions: the estimated amount of polarization in the 90th Senate was lower and several Republican senators' estimated ideological positions were considerably more liberal. 
@@ -324,7 +323,7 @@ In this section we investigated measurement invariance assumptions in the well-k
 \section{Example application \#2: ranking values in the WVS}
 \label{sec:WVS}
 
-Our second, more complex, example application employs the 2010--2012 World Values Survey\footnote{\url{http://www.worldvaluessurvey.org/}} (WVS) comprising $n = 67,568$ respondents in 48 different countries (Appendix \ref{sec:countries-included} provides a full list of countries).
+Our second, more complex, example application employs the 2010--2012 World Values Survey\footnote{\url{http://www.worldvaluessurvey.org/}} (WVS) comprising $n = 67,568$ respondents in 48 different countries (the Appendix provides a full list of countries).
 The WVS questionnaire includes \citet{inglehart1977silent}'s extended (post)materialism questions, developed to measure political values priorities. This extended version includes three sets of four priorities (Table \ref{tab:ranking-question}) to be ranked by the respondents. Of these, set B in Table \ref{tab:ranking-question} is known as the ``short scale'' that is commonly used in research on values priorities.  
 
 
@@ -410,7 +409,7 @@ P(A_{1ic} = a_1, A_{2ic} = a_2 | X_{ic} = x) =
 The base invariance model in Equation \ref{eq:ranking} can be seen as fixing the direct main effects $\delta_{k g} = 0$  and direct interaction effects $\delta^{*}_{k x g} = 0$. Figure \ref{fig:model}  shows an example for the second ranking of Set C ($C_2$) as the dotted main effect and interaction effects. In line with Section \ref{sec:invariance}, we now investigate whether the possible misspecifications in the measurement invariance model, $\delta_{k g} \neq 0$ and $\delta^{*}_{k x g} \neq 0$, substantially affect the parameters of interest $\gamma_{mx}$ using EPC-interest for categorical data.
 
 
-The full measurement invariance model  including parameters of interest $\gamma_{mx}$ was estimated using Latent GOLD 5.  Following \citet{moors2007heterogeneity}, we select three  classes for both the latent ``(post)materialism'' variable and the country group class variable, $T = S = 3$. For BIC values and the rationale behind these choices, please see Appendix \ref{app:bic}. Since class selection is not the focus of this example analysis, we will not discuss it here further. 
+The full measurement invariance model  including parameters of interest $\gamma_{mx}$ was estimated using Latent GOLD 5.  Following \citet{moors2007heterogeneity}, we select three  classes for both the latent ``(post)materialism'' variable and the country group class variable, $T = S = 3$. For BIC values and the rationale behind these choices, please see the Appendix. Since class selection is not the focus of this example analysis, we will not discuss it here further. 
 
 After estimating the full invariance model, we calculated the $\da{}$ for the $\delta$ and $\delta^*$ parameters, of which our three-class model has four: two for each of the two independent variables. Measurement invariance violations can potentially take the form of 6 direct main effects ($\delta_{j k g}$) and 12 direct interaction effects ($\delta^{*}_{j k x g}$) for each of the three ranking tasks, totaling 54 possible misspecifications in the full invariance model. These misspecifications are strongly correlated and should not be considered separately. Rather, we consider the probable impact of freeing the direct main effects for each ranking task separately and of freeing the  direct interactions for each ranking task separately. Thus, rather than consider the direct and interaction effects for each of the 48 countries on each of the three unique categories of each of the three ranking tasks, making for $5076$ potential $\da{}$ values, we evaluate direct effects of the country group random effect and consider their impact jointly for strongly correlated misspecifications, reducing the problem to 24 $\da{}$ values of interest.
 
@@ -437,7 +436,7 @@ Class	2&	Women&	-0.037&	(0.001)&	&	0.007&	-0.003&	0.002&&	-0.006&	-0.013&	0.002\
 
 Table \ref{tab:epc-interest-model1} shows these 24 $\da{}$ values together with the parameter estimates from the full invariance model. The $\da{}$ values estimate the change from the current estimates of interest after freeing the direct main effects ($\delta_{jkg}$) or interaction effects ($\delta^*_{jkg}$). In the full invariance model, Class 1 corresponds to a ``postmaterialism'' class. The estimate -0.035 (s.e. 0.007) shown in Table \ref{tab:epc-interest-model1} would therefore suggest that more prosperous nations tend to be less postmaterialist. This directly contradicts the theory of \citet{inglehart2010changing}.
 
-Since the theory specifies only that certain coefficients should be positive or negative, the key focus of substantive interest is whether misspecifications in the invariance model can potentially change the sign of a parameter of interest. In Table \ref{tab:epc-interest-model1}, we therefore look for $\da{}$ values that, when added to the estimates in column 3, would change the sign of those estimates. It can be seen in the Table that two such $\da{}$ are indeed present, namely the direct interaction effect of the country group class with the postmaterialism class on ranking tasks 1 and 2.  This means that the attribute parameters that define the classes for these two tasks differ over country groups, and that after accounting for these differences the effect of GDP on postmaterialism is estimated to be positive rather than negative. This set of misspecifications is thus of substantive interest and should be amended in the model. 
+Since the theory specifies only that certain coefficients should be positive or negative, the key focus of substantive interest is whether misspecifications in the invariance model can potentially change the sign of a parameter of interest. In Table \ref{tab:epc-interest-model1}, we therefore look for $\da{}$ values that, when added to the estimates in column 3, would change the sign of those estimates. These are shown in bold typeface in Table \ref{tab:epc-interest-model1}. It can be seen in the Table that two such $\da{}$ are indeed present, namely the direct interaction effect of the country group class with the postmaterialism class on ranking tasks 1 and 2.  This means that the attribute parameters that define the classes for these two tasks differ over country groups, and that after accounting for these differences the effect of GDP on postmaterialism is estimated to be positive rather than negative. This set of misspecifications is thus of substantive interest and should be amended in the model. 
 
 \begin{table}\begin{small}
 	\caption{
@@ -467,7 +466,7 @@ Following the common practice of partial invariance models, we free these two se
 \bigskip
 This section demonstrated the use of the EPC-interest for measurement invariance testing in a more complex example. A violation of measurement invariance was detected that could reverse the conclusions of substantive interest. After accounting for this violation, no further such violations are detected. 
 
-\pagebreak
+%\pagebreak
 
 \section{Discussion and conclusion}
 \label{sec:discussion}
@@ -485,221 +484,5 @@ Is it appropriate to free violations of measurement invariance where encountered
 
 \bibliographystyle{pa}
 \bibliography{/Users/daob/Dropbox/Bibliography/quality}
-
-\clearpage\appendix
-
-\section{Countries included in the study}
-\label{sec:countries-included}
-\singlespacing
-\begin{tabular}{lllll}
-\hline
-ISO3 code & Country name&&ISO3 code & Country name\\
-\hline
-DZA&	Algeria		&&MAR&	Morocco		\\
-ARM&	Armenia		&&NLD&	Netherlands, The		\\
-AUS&	Australia	&&NZL&	New Zealand		\\
-AZE&	Azerbaijan	&&NGA&	Nigeria		\\
-BLR&	Belarus		&&PAK&	Pakistan		\\
-CHL&	Chile		&&PER&	Peru		\\
-CHN&	China		&&PHL&	Philippines		\\
-COL&	Colombia	&&POL&	Poland		\\
-CYP&	Cyprus		&&QAT&	Qatar		\\
-ECU&	Ecuador		&&RUS&	Russian Federation	\\
-EGY&	Egypt		&&RWA&	Rwanda		\\
-EST&	Estonia		&&SGP&	Singapore			\\
-DEU&	Germany		&&SVN&	Slovenia		\\
-GHA&	Ghana		&&ESP&	Spain		\\
-IRQ&	Iraq		&&SWE&	Sweden		\\
-JPN&	Japan		&&TTO&	Trinidad and Tobago	\\
-JOR&	Jordan		&&TUN&	Tunisia		\\
-KAZ&	Kazakhstan	&&TUR&	Turkey			\\
-KOR&	Korea, Republic of  &&UKR&	Ukraine		\\
-KGZ&	Kyrgyzstan	&&USA&	United States		\\
-LBN&	Lebanon		&&URY&	Uruguay		\\
-LBY&	Libya		&&UZB&	Uzbekistaç		\\
-MYS&	Malaysia        &&YEM&	Yemen		\\
-MEX&	Mexico          &&ZWE&	Zimbabwe		\\	
-\hline
-\end{tabular}
-\doublespacing
-
-\clearpage
-\section{Latent GOLD Choice input for the full invariance model}\label{sec:LGinput}
-
-The input below fits the full invariance model described in the paper, setting the possible violations of invariance to zero (0). The option ``score test'' in the output section (only available in Latent GOLD or Latent GOLD Choice $\geq5$) is then used to obtain the EPC-interest values.
-Output and data for this example can be obtained from the online appendix at \url{http://}.
-
-\begin{small}
-\singlespace
-\begin{verbatim}
-options
-
-   maxthreads=all;
-   algorithm 
-      tolerance=1e-008 emtolerance=0.01 
-      emiterations=450 nriterations=70 ;
-   startvalues
-      seed=0 sets=30 tolerance=1e-005 iterations=50;
-   bayes
-      categorical=0 variances=0 latent=0 poisson=0;
-   missing  excludeall;
-   
-   // NOTE: The option "scoretest" for output is used to obtain 
-   //        the EPC-interest. This will also produce the score test ("MI")
-   //        and EPC-self for the measurement invariance restriction
-   
-   output      
-      parameters=effect  betaopts=wl standarderrors profile 
-      probmeans=posterior
-      frequencies bivariateresiduals estimatedvalues=regression
-      predictionstatistics setprofile setprobmeans 
-      iterationdetails scoretest ;
-
-    // There are several ways of modeling ranking data using LG or LGChoice.
-    //    The most computationally efficient is to use the so-called "3-file"
-    //    setup in LGChoice employed here (see LGChoice manual). 
-
-	choice = 3
-   alternatives 'inglehart_wvs6_long.alt' quote = single
-   id=alt
-   choicesets 'inglehart_wvs6_long.set' quote = single
-   id=set;
-
-variables
-   groupid country;
-   caseid id;
-   choicesetid set ;
-   dependent value ranking;
-   independent NY_GDP_PCAP_CD, SG_GEN_PARL_ZS;
-   attribute int1 nominal, int2 nominal, int3 nominal;
-   latent
-      GClass  group nominal 3, 
-      Class nominal 3;
-
-equations
-   // Group class intercept
-   GClass <- 1 ;
-   
-   // Parameters of interest are logistic regression coefficients of 
-   //        NY_GDP_PCAP_CD and SG_GEN_PARL_ZS.
-   Class <- 1 + GClass + NY_GDP_PCAP_CD + SG_GEN_PARL_ZS;
-   
-   // Below, sets of possible violations of measurement invariance have been
-   //        explicitly restricted to equal zero using "(0)". This will
-   //        produce EPC-interest, EPC-self, and Score test output.
-   value <- int1 + int2 + int3 + 
-      int1 Class + int2 Class + int3 Class + 
-      (0) int1 GClass + (0) int2 GClass + (0) int3 GClass + 
-      (0) int1 Class  GClass + 
-      (0) int2 Class GClass + 
-      (0) int3 Class GClass ;
-\end{verbatim}
-
-\end{small}
-\doublespacing
-
-\clearpage
-\section{Model selection for the example application}
-
-\label{app:bic}
-
-\begin{table}
-\centering
-\caption{Log-likelihood, number of parameters, and Bayesian Information Criterion (BIC) for models with different numbers of classes for the (post)materialism (within-country) and country group (between-country) latent class variables.\label{tab:loglikelihood-models}}
-\begin{tabular}{rrrrrrrrr}
-  \hline
- \multicolumn{4}{c}{(Post)materialism ($X$) classes, $|\{G\}| = 1$ } &  & \multicolumn{4}{c}{Country group ($G$) classes, $|\{X\}| = 3$} \\ 
-\cline{1-4}\cline{6-9}
- \#Classes & Log-lik & \#Par & BIC($L^2$) &  & \#Classes & Log-lik & \#Par & BIC \\ 
-  \hline
- 1 & -460512.7 & 9 & -10346.1 &  & 1 & -447646.2 & 29 & 895616.3 \\ 
- 2 & -449836.9 & 19 & -31586.2 &  & 2 & -444754.8 & 32 & 889867.0 \\ 
- 3 & -447646.2 & 29 & -35855.8 &  & 3 & -443216.6 & 35 & 886824.1 \\ 
- 4 & -446211.1 & 39 & -38614.4 &  & 4 & -442734.2 & 38 & 885892.8 \\ 
- 5 & -445246.3 & 49 & -40432.4 &  & 5 & -442436.5 & 41 & 885330.9 \\ 
- 6 & -444776.4 & 59 & -41260.3 &  & 6 & -442110.5 & 44 & 884712.3 \\ 
- 7 & -444384.0 & 69 & -41933.4 &  & 7 & -441946.2 & 47 & 884417.3 \\ 
-% 8 & -443959.8 & 79 & -42670.2 &  &  &  &  &  \\ 
-% 9 & -443746.9 & 89 & -42984.3 &  &  &  &  &  \\ 
-% 10 & -443470.8 & 99 & -43424.9 &  &  &  &  &  \\ 
-% 11 & -443299.3 & 109 & -43656.2 &  &  &  &  &  \\ 
-% 12 & -443086.0 & 119 & -43971.0 &  &  &  &  &  \\ 
-% 13 & -442944.1 & 129 & -44143.3 &  &  &  &  &  \\ 
-% 14 & -442837.3 & 139 & -44245.2 &  &  &  &  &  \\ 
-   \hline
-\end{tabular}
-\end{table}
-
-In choosing the number of classes for the (post)materialism (within-country) and country group (between-country) latent class variables, we follow the advice of \citet{lukovciene2010simultaneous} to first fix the number of country-group classes to unity and choose a number of within-country classes, subsequently fixing the number of within-country classes to this chosen number and determining the number of country-group (between-country) classes. The left-hand side of Table \ref{tab:loglikelihood-models} shows the log-likelihoods, number of parameters and Bayesian Information Criterion (BIC) values based on the $L^2$ for the model with one country-group class and an increasing number of (post)materialism classes. It can be seen that the BIC, which penalizes model complexity, decreases with each additional latent (post)materialism class. In fact, the BIC does not stop decreasing even when incrementing the number of classes to 14 (not shown in Table \ref{tab:loglikelihood-models} for brevity). 
-
-In the literature on (post)materialism \citep[e.g.][]{inglehart2010changing}, the number of (post)materialism classes is typically fixed to three: ``postmaterialist'', ``materialist'', and ``mixed''. Clearly, using the WVS ranking tasks and imposing full invariance, many more qualitative (post)materialism classes can be distinguished than the traditional three classes. This corresponds to findings by \citet{moors2007heterogeneity}; however, these authors also argued that ``one can safely interpret the results (...) if adding another class does not result in important changes of the latent class weights for the other classes'' (p. 637). While this is a somewhat subjective criterion, the three-class solution found in the data does correspond to  the theoretical ``postmaterialist'', ``materialist'', and ``mixed'' classes, whose  parameters appear to change little in the models with a greater number of classes. Moreover, the greatest reduction in BIC seen in Table \ref{tab:loglikelihood-models} takes place when moving from a one-class to a two-class model, with relatively small improvements after three or more classes. We therefore follow the theoretical literature in selecting the three-class model.
-
-While selecting the number of country-group classes, we find that the BIC improves little after three classes (right-hand side of Table \ref{tab:loglikelihood-models}), so that our initial full invariance model has three (post)materialism (within-country) and three country group (between-country) classes. 
-
-
-\section{WVS ranking data model estimates}
-
-
-
-Table \ref{tab:attribute-parameters} shows the sizes of the three (post)materialism classes (third row) as well as the ``attribute parameters'', i.e. each class's average log-utility. 
-Thus, when reading each row horizontally, the class with the highest log-utility represents respondents who value that object highest. For example, priorities A.1, A.2, B.1, B.3, and C1 have the highest log-utilities in Class 1. Since all of these priorities are ``materialist'' (labeled ``M'' in Table \ref{tab:attribute-parameters}), we also labeled Class 1 ``materialist''. A caveat with this label is that the materialist priorities that are most strongly related to this class also happen to be the first item in each set, so that a primacy effect may play a role here as well.  Class 2 is labeled ``postmaterialist'' because it has the highest log-utilities for all of the postmaterialist priorities (labeled ``P'' in Table \ref{tab:attribute-parameters}), with the exception of A.4. Preferences in the third class appear to be for the most part in-between those of Classes 1 and 2. At the same time, however, this class has the highest log-utilities for A.4 (a ``postmaterialist'' object) and C.4 (a ``materialist'' object). For this reason we apply the label ``mixed'' to Class 3.
-
-\begin{table}\centering
-	\caption{\label{tab:attribute-parameters} Estimated log-utilities under the 
-		final model. In each row, the highest log-utility has been printed in \textbf{bold face} to facilitate interpretation of the classes.}
-	\begin{tabular}{lllrrr}
-	\hline
-			&&&	Class 1	&	Class 2	&	Class 3\\
-			&&Class label& ``Materialist'' & ``Postmater.'' & ``Mixed''\\
-&& Class size & 0.569 & 0.213 & 0.218\\
-&& (s.e.)				& (0.0114)	&	(0.0179)	&	(0.0280)\\
-				\hline
-\multicolumn{3}{l}{Set A}\\
-& M & 1. Economic growth	&	\textbf{2.1102}	&	0.4837	&	0.4156\\
-& M & 2. Strong defense	&	\textbf{-0.5285}	&	-1.4984	&	-0.9249\\
-& P & 3. More say	&	-0.5519	&	\textbf{1.4683}	&	0.4643\\
-& P & 4. More beauty	&	-1.0298	&	-0.4536	&	\textbf{0.0449}\\
-\multicolumn{3}{l}{Set B}\\
-& M & 1. Order in the nation	&	\textbf{1.0016}	&	-0.5898	&	0.0435\\
-& P & 2. More say	&	-0.4592	&	\textbf{0.6902}	&	-0.2763\\
-& M & 3. Rising prices	&	\textbf{0.4281}	&	-0.2269	&	0.3719\\
-& P & 4. Freedom of speech	&	-0.9705	&	\textbf{0.1266}	&	-0.1390\\
-\multicolumn{3}{l}{Set C}\\
-& M & 1. Stable economy	&	\textbf{2.0086}	&	0.0789	&	0.1715\\
-& P & 2. Humane society	&	-0.7919	&	\textbf{0.4450}	&	-0.0943\\
-& P & 3. Ideas	&	-1.1402	&	\textbf{-0.0593}	&	-0.4550\\
-& M & 4. Fight crime	&	-0.0765	&	-0.4646	&	\textbf{0.3778}\\
-	\hline
-	\end{tabular}
-\end{table}
-
-
-
-
-\section{Derivation of the EPC-interest}
-
-
-The derivation of the $\da{}$ given in Equation \ref{eq:epc-interest} starts from the full invariance solution. We then find a hypothetical new  maximum of the likelihood by setting the gradient of a Taylor expansion of the likelihood around the full invariance solution to zero:
-\begin{equation}
- \frac{\partial L(\param, \bpsi)}{\partial \vm{\vartheta}}= \vm{0} = 
-	\left( \begin{array}{cc}
-	\frac{\partial L(\param, \bpsi) }{ \partial \param}|_{\param=\that}\\
-	\frac{\partial L(\param, \bpsi) }{ \partial \bpsi}|_{\param=\that}\\
-	\end{array} \right)  + 
-%	\left(\frac{\partial^2 L(\param, \bpsi) }{ \partial \vm{\vartheta}^\prime \partial \vm{\vartheta}} \right)
-	\left( \begin{array}{cc}
-		\hat{\vm{H}}_{\param\param} & \hat{\vm{H}}_{\bpsi\param}\\
-		\hat{\vm{H}}_{\bpsi\param} & \hat{\vm{H}}_{\bpsi\bpsi}\\
-	\end{array} \right)  
-		\left( \begin{array}{cc}
-		\param - \that\\
-		\bpsi - \hat{\bpsi}
-	\end{array} \right)+
-O(\vm{\delta}^\prime\vm{\delta}).
-	\label{eq:gradient}
-\end{equation}
-A similar device was used to derive the so-called ``modification index'' or ``score test'' for the significance of the hypothesis $\bpsi = \vm{0}$ by \citet[p. 373]{sorbom1989model}.
-Equation \ref{eq:epc-interest}  follows directly by noting that $( \partial L(\param, \bpsi) / \partial \param ) |_{\param=\that} = \vm{0}$ and applying the standard linear algebra result on the inverse of a partitioned matrix $\left(\hat{\vm{H}}^{-1}\right)_{\param\bpsi} = 	- \hat{\vm{H}}^{-1}_{\param\param} \hat{\vm{H}}_{\param\bpsi}\vm{D}^{-1}$ \citep[e.g.][p. 12]{magnus2007matrix}.
-
 
 \end{document}

@@ -1,0 +1,269 @@
+\documentclass{article}
+\title{Appendix to ``Evaluating measurement invariance in categorical data latent variable models with the  EPC-interest''}
+\author{DL Oberski \and JK Vermunt \and G Moors}
+\date{Tilburg University, The Netherlands}
+\usepackage[top=1.10in,right=1.2in,bottom=1.4in,left=1.2in]{geometry} 
+
+
+\usepackage{xfrac}
+
+
+\usepackage{hyperref}
+
+\usepackage{natbib}
+%\usepackage{times}
+
+\usepackage{amsmath}
+%\usepackage{hyperref}
+
+\usepackage{color}
+
+\usepackage{pa}
+
+
+\usepackage{bm}
+\newcommand\vm[1]{% Vector or matrix
+\bm{\mathrm{#1}}} 
+
+\newcommand{\av}{\vm{a}}
+\newcommand{\vech}{\mathrm{vech}\,}
+\newcommand{\vecs}{\mathrm{vec}\,}
+\newcommand{\param}{\vm{\theta}}
+\newcommand{\bpsi}{\vm{\psi}}
+\newcommand{\that}{\hat{\vm{\theta}}}
+\newcommand{\psat}{\hat{\vm{\psi}}}
+\newcommand{\A}{\vm{A}}
+\newcommand{\g}{\vm{g}}
+\newcommand{\J}{\vm{J}}
+\newcommand{\Id}{\vm{I}}
+\newcommand{\Ji}{\vm{J}^{-1}}
+\newcommand{\PP}{\vm{P}}
+\newcommand{\da}{\textrm{{\sc {EPC}}-interest}}
+
+
+
+\begin{document}
+\maketitle
+\appendix
+
+\begin{abstract}
+This online appendix accompanies the Political Analysis paper ``Evaluating measurement invariance in categorical data latent variable models with the  EPC-interest''. For replication materials, see \citet{oberski2015replication}.
+\end{abstract}
+
+\clearpage
+\section{Countries included in the study}
+\label{sec:countries-included}
+\begin{tabular}{lllll}
+\hline
+ISO3 code & Country name&&ISO3 code & Country name\\
+\hline
+DZA&	Algeria		&&MAR&	Morocco		\\
+ARM&	Armenia		&&NLD&	Netherlands, The		\\
+AUS&	Australia	&&NZL&	New Zealand		\\
+AZE&	Azerbaijan	&&NGA&	Nigeria		\\
+BLR&	Belarus		&&PAK&	Pakistan		\\
+CHL&	Chile		&&PER&	Peru		\\
+CHN&	China		&&PHL&	Philippines		\\
+COL&	Colombia	&&POL&	Poland		\\
+CYP&	Cyprus		&&QAT&	Qatar		\\
+ECU&	Ecuador		&&RUS&	Russian Federation	\\
+EGY&	Egypt		&&RWA&	Rwanda		\\
+EST&	Estonia		&&SGP&	Singapore			\\
+DEU&	Germany		&&SVN&	Slovenia		\\
+GHA&	Ghana		&&ESP&	Spain		\\
+IRQ&	Iraq		&&SWE&	Sweden		\\
+JPN&	Japan		&&TTO&	Trinidad and Tobago	\\
+JOR&	Jordan		&&TUN&	Tunisia		\\
+KAZ&	Kazakhstan	&&TUR&	Turkey			\\
+KOR&	Korea, Republic of  &&UKR&	Ukraine		\\
+KGZ&	Kyrgyzstan	&&USA&	United States		\\
+LBN&	Lebanon		&&URY&	Uruguay		\\
+LBY&	Libya		&&UZB&	Uzbekistaç		\\
+MYS&	Malaysia        &&YEM&	Yemen		\\
+MEX&	Mexico          &&ZWE&	Zimbabwe		\\	
+\hline
+\end{tabular}
+
+\clearpage
+\section{Latent GOLD Choice input for the full invariance model}\label{sec:LGinput}
+
+The input below fits the full invariance model described in the paper, setting the possible violations of invariance to zero (0). The option ``score test'' in the output section (only available in Latent GOLD or Latent GOLD Choice $\geq5$) is then used to obtain the EPC-interest values.
+Output and data for this example can be obtained from the online appendix at \url{http://}.
+
+\begin{small}
+
+\begin{verbatim}
+options
+
+   maxthreads=all;
+   algorithm 
+      tolerance=1e-008 emtolerance=0.01 
+      emiterations=450 nriterations=70 ;
+   startvalues
+      seed=0 sets=30 tolerance=1e-005 iterations=50;
+   bayes
+      categorical=0 variances=0 latent=0 poisson=0;
+   missing  excludeall;
+   
+   // NOTE: The option "scoretest" for output is used to obtain 
+   //        the EPC-interest. This will also produce the score test ("MI")
+   //        and EPC-self for the measurement invariance restriction
+   
+   output      
+      parameters=effect  betaopts=wl standarderrors profile 
+      probmeans=posterior
+      frequencies bivariateresiduals estimatedvalues=regression
+      predictionstatistics setprofile setprobmeans 
+      iterationdetails scoretest ;
+
+    // There are several ways of modeling ranking data using LG or LGChoice.
+    //    The most computationally efficient is to use the so-called "3-file"
+    //    setup in LGChoice employed here (see LGChoice manual). 
+
+	choice = 3
+   alternatives 'inglehart_wvs6_long.alt' quote = single
+   id=alt
+   choicesets 'inglehart_wvs6_long.set' quote = single
+   id=set;
+
+variables
+   groupid country;
+   caseid id;
+   choicesetid set ;
+   dependent value ranking;
+   independent NY_GDP_PCAP_CD, SG_GEN_PARL_ZS;
+   attribute int1 nominal, int2 nominal, int3 nominal;
+   latent
+      GClass  group nominal 3, 
+      Class nominal 3;
+
+equations
+   // Group class intercept
+   GClass <- 1 ;
+   
+   // Parameters of interest are logistic regression coefficients of 
+   //        NY_GDP_PCAP_CD and SG_GEN_PARL_ZS.
+   Class <- 1 + GClass + NY_GDP_PCAP_CD + SG_GEN_PARL_ZS;
+   
+   // Below, sets of possible violations of measurement invariance have been
+   //        explicitly restricted to equal zero using "(0)". This will
+   //        produce EPC-interest, EPC-self, and Score test output.
+   value <- int1 + int2 + int3 + 
+      int1 Class + int2 Class + int3 Class + 
+      (0) int1 GClass + (0) int2 GClass + (0) int3 GClass + 
+      (0) int1 Class  GClass + 
+      (0) int2 Class GClass + 
+      (0) int3 Class GClass ;
+\end{verbatim}
+
+\end{small}
+
+
+\clearpage
+\section{Model selection for the example application}
+
+\label{app:bic}
+
+\begin{table}
+\centering
+\caption{Log-likelihood, number of parameters, and Bayesian Information Criterion (BIC) for models with different numbers of classes for the (post)materialism (within-country) and country group (between-country) latent class variables.\label{tab:loglikelihood-models}}
+\begin{tabular}{rrrrrrrrr}
+  \hline
+ \multicolumn{4}{c}{(Post)materialism ($X$) classes, $|\{G\}| = 1$ } &  & \multicolumn{4}{c}{Country group ($G$) classes, $|\{X\}| = 3$} \\ 
+\cline{1-4}\cline{6-9}
+ \#Classes & Log-lik & \#Par & BIC($L^2$) &  & \#Classes & Log-lik & \#Par & BIC \\ 
+  \hline
+ 1 & -460512.7 & 9 & -10346.1 &  & 1 & -447646.2 & 29 & 895616.3 \\ 
+ 2 & -449836.9 & 19 & -31586.2 &  & 2 & -444754.8 & 32 & 889867.0 \\ 
+ 3 & -447646.2 & 29 & -35855.8 &  & 3 & -443216.6 & 35 & 886824.1 \\ 
+ 4 & -446211.1 & 39 & -38614.4 &  & 4 & -442734.2 & 38 & 885892.8 \\ 
+ 5 & -445246.3 & 49 & -40432.4 &  & 5 & -442436.5 & 41 & 885330.9 \\ 
+ 6 & -444776.4 & 59 & -41260.3 &  & 6 & -442110.5 & 44 & 884712.3 \\ 
+ 7 & -444384.0 & 69 & -41933.4 &  & 7 & -441946.2 & 47 & 884417.3 \\ 
+% 8 & -443959.8 & 79 & -42670.2 &  &  &  &  &  \\ 
+% 9 & -443746.9 & 89 & -42984.3 &  &  &  &  &  \\ 
+% 10 & -443470.8 & 99 & -43424.9 &  &  &  &  &  \\ 
+% 11 & -443299.3 & 109 & -43656.2 &  &  &  &  &  \\ 
+% 12 & -443086.0 & 119 & -43971.0 &  &  &  &  &  \\ 
+% 13 & -442944.1 & 129 & -44143.3 &  &  &  &  &  \\ 
+% 14 & -442837.3 & 139 & -44245.2 &  &  &  &  &  \\ 
+   \hline
+\end{tabular}
+\end{table}
+
+In choosing the number of classes for the (post)materialism (within-country) and country group (between-country) latent class variables, we follow the advice of \citet{lukovciene2010simultaneous} to first fix the number of country-group classes to unity and choose a number of within-country classes, subsequently fixing the number of within-country classes to this chosen number and determining the number of country-group (between-country) classes. The left-hand side of Table \ref{tab:loglikelihood-models} shows the log-likelihoods, number of parameters and Bayesian Information Criterion (BIC) values based on the $L^2$ for the model with one country-group class and an increasing number of (post)materialism classes. It can be seen that the BIC, which penalizes model complexity, decreases with each additional latent (post)materialism class. In fact, the BIC does not stop decreasing even when incrementing the number of classes to 14 (not shown in Table \ref{tab:loglikelihood-models} for brevity). 
+
+In the literature on (post)materialism \citep[e.g.][]{inglehart2010changing}, the number of (post)materialism classes is typically fixed to three: ``postmaterialist'', ``materialist'', and ``mixed''. Clearly, using the WVS ranking tasks and imposing full invariance, many more qualitative (post)materialism classes can be distinguished than the traditional three classes. This corresponds to findings by \citet{moors2007heterogeneity}; however, these authors also argued that ``one can safely interpret the results (...) if adding another class does not result in important changes of the latent class weights for the other classes'' (p. 637). While this is a somewhat subjective criterion, the three-class solution found in the data does correspond to  the theoretical ``postmaterialist'', ``materialist'', and ``mixed'' classes, whose  parameters appear to change little in the models with a greater number of classes. Moreover, the greatest reduction in BIC seen in Table \ref{tab:loglikelihood-models} takes place when moving from a one-class to a two-class model, with relatively small improvements after three or more classes. We therefore follow the theoretical literature in selecting the three-class model.
+
+While selecting the number of country-group classes, we find that the BIC improves little after three classes (right-hand side of Table \ref{tab:loglikelihood-models}), so that our initial full invariance model has three (post)materialism (within-country) and three country group (between-country) classes. 
+
+
+\clearpage\section{WVS ranking data model estimates}
+
+
+
+Table \ref{tab:attribute-parameters} shows the sizes of the three (post)materialism classes (third row) as well as the ``attribute parameters'', i.e. each class's average log-utility. 
+Thus, when reading each row horizontally, the class with the highest log-utility represents respondents who value that object highest. For example, priorities A.1, A.2, B.1, B.3, and C1 have the highest log-utilities in Class 1. Since all of these priorities are ``materialist'' (labeled ``M'' in Table \ref{tab:attribute-parameters}), we also labeled Class 1 ``materialist''. A caveat with this label is that the materialist priorities that are most strongly related to this class also happen to be the first item in each set, so that a primacy effect may play a role here as well.  Class 2 is labeled ``postmaterialist'' because it has the highest log-utilities for all of the postmaterialist priorities (labeled ``P'' in Table \ref{tab:attribute-parameters}), with the exception of A.4. Preferences in the third class appear to be for the most part in-between those of Classes 1 and 2. At the same time, however, this class has the highest log-utilities for A.4 (a ``postmaterialist'' object) and C.4 (a ``materialist'' object). For this reason we apply the label ``mixed'' to Class 3.
+
+\begin{table}\centering
+	\caption{\label{tab:attribute-parameters} Estimated log-utilities under the 
+		final model. In each row, the highest log-utility has been printed in \textbf{bold face} to facilitate interpretation of the classes.}
+	\begin{tabular}{lllrrr}
+	\hline
+			&&&	Class 1	&	Class 2	&	Class 3\\
+			&&Class label& ``Materialist'' & ``Postmater.'' & ``Mixed''\\
+&& Class size & 0.569 & 0.213 & 0.218\\
+&& (s.e.)				& (0.0114)	&	(0.0179)	&	(0.0280)\\
+				\hline
+\multicolumn{3}{l}{Set A}\\
+& M & 1. Economic growth	&	\textbf{2.1102}	&	0.4837	&	0.4156\\
+& M & 2. Strong defense	&	\textbf{-0.5285}	&	-1.4984	&	-0.9249\\
+& P & 3. More say	&	-0.5519	&	\textbf{1.4683}	&	0.4643\\
+& P & 4. More beauty	&	-1.0298	&	-0.4536	&	\textbf{0.0449}\\
+\multicolumn{3}{l}{Set B}\\
+& M & 1. Order in the nation	&	\textbf{1.0016}	&	-0.5898	&	0.0435\\
+& P & 2. More say	&	-0.4592	&	\textbf{0.6902}	&	-0.2763\\
+& M & 3. Rising prices	&	\textbf{0.4281}	&	-0.2269	&	0.3719\\
+& P & 4. Freedom of speech	&	-0.9705	&	\textbf{0.1266}	&	-0.1390\\
+\multicolumn{3}{l}{Set C}\\
+& M & 1. Stable economy	&	\textbf{2.0086}	&	0.0789	&	0.1715\\
+& P & 2. Humane society	&	-0.7919	&	\textbf{0.4450}	&	-0.0943\\
+& P & 3. Ideas	&	-1.1402	&	\textbf{-0.0593}	&	-0.4550\\
+& M & 4. Fight crime	&	-0.0765	&	-0.4646	&	\textbf{0.3778}\\
+	\hline
+	\end{tabular}
+\end{table}
+
+
+
+
+\section{Derivation of the EPC-interest}
+
+
+The derivation of the $\da{}$ given in Equation \ref{eq:epc-interest} starts from the full invariance solution. We then find a hypothetical new  maximum of the likelihood by setting the gradient of a Taylor expansion of the likelihood around the full invariance solution to zero:
+\begin{equation}
+ \frac{\partial L(\param, \bpsi)}{\partial \vm{\vartheta}}= \vm{0} = 
+	\left( \begin{array}{cc}
+	\frac{\partial L(\param, \bpsi) }{ \partial \param}|_{\param=\that}\\
+	\frac{\partial L(\param, \bpsi) }{ \partial \bpsi}|_{\param=\that}\\
+	\end{array} \right)  + 
+%	\left(\frac{\partial^2 L(\param, \bpsi) }{ \partial \vm{\vartheta}^\prime \partial \vm{\vartheta}} \right)
+	\left( \begin{array}{cc}
+		\hat{\vm{H}}_{\param\param} & \hat{\vm{H}}_{\bpsi\param}\\
+		\hat{\vm{H}}_{\bpsi\param} & \hat{\vm{H}}_{\bpsi\bpsi}\\
+	\end{array} \right)  
+		\left( \begin{array}{cc}
+		\param - \that\\
+		\bpsi - \hat{\bpsi}
+	\end{array} \right)+
+O(\vm{\delta}^\prime\vm{\delta}).
+	\label{eq:gradient}
+\end{equation}
+A similar device was used to derive the so-called ``modification index'' or ``score test'' for the significance of the hypothesis $\bpsi = \vm{0}$ by \citet[p. 373]{sorbom1989model}.
+Equation \ref{eq:epc-interest}  follows directly by noting that $( \partial L(\param, \bpsi) / \partial \param ) |_{\param=\that} = \vm{0}$ and applying the standard linear algebra result on the inverse of a partitioned matrix $\left(\hat{\vm{H}}^{-1}\right)_{\param\bpsi} = 	- \hat{\vm{H}}^{-1}_{\param\param} \hat{\vm{H}}_{\param\bpsi}\vm{D}^{-1}$ \citep[e.g.][p. 12]{magnus2007matrix}.
+
+\bibliographystyle{pa}
+\bibliography{/Users/daob/Dropbox/Bibliography/quality}
+
+
+\end{document}
