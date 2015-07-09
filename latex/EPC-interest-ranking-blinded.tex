@@ -93,7 +93,7 @@ In this paper we therefore extend the EPC-interest approach to measurement invar
 
 \bigskip
 Section \ref{sec:invariance} explains categorical data latent variable models  and the problem of measurement invariance. The EPC-interest is introduced in Section \ref{sec:epc-interest} as an approximation to the sensitivity analysis approach to measurement invariance testing and a small simulation study evaluates the approximation in Section \ref{sec:simulation}. Sections \ref{sec:rollcall} and \ref{sec:WVS} then elaborate the two example applications, while Section \ref{sec:discussion} concludes. 
-Program inputs and data for the simulation and examples discussed in this article are provided in the electronic appendix \citep{oberski2015replication}.
+Program inputs and data for the simulation and examples discussed in this article are provided in the electronic appendix \citep{oberski2015replication}\footnote{\url{http://dx.doi.org/10.7910/DVN/I7Y3G2}}.
 
 
 \section{Measurement invariance in categorical data}
@@ -105,7 +105,7 @@ Often this ``measurement model'' is not, however, of primary interest to the res
 For example, $\mathbf{z}$ could contain a set of dummy variables indicating a respondent's country or gender, so that the relationship simply compares values of $x$ across countries or genders. Alternatively, interest could focus on the influence of continuous covariates such as GDP or age on the latent $x$. Of course, the problem is that $x$ is not observed, but only $\mathbf{y}$ and $\mathbf{z}$ are. 
 
 \begin{figure}\centering
-	\includegraphics[width=.4\textwidth]{figures/LVM}
+	\includegraphics[width=.4\textwidth]{LVM}
 	\caption{Graph of a latent variable model. The latent variable $x$ is shown in a circle to indicate that it is unobserved. }
 	\label{fig:LVM}
 \end{figure}
@@ -247,7 +247,7 @@ However, violations of measurement invariance could conceivably bias this conclu
 The horizontal axis shows the $p$-value for the null hypothesis that the corresponding $\delta_j = 0$, adjusted for false discovery rate \citep{benjamini1995controlling}. The idea behind plotting both of these quantities at the same time is that the researcher will likely be interested in violations of measurement invariance that are both statistically and substantively significant \citep{saris2009testing}.
 
 \begin{figure}\centering
-\includegraphics[width=.8\textwidth]{../outputs/EPC-interest.pdf}
+\includegraphics[width=.8\textwidth]{epc-interest.pdf}
 \caption{The effect of twenty measurement invariance assumptions on the polarization parameter of interest $\gamma$, plotted against the p-values for each violation.}
 \label{fig:epc-interest}
 \end{figure}
@@ -258,7 +258,7 @@ After introducing the direct effect of party on voting ``Yea'' to Motion \#20 (f
 After adjusting for this event, the polarization coefficient is estimated at 3.422 (s.e. 1.0630): the tight-knittedness between party membership and voting pattern is therefore somewhat loosened, but still strong.  The partial invariance model after accounting for this one violation becomes acceptable, in  the sense that those violations that are present do not substantially change the results of interest regarding polarization. The model fit the data well with an $L^2$ bootstrapped $p$-value of $0.11$. Its BIC (1379) indicates an improvement over that of the full invariance model (1405).  Overall, the difference between the fully and partially invariant models are modest. Figure \ref{fig:ideal-points} shows the effect of freeing $\delta_{20}$ on the ``ideal point'' estimates, i.e. the latent variable estimates $\hat{x}_i$. 
 
 \begin{figure}\centering
-\includegraphics[width=.85\textwidth]{../outputs/ideal-points.pdf}
+\includegraphics[width=.85\textwidth]{ideal-points.pdf}
 \caption{Posterior point estimates of the latent variable ``ideal point'' score $\hat{x}_i$ for all senators (points), jittered vertically for visual clarity. Filled points are Democrats, open circles Republicans. Top: estimates under the fully invariant model; Bottom: estimates allowing for the direct effect $\delta_{20}\neq0$.}
 \label{fig:ideal-points}
 \end{figure}
@@ -329,7 +329,7 @@ where the country-level random effect variable $G$ has been introduced. We take 
 
 
 \begin{figure}\centering
-	\includegraphics[width=0.6\textwidth]{figures/model}
+	\includegraphics[width=0.6\textwidth]{model}
 	\caption{\label{fig:model}Graphical representation of 
 	the multilevel latent class regression model for 
 	(post)materialism measured by three partial ranking tasks. Observed variables are shown in rectangles while unobserved (``latent'') variables are shown in ellipses.	}
